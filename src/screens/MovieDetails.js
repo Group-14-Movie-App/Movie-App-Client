@@ -39,15 +39,15 @@ function MovieDetails()
             />
             <p><strong>Tagline:</strong> {movie.tagline}</p>
             <p><strong>Overview:</strong> {movie.overview}</p>
-            <p><strong>Genres:</strong> {movie.genres.map((genre) => genre.name).join(', ')}</p>
+            <p><strong>Genres:</strong> {movie.genres?.map((genre) => genre.name).join(', ')}</p>
             <p><strong>Release Date:</strong> {movie.release_date}</p>
             <p><strong>Runtime:</strong> {movie.runtime} minutes</p>
             <p><strong>Status:</strong> {movie.status}</p>
-            <p><strong>Budget:</strong> ${movie.budget.toLocaleString() || 'N/A'}</p>
+            <p><strong>Budget:</strong> ${movie.budget?.toLocaleString() || 'N/A'}</p>
             <p><strong>Revenue:</strong> ${movie.revenue.toLocaleString() || 'N/A'}</p>
             <p><strong>Vote Average:</strong> {movie.vote_average} / 10</p>
             <p><strong>Vote Count:</strong> {movie.vote_count}</p>
-            <p><strong>Original Language:</strong> {movie.original_language.toUpperCase()}</p>
+            <p><strong>Original Language:</strong> {movie.original_language?.toUpperCase()}</p>
             <p><strong>Production Companies:</strong> {movie.production_companies?.map((company) => company.name).join(', ')}</p>
             <p><strong>Homepage:</strong> <a href={movie.homepage} target="_blank" rel="noopener noreferrer">{movie.homepage}</a></p>
         </div>
