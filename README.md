@@ -5,11 +5,7 @@ git clone <repository-url>
 # Step 2: Install Dependencies
 npm install
 
-# Step 3: Configure Environment Variables
-* Copy .env.example to create your own .env file:
-* Replace YOUR_API_KEY_HERE in the .env file with your personal API key for TMDB.
-
-# Step 4: Start the Development Server
+# Step 3: Start the Development Server
 * npm start
 
 

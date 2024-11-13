@@ -1,0 +1,94 @@
+/* General Flexbox Layout */
+.d-flex {
+  display: flex;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 80px;
+  height: 100vh;
+  background-color: #343a40;
+  color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  transition: width 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Sidebar Navigation */
+.sidebar-nav {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+.sidebar-nav li {
+  width: 100%;
+  text-align: center;
+}
+
+.sidebar-nav li a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px 0;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1em;
+  transition: background 0.3s;
+}
+
+.sidebar-nav li a:hover {
+  background-color: #495057;
+}
+
+.sidebar-nav li a svg {
+  font-size: 1.5em;
+  margin-bottom: 5px;
+}
+
+/* Small label under each icon */
+.sidebar-nav li a small {
+  font-size: 0.75em;
+  color: #adb5bd;
+}
+
+/* Logout button at the bottom */
+.logout {
+  width: 100%;
+  text-align: center;
+  border-top: 1px solid #495057;
+  padding: 15px 0;
+}
+
+.logout a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logout a svg {
+  font-size: 1.5em;
+  margin-bottom: 5px;
+}
+
+.logout a small {
+  font-size: 0.75em;
+  color: #adb5bd;
+}
+
+/* Main Content Styling */
+.content {
+  margin-left: 80px;
+  padding: 20px;
+  width: calc(100% - 80px);
+  transition: margin-left 0.3s;
+}

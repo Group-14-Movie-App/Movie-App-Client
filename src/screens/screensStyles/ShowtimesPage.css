@@ -1,0 +1,22 @@
+.showtimes-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+  }
+  
+  .showtimes-title {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #343a40;
+  }
+  
+  .search-input {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    font-size: 1em;
+  }
+  
