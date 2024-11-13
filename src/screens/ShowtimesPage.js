@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MovieCards from '../components/Showtimes_Components/MovieCards.js';
-import './screens/ShowtimesPage.css'
+import './screensStyles/ShowtimesPage.css'
 
 function ShowtimesPage() {
   const [moviesList, setMoviesList] = useState([]);
