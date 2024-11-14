@@ -4,7 +4,7 @@ import ProfilePage from './screens/ProfilePage.js';
 import MovieDetailsPage from './screens/MovieDetailsPage.js';
 import ShowtimesPage from './screens/ShowtimesPage.js';
 import SearchPage from './screens/SearchPage.js';
-import GroupsPage from './screens/GroupsPage.js';
+import GroupsPage from './screens/GroupsPages/CreateGroups.js';
 import ReviewsPage from './screens/ReviewsPage.js';
 import SignInPage from './screens/SignInPage.js';
 import RegisterPage from './screens/RegisterPage.js';
