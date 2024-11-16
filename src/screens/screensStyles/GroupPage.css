@@ -1,0 +1,114 @@
+/* General page styling */
+.groups-main-page {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header styling */
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+/* Create Group Form */
+.create-group {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.create-group h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #444;
+}
+
+.create-group input,
+.create-group textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.create-group button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.create-group button:hover {
+    background-color: #0056b3;
+}
+
+/* Group Lists */
+.my-groups,
+.all-groups {
+    margin-bottom: 20px;
+}
+
+.group-card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.group-card h3 {
+    font-size: 1.2rem;
+    margin: 0;
+    color: #333;
+}
+
+.group-card p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Buttons for My Groups and All Groups */
+.group-card button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.group-card .delete-button {
+    background-color: #dc3545;
+    color: white;
+}
+
+.group-card .delete-button:hover {
+    background-color: #c82333;
+}
+
+.group-card .join-button {
+    background-color: #007bff;
+    color: white;
+}
+
+.group-card .join-button:hover {
+    background-color: #0056b3;
+}
+
+.group-card .joined-button {
+    background-color: #6c757d;
+    color: white;
+    cursor: default;
+}
