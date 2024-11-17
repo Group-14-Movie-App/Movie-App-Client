@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import MovieCards from "../components/Home_Components/MovieCards.js";
+import styles from "./screensStyles/HomePage.module.css";
 
 function HomePage() {
   const [moviesList, setMoviesList] = useState([]);
@@ -37,7 +38,7 @@ function HomePage() {
         <input type="text" placeholder="Find Your Favorite" />
         <button>Search</button>
       </div>
-      <p>Top Movies</p>
+      <p className={styles.title}>Top Movies</p>
       <div>
         <MovieCards movieList={moviesList} />
       </div>
