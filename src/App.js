@@ -1,17 +1,25 @@
-import { Link, Route, Routes } from 'react-router-dom';
-import HomePage from './screens/HomePage.js';
-import ProfilePage from './screens/ProfilePage.js';
-import MovieDetailsPage from './screens/MovieDetailsPage.js';
-import ShowtimesPage from './screens/ShowtimesPage.js';
-import SearchPage from './screens/SearchPage.js';
-import ReviewsPage from './screens/ReviewsPage.js';
-import SignInPage from './screens/SignInPage.js';
-import RegisterPage from './screens/RegisterPage.js';
-import GroupsPage from './screens/GroupsPage.js';
-import './App.css';
+import { Link, Route, Routes } from "react-router-dom";
+import HomePage from "./screens/HomePage.js";
+import ProfilePage from "./screens/ProfilePage.js";
+import MovieDetailsPage from "./screens/MovieDetailsPage.js";
+import ShowtimesPage from "./screens/ShowtimesPage.js";
+import SearchPage from "./screens/SearchPage.js";
+import ReviewsPage from "./screens/ReviewsPage.js";
+import SignInPage from "./screens/SignInPage.js";
+import RegisterPage from "./screens/RegisterPage.js";
+import GroupsPage from "./screens/GroupsPage.js";
+import "./App.css";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faSearch, faClock, faUser, faUsers, faStar, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHome,
+  faSearch,
+  faClock,
+  faUser,
+  faUsers,
+  faStar,
+  faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   return (
@@ -69,6 +77,8 @@ function App() {
       {/* Main Content Area */}
       <div className="content">
         <Routes>
+          {/* Set HomePage as default page */}
+          <Route path="/" element={<HomePage />} index />
           <Route path="/home-page" element={<HomePage />} />
           <Route path="/profile-page" element={<ProfilePage />} />
           <Route path="/movie/:id" element={<MovieDetailsPage />} />
