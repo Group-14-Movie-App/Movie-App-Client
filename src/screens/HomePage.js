@@ -14,15 +14,19 @@ function HomePage() {
         const xml = parser.parseFromString(data, "application/xml");
 
         const shows = Array.from(xml.getElementsByTagName("Show")).map(
-          (show) => ({
-            id: show.getElementsByTagName("ID")[0].textContent,
-            title: show.getElementsByTagName("Title")[0].textContent,
-            rating: parseInt(
-              show.getElementsByTagName("Rating")[0]?.textContent || 0
-            ),
-            image: show.getElementsByTagName("EventMediumImagePortrait")[0]
-              .textContent,
-          })
+          (show) => {
+            const ratingText =
+              show.getElementsByTagName("Rating")[0]?.textContent || "0"; // Default to "0" if no Rating
+            const rating = parseInt(ratingText); // Convert to number
+
+            return {
+              id: show.getElementsByTagName("ID")[0].textContent,
+              title: show.getElementsByTagName("Title")[0].textContent,
+              rating: isNaN(rating) ? 0 : rating, // Handle NaN and set it to 0 if not a valid number
+              image: show.getElementsByTagName("EventMediumImagePortrait")[0]
+                .textContent,
+            };
+          }
         );
         //Sort by Rating in descending order
         shows.sort((a, b) => b.rating - a.rating);

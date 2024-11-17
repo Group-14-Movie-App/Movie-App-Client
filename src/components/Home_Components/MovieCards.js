@@ -19,7 +19,7 @@ function MovieCards({ movieList }) {
                 <h3 className="card-title">{movie.title}</h3>
                 {/* Movie Rating */}
                 <p className="card-text">
-                  <strong>Rating:</strong> {movie.rating}
+                  <strong>Rating:</strong> {movie.rating ? movie.rating : 0}
                 </p>
               </div>
             </div>
