@@ -1,13 +1,39 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function MovieCards({ movieList }) {
+  const navigate = useNavigate();
+
+  // Navigate to MovieDetailsPage
+  const handleCardClick = (movie) => {
+    const completeMovie = {
+      ...movie,
+      contentDescriptors: movie.contentDescriptors || [],
+      spokenLanguage: movie.spokenLanguage || "",
+      subtitleLanguage1: movie.subtitleLanguage1 || "",
+      subtitleLanguage2: movie.subtitleLanguage2 || "",
+      productionYear: movie.productionYear || "Unknown",
+      eventType: movie.eventType || "",
+      theatreAndAuditorium: movie.theatreAndAuditorium || "",
+      genres: movie.genres || "",
+      ratingImageUrl: movie.ratingImageUrl || "",
+    };
+    navigate(`/movie/${movie.id}`, { state: { movie: completeMovie } });
+  };
+
   return (
     <div className="container">
       <div className="row">
         {movieList.map((movie) => (
           <div className="col-lg-3 col-md-4 col-sm-6 mb-4" key={movie.id}>
-            <div className="card h-100" key={movie.id}>
+            <div
+              className="card h-100"
+              key={movie.id}
+              // Add handleCardClick function
+              onClick={() => handleCardClick(movie)}
+              style={{ cursor: "pointer" }}
+            >
               {/* Move Poster */}
               <img
                 src={movie.image}
