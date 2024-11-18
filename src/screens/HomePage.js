@@ -77,9 +77,19 @@ function HomePage() {
 
   return (
     <div>
-      <div>
-        <input type="text" placeholder="Find Your Favorite" />
-        <button>Search</button>
+      <div className="input-group input-group-sm mb-3">
+        <input
+          className="form-control"
+          aria-label="Search"
+          aria-describedby="inputGroup-sizing-sm"
+          type="text"
+          placeholder="Find Your Favorite"
+        />
+        <div class="input-group-prepend">
+          <button class="input-group-text" id="inputGroup-sizing-sm">
+            Search
+          </button>
+        </div>
       </div>
       <p className={styles.title}>Top Movies</p>
       <div>
