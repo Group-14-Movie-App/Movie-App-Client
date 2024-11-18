@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 export default function MovieFetcher({ setMoviesList }) {
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch("https://www.finnkino.fi/xml/Schedule/")
@@ -66,12 +67,25 @@ export default function MovieFetcher({ setMoviesList }) {
         console.log(shows.map((movie) => movie.rating));
         //Sort by Rating in descending order
         const sortedMovies = [...shows].sort((a, b) => b.rating - a.rating);
-        console.log(sortedMovies);
+        // console.log(sortedMovies);
         setMoviesList(sortedMovies);
         setLoading(false);
       })
-      .catch((error) => console.error("Error fetching data:", error));
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        // Error handling
+        setError(error.message);
+        setLoading(false);
+      });
   }, [setMoviesList]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error} </div>;
+  }
 
   return null;
 }
