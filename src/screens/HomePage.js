@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import MovieCards from "../components/Home_Components/MovieCards.js";
 import styles from "./screensStyles/HomePage.module.css";
 
 function HomePage() {
   const [moviesList, setMoviesList] = useState([]);
+  // Save search query
+  const [searchQuery, setSearchQuery] = useState("");
+  const naviagte = useNavigate();
 
   useEffect(() => {
     fetch("https://www.finnkino.fi/xml/Schedule/")
@@ -75,6 +79,11 @@ function HomePage() {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
+  // Handle search button
+  function handleSearchClick() {
+    naviagte(`/search-page?query=${searchQuery}`);
+  }
+
   return (
     <div>
       <div className="input-group input-group-sm mb-3">
@@ -84,9 +93,15 @@ function HomePage() {
           aria-describedby="inputGroup-sizing-sm"
           type="text"
           placeholder="Find Your Favorite"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
         <div class="input-group-prepend">
-          <button class="input-group-text" id="inputGroup-sizing-sm">
+          <button
+            class="input-group-text"
+            id="inputGroup-sizing-sm"
+            onClick={handleSearchClick}
+          >
             Search
           </button>
         </div>
