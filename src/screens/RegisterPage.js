@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-//import './RegisterPage.css';
+import './screensStyles/RegisterPage.css';
 
 function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -48,15 +48,20 @@ function RegisterPage() {
     }
   };
 
+  const handleSignInRedirect = () => {
+    navigate('/sign-in-page');
+  };
+
   return (
     <div className="register-container">
-      <h2>Create an Account</h2>
+      <h1 className="register-title">Register</h1>
       {error && <p className="error-message">{error}</p>}
       <form onSubmit={handleSubmit} className="register-form">
         <div className="form-group">
-          <label>Email</label>
+          <label htmlFor="email">Enter Email</label>
           <input
             type="email"
+            id="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
@@ -65,9 +70,10 @@ function RegisterPage() {
         </div>
         
         <div className="form-group">
-          <label>Password</label>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
+            id="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
@@ -76,9 +82,10 @@ function RegisterPage() {
         </div>
         
         <div className="form-group">
-          <label>Confirm Password</label>
+          <label htmlFor="confirmPassword">Confirm Password</label>
           <input
             type="password"
+            id="confirmPassword"
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
@@ -87,9 +94,10 @@ function RegisterPage() {
         </div>
         
         <div className="form-group">
-          <label>First Name</label>
+          <label htmlFor="firstName">First Name</label>
           <input
             type="text"
+            id="firstName"
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
@@ -97,9 +105,10 @@ function RegisterPage() {
         </div>
         
         <div className="form-group">
-          <label>Last Name</label>
+          <label htmlFor="lastName">Last Name</label>
           <input
             type="text"
+            id="lastName"
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
@@ -107,9 +116,10 @@ function RegisterPage() {
         </div>
         
         <div className="form-group">
-          <label>City</label>
+          <label htmlFor="city">City</label>
           <input
             type="text"
+            id="city"
             name="city"
             value={formData.city}
             onChange={handleChange}
@@ -118,6 +128,11 @@ function RegisterPage() {
         
         <button type="submit" className="register-button">Register</button>
       </form>
+
+      <div className="signin-redirect">
+        <p>Already registered?</p>
+        <button onClick={handleSignInRedirect} className="signin-button">Sign In</button>
+      </div>
     </div>
   );
 }
