@@ -47,7 +47,7 @@ function CreateGroup({ onCreate }) {
 
     return (
         <div className="create-group">
-            <h2>Create a Group</h2>
+            <h1>Create a Group</h1>
             {error && <p className="error-message">{error}</p>}
             {success && <p className="success-message">{success}</p>}
             <form onSubmit={handleSubmit}>

@@ -10,6 +10,9 @@
 h2 {
     text-align: center;
     color: #333;
+    text-size-adjust: 100%;
+    
+    
 }
 
 /* Create Group Form */
@@ -18,13 +21,23 @@ h2 {
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 20px;
+    margin-top: 50px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+.create-group h1 {
+    font-size: 2 rem;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: center;
 }
 
 .create-group h2 {
-    font-size: 1.5rem;
+    font-size: 1 rem;
     margin-bottom: 15px;
     color: #444;
+    text-align: center;
 }
 
 .create-group input,
