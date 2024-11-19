@@ -20,7 +20,9 @@ function MovieReviewsPage() {
         reviews.map((review) => (
           <div key={review.reviewid} className="card mb-3">
             <div className="card-body">
-              <h5 className="card-title">User {review.userid}</h5>
+              <h5 className="card-title">
+                {review.firstname} {review.lastname} (User {review.userid})
+              </h5>
               <p className="card-text">{review.description}</p>
               <p className="card-text">
                 <strong>Rating:</strong> {review.rating} / 5

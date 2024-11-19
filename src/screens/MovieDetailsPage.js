@@ -18,16 +18,24 @@ function MovieDetailsPage() {
   };
 
   const handleSubmitReview = async () => {
+    // Retrieve the logged-in user's data from sessionStorage
+    const user = JSON.parse(localStorage.getItem('user'));
+  
+    if (!user) {
+      setFeedback('Please log in to submit a review.');
+      return;
+    }
+  
     if (!rating || !comment.trim()) {
       setFeedback('Please provide both a rating and a comment.');
       return;
     }
-
+  
     // Ensure the releaseDate is in YYYY-MM-DD format
     const releaseDate = movie.productionYear
       ? `${movie.productionYear}-01-01` // If only the year is available, assume January 1st
       : movie.startTime.split('T')[0]; // If full date is available, use that
-
+  
     try {
       const response = await fetch('http://localhost:5000/reviews', {
         method: 'POST',
@@ -35,14 +43,14 @@ function MovieDetailsPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          userID: 1, // Replace with the logged-in user's ID
+          userID: user.userid, // Use the logged-in user's ID from sessionStorage
           movieTitle: movie.title, // Use the movie title
           releaseDate, // Now sending the correct format
           description: comment,
           rating,
         }),
       });
-
+  
       if (response.ok) {
         setFeedback('Thank you for your review!');
         setRating(0);
@@ -60,6 +68,7 @@ function MovieDetailsPage() {
       setFeedback('An error occurred. Please try again.');
     }
   };
+  
 
   return (
     <div className="container mt-4">
