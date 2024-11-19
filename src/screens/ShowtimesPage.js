@@ -41,6 +41,7 @@ function ShowtimesPage() {
 
         setMoviesList(shows);
         setFilteredMovies(shows); // Initialize filtered movies with all movies
+        console.log(shows)
       })
       .catch(error => console.error("Error fetching data:", error));
   }, []);

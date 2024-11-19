@@ -10,7 +10,7 @@ function MovieDetailsPage() {
   const [feedback, setFeedback] = useState(''); // To give feedback after submission
 
   if (!movie) {
-    return <div>Movie details not found.</div>;   //We can add a error mesage showing component here
+    return <div>Movie details not found.</div>; // We can add an error message showing component here
   }
 
   const handleRatingClick = (value) => {
@@ -23,17 +23,23 @@ function MovieDetailsPage() {
       return;
     }
 
+    // Ensure the releaseDate is in YYYY-MM-DD format
+    const releaseDate = movie.productionYear
+      ? `${movie.productionYear}-01-01` // If only the year is available, assume January 1st
+      : movie.startTime.split('T')[0]; // If full date is available, use that
+
     try {
-      // Simulate API submission
       const response = await fetch('http://localhost:5000/reviews', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          movieID: movie.id, // Movie ID from the API data
-          rating,
+          userID: 1, // Replace with the logged-in user's ID
+          movieTitle: movie.title, // Use the movie title
+          releaseDate, // Now sending the correct format
           description: comment,
+          rating,
         }),
       });
 
@@ -42,7 +48,12 @@ function MovieDetailsPage() {
         setRating(0);
         setComment('');
       } else {
-        setFeedback('Failed to submit review. Please try again.');
+        const errorData = await response.json();
+        if (errorData.message.includes('already reviewed')) {
+          alert(`You have already reviewed the movie "${movie.title}".`);
+        } else {
+          setFeedback('Failed to submit review. Please try again.');
+        }
       }
     } catch (error) {
       console.error('Error submitting review:', error);
@@ -54,7 +65,7 @@ function MovieDetailsPage() {
     <div className="container mt-4">
       <h1>{movie.title}</h1>
       <img src={movie.image} alt={movie.title} className="img-fluid mb-4" />
-      
+
       <p><strong>Original Title:</strong> {movie.originalTitle}</p>
       <p><strong>Production Year:</strong> {movie.productionYear}</p>
       <p><strong>Event Type:</strong> {movie.eventType}</p>
@@ -73,7 +84,12 @@ function MovieDetailsPage() {
           <ul>
             {movie.contentDescriptors.map((descriptor, index) => (
               <li key={index}>
-                <img src={descriptor.imageURL} alt={descriptor.name} className="mr-2" style={{ width: "20px" }} />
+                <img
+                  src={descriptor.imageURL}
+                  alt={descriptor.name}
+                  className="mr-2"
+                  style={{ width: '20px' }}
+                />
                 {descriptor.name}
               </li>
             ))}

@@ -8,6 +8,7 @@ import ReviewsPage from "./screens/ReviewsPage.js";
 import SignInPage from "./screens/SignInPage.js";
 import RegisterPage from "./screens/RegisterPage.js";
 import GroupsPage from "./screens/GroupsPage.js";
+import MovieReviewsPage from "./screens/MovieReviewsPage.js"; // Import the new component
 import "./App.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -88,6 +89,8 @@ function App() {
           <Route path="/reviews-page" element={<ReviewsPage />} />
           <Route path="/sign-in-page" element={<SignInPage />} />
           <Route path="/register-page" element={<RegisterPage />} />
+          {/* New route for displaying reviews of a specific movie */}
+          <Route path="/movie-reviews/:movieTitle" element={<MovieReviewsPage />} />
         </Routes>
       </div>
     </div>
