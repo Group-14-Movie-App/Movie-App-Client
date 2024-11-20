@@ -1,7 +1,7 @@
 /* General page styling */
 .groups-main-page {
     font-family: Arial, sans-serif;
-    max-width: 600px;
+    max-width: 900px; /* You may want to widen this container */
     margin: 0 auto;
     padding: 20px;
 }
@@ -11,8 +11,6 @@ h2 {
     text-align: center;
     color: #333;
     text-size-adjust: 100%;
-    
-    
 }
 
 /* Create Group Form */
@@ -23,18 +21,17 @@ h2 {
     margin-bottom: 20px;
     margin-top: 50px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
 }
 
 .create-group h1 {
-    font-size: 2 rem;
+    font-size: 2rem;
     margin-bottom: 15px;
     color: #333;
     text-align: center;
 }
 
 .create-group h2 {
-    font-size: 1 rem;
+    font-size: 1rem;
     margin-bottom: 15px;
     color: #444;
     text-align: center;
@@ -64,12 +61,22 @@ h2 {
     background-color: #0056b3;
 }
 
-/* Group Lists */
+/* Group Lists - Ensure separation from Create Group */
 .my-groups,
 .all-groups {
+    margin-top: 40px; /* Adds space above these sections */
     margin-bottom: 20px;
 }
 
+/* Flexbox layout for group cards */
+.group-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Adds space between cards */
+    justify-content: space-between; /* Distributes cards evenly */
+}
+
+/* Group Card Styling */
 .group-card {
     background-color: #ffffff;
     border: 1px solid #ddd;
@@ -80,6 +87,7 @@ h2 {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 30%; /* This makes sure cards are displayed side by side */
 }
 
 .group-card h3 {
