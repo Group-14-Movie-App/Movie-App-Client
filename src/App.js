@@ -9,6 +9,7 @@ import SignInPage from "./screens/SignInPage.js";
 import RegisterPage from "./screens/RegisterPage.js";
 import GroupsPage from "./screens/GroupsPage.js";
 import MovieReviewsPage from "./screens/MovieReviewsPage.js"; // Import the new component
+import GroupDetails from "./components/Groups_Components/GroupDetails.js";
 import "./App.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -91,6 +92,8 @@ function App() {
           <Route path="/register-page" element={<RegisterPage />} />
           {/* New route for displaying reviews of a specific movie */}
           <Route path="/movie-reviews/:movieTitle" element={<MovieReviewsPage />} />
+          {/* Add a new route for the group details page */}
+          <Route path="/group-details/:groupId" element={<GroupDetails />} />
         </Routes>
       </div>
     </div>

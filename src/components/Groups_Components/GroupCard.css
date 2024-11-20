@@ -1,47 +1,88 @@
-/* Container for all group cards */
-.group-cards-container {
-    display: flex;
-    flex-wrap: wrap;  /* Allows the cards to wrap to the next line if the screen is too narrow */
-    gap: 20px;  /* Adds space between the cards */
-    justify-content: space-around;  /* Adjusts the alignment of the cards */
-  }
-  
-  /* Style for individual group cards */
-  .group-card {
-    background-color: #f4f4f4;
-    border-radius: 8px;
-    padding: 20px;
-    width: 250px;  /* Set a fixed width for each card */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.3s ease-in-out;
+/* Container for the group card */
+.group-card {
+    background-color: #fff; /* White background for the card */
+    border: 1px solid #ddd; /* Light border around the card */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Add space inside the card */
+    margin: 10px; /* Add space around the card */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth hover effect */
+    display: flex; /* Flexbox layout */
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Center the content horizontally */
+    text-align: center; /* Center text */
+    width: 250px; /* Fixed width */
   }
   
   .group-card:hover {
-    transform: scale(1.05);  /* Slight zoom effect when hovering over the card */
+    transform: translateY(-5px); /* Slightly lift the card on hover */
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15); /* Enhance shadow on hover */
   }
   
+  /* Group title styling */
   .group-card h3 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-    color: #333;
+    font-size: 1.5rem; /* Increase font size for the title */
+    color: #0a0101ed; /* Dark color for the title */
+    margin-bottom: 10px; /* Space below the title */
+    /*border: 10px solid red; /* Temporary debug border */
+    
   }
   
-  .group-card p {
-    font-size: 1em;
-    margin-bottom: 20px;
-  }
   
+  /* Styling for the request button */
   .group-card button {
-    padding: 8px 16px;
-    background-color: #007bff;
+    background-color: #007bff; /* Blue background for the button */
+    color: white; /* White text color */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded button edges */
+    padding: 10px 20px; /* Padding inside the button */
+    font-size: 1rem; /* Font size of the button text */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: background-color 0.3s ease; /* Smooth color transition on hover */
+  }
+  
+  /* Hover effect for the button */
+  .group-card button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+
+ /* Styling for the buttons container */
+.group-card-buttons {
+    display: flex; /* Flexbox for buttons layout */
+    gap: 10px; /* Space between buttons */
+    justify-content: center; /* Center buttons horizontally */
+    margin-top: 15px; /* Add space above buttons */
+  }
+  
+  /* Styling for View Details button */
+  .view-details-button {
+    background-color: hsl(134, 61%, 41%); /* Green background for View Details */
+    color: white; /* White text color */
+    padding: 6px 12px; /* Reduced padding for smaller buttons */
+    border-radius: 4px; /* Rounded button edges */
+    text-decoration: none; /* Remove underline from the link */
+    font-size: 0.9rem; /* Smaller button text size */
+    cursor: pointer; /* Pointer cursor */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+  }
+  
+  .view-details-button:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
+  
+  /* Styling for Request to Join button */
+  .group-card button {
+    padding: 6px 12px; /* Reduced padding for smaller buttons */
+    font-size: 0.9rem; /* Smaller button text size */
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #15b653; /* Blue background for Request to Join */
     color: white;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
   }
   
   .group-card button:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Darker blue on hover */
   }
   

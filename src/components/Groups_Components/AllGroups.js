@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import GroupCard from "./GroupCard"; // Assuming you have a reusable GroupCard component
+import GroupCard from "./GroupCard"; // Import the GroupCard component
+import "./GroupCard.css";
 
 function AllGroups() {
     const [allGroups, setAllGroups] = useState([]);
-    const [error, setError] = useState(null);
+    const [, setError] = useState(null);
 
     // Fetch all groups when the component mounts
     useEffect(() => {
@@ -32,7 +33,7 @@ function AllGroups() {
           <div className="group-cards-container">
             {allGroups.length > 0 ? (
               allGroups.map((group) => (
-                <GroupCard key={group.groupID} group={group} isMyGroup={false} />
+                <GroupCard key={group.groupid} group={group} isMyGroup={false} />
               ))
             ) : (
               <p>No groups available to join.</p>
