@@ -9,21 +9,36 @@ function CreateGroup({ onCreate }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log("Group Name:", name);  // Debugging line
-        console.log("Group Description:", description);  // Debugging line
+        // Retrieve the logged-in user's data from localStorage
+        const user = JSON.parse(localStorage.getItem('user'));  // Assuming the logged-in user is stored in localStorage as 'user'
 
+        // Check if the user is logged in and has a valid user ID
+        if (!user || !user.userid) {
+            setError("You must be logged in to create a group.");
+            return;
+        }
+
+        const ownerID = user.userid;  // Use the logged-in user's ID as the ownerID
+
+        // Debugging logs
+        console.log("Group Name:", name);
+        console.log("Group Description:", description);
+        console.log("Owner ID:", ownerID);
+
+        // Ensure that the group name and description are provided
         if (!name || !description) {
             setError("Both group name and description are required.");
             return;
         }
+
         try {
             const response = await fetch('http://localhost:5000/CreateGroup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
-                    groupName: name,  // Match the backend expected field name
+                    groupName: name,  
                     description, 
-                    ownerID: 1         // Use an actual user ID here if available
+                    ownerID,       // Send the logged-in user's ID as ownerID
                 }),
         
             });
