@@ -1,18 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import "./GroupDetails.css";
 
 const GroupDetails = ({ groupId }) => {
   const [groupDetails, setGroupDetails] = useState(null);
   const [pendingRequests, setPendingRequests] = useState([]);
   const [groupMembers, setGroupMembers] = useState([]);
 
-  // Fetch group details and members on mount
-  useEffect(() => {
-    fetchGroupDetails();
-  }, []);
-
-  const fetchGroupDetails = async () => {
+  // Memoize fetch function
+  const fetchGroupDetails = useCallback(async () => {
     try {
       const response = await axios.get(`/api/groups/${groupId}`);
       setGroupDetails(response.data.group);
@@ -21,37 +16,39 @@ const GroupDetails = ({ groupId }) => {
     } catch (error) {
       console.error("Error fetching group details:", error);
     }
-  };
+  }, [groupId]);
 
-  // Handle Accept Request
+  useEffect(() => {
+    fetchGroupDetails();
+  }, [fetchGroupDetails]);
+
+  // Additional functionality: Accept, Decline, Remove functions
   const handleAccept = async (userId) => {
     try {
       await axios.patch(`/api/groups/${groupId}/members/${userId}`, {
         action: "accept",
       });
-      fetchGroupDetails(); // Refresh the data
+      fetchGroupDetails();
     } catch (error) {
       console.error("Error accepting request:", error);
     }
   };
 
-  // Handle Decline Request
   const handleDecline = async (userId) => {
     try {
       await axios.patch(`/api/groups/${groupId}/members/${userId}`, {
         action: "decline",
       });
-      fetchGroupDetails(); // Refresh the data
+      fetchGroupDetails();
     } catch (error) {
       console.error("Error declining request:", error);
     }
   };
 
-  // Handle Remove Member
   const handleRemoveMember = async (userId) => {
     try {
       await axios.delete(`/api/groups/${groupId}/members/${userId}`);
-      fetchGroupDetails(); // Refresh the data
+      fetchGroupDetails();
     } catch (error) {
       console.error("Error removing member:", error);
     }
