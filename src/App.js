@@ -10,7 +10,7 @@ import SignInPage from "./screens/SignInPage.js";
 import RegisterPage from "./screens/RegisterPage.js";
 import GroupsPage from "./screens/GroupsPage.js";
 import MovieReviewsPage from "./screens/MovieReviewsPage.js"; // Import the new component
-import GroupDetails from "./components/Groups_Components/GroupDetails.js";
+import GroupDetails from "./components/Groups_Components/groupDetails.js";
 import GroupCard from "./components/Groups_Components/GroupCard.js"; 
 import "./App.css";
 
