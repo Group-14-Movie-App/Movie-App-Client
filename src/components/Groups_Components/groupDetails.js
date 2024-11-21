@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./GroupDetails.css";
 
 const GroupDetails = ({ groupId }) => {
   const [groupDetails, setGroupDetails] = useState(null);

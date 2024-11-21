@@ -1,4 +1,5 @@
 import { Link, Route, Routes } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import HomePage from "./screens/HomePage.js";
 import ProfilePage from "./screens/ProfilePage.js";
 import MovieDetailsPage from "./screens/MovieDetailsPage.js";
@@ -10,6 +11,7 @@ import RegisterPage from "./screens/RegisterPage.js";
 import GroupsPage from "./screens/GroupsPage.js";
 import MovieReviewsPage from "./screens/MovieReviewsPage.js"; // Import the new component
 import GroupDetails from "./components/Groups_Components/GroupDetails.js";
+import GroupCard from "./components/Groups_Components/GroupCard.js"; 
 import "./App.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -92,12 +94,38 @@ function App() {
           <Route path="/register-page" element={<RegisterPage />} />
           {/* New route for displaying reviews of a specific movie */}
           <Route path="/movie-reviews/:movieTitle" element={<MovieReviewsPage />} />
-          {/* Add a new route for the group details page */}
-          <Route path="/group-details/:groupId" element={<GroupDetails />} />
-        </Routes>
+         {/* Home route for rendering all group cards */}
+        <Route path="/" element={<GroupList />} />
+        {/* Group details route */}
+        <Route path="/group-details/:groupId" element={<GroupDetailsWrapper />} />
+      </Routes>
       </div>
     </div>
   );
 }
+const GroupList = () => {
+  const groups = [
+    { groupid: "1", groupname: "Movie Lovers", description: "A group for movie fans" },
+    { groupid: "2", groupname: "Tech Geeks", description: "Discuss technology trends" },
+  ];
+
+  return (
+    <div>
+      <h1>All Groups</h1>
+      <div className="group-list">
+        {groups.map((group) => (
+          <GroupCard key={group.groupid} group={group} isMyGroup={false} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// Wrapper for GroupDetails to pass groupId from URL
+const GroupDetailsWrapper = () => {
+  const { groupId } = useParams();
+  return <GroupDetails groupId={groupId} />;
+};
+
 
 export default App;
