@@ -3,11 +3,14 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import MovieCards from "../components/Home_Components/MovieCards.js";
 import MovieFetcher from "../components/Home_Components/MovieFetcher.js";
+import TmdbFetcher from "../components/Home_Components/TmdbFetcher.js";
 import styles from "./screensStyles/HomePage.module.css";
 
 function HomePage() {
   const [moviesList, setMoviesList] = useState([]);
-  const [limitedMovies, setLimitedMovies] = useState([]);
+  const [limitedMovies, setLimitedMovies] = useState([]); //For Finnkino
+  const [TmdbMovies, setTmdbMovies] = useState([]);
+  const [TmdbLimitedMovies, setTmdbLimitedMovies] = useState([]); //For TMDb
   // Save search query
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
@@ -25,13 +28,22 @@ function HomePage() {
   }
 
   // Handle "See More"
-  function handleSeeMoreClick() {
+  function handleNowShowingSeeMoreClick() {
     navigate("/showtimes-page");
   }
 
+  function handlePopularSeeMoreClick() {
+    navigate("/search-page");
+  }
+
+  // function handleTmdbCardClick(movieId) {
+  //   navigate(`/movie/${movieId}`, { state: { movieId, source: "tmdb" } });
+  // }
+
   return (
     <div>
-      <div className="input-group input-group-sm mb-3">
+      {/* Search Bar */}
+      {/* <div className="input-group input-group-sm mb-3">
         <input
           className="form-control"
           aria-label="Search"
@@ -51,8 +63,36 @@ function HomePage() {
             Search
           </button>
         </div>
+      </div> */}
+      {/* TopBar */}
+      <div>
+        <ul class="nav justify-content-end">
+          <li class="nav-item">
+            <a class="nav-link active" href="/sign-in-page">
+              Sign in
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/register-page">
+              Register
+            </a>
+          </li>
+        </ul>
       </div>
-      {/* Fetch movie data */}
+      {/* TMDb movies */}
+      <div>
+        <p className={styles.title}>Popular</p>
+        <TmdbFetcher
+          setTmdbMovies={setTmdbMovies}
+          setLimitedMovies={setTmdbLimitedMovies}
+        />
+        <MovieCards movieList={TmdbLimitedMovies} isTmdbMovies={true} />
+        <button onClick={handlePopularSeeMoreClick} className="nav-link">
+          See More...
+        </button>
+      </div>
+
+      {/* Finnkino movies */}
       <div>
         <MovieFetcher
           setMoviesList={setMoviesList}
@@ -61,10 +101,8 @@ function HomePage() {
       </div>
       <p className={styles.title}>Now Playing</p>
       <div>
-        <MovieCards movieList={limitedMovies} />
-      </div>
-      <div className="text-center mt-3">
-        <button onClick={handleSeeMoreClick} className="nav-link">
+        <MovieCards movieList={limitedMovies} isTmdbMovies={false} />
+        <button onClick={handleNowShowingSeeMoreClick} className="nav-link">
           See More...
         </button>
       </div>

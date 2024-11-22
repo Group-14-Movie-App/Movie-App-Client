@@ -1,8 +1,7 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function MovieCards({ movieList }) {
+function MovieCards({ movieList, isTmdbMovies = false }) {
   const navigate = useNavigate();
 
   // Navigate to MovieDetailsPage
@@ -19,7 +18,12 @@ function MovieCards({ movieList }) {
       genres: movie.genres || "",
       ratingImageUrl: movie.ratingImageUrl || "",
     };
-    navigate(`/movie/${movie.id}`, { state: { movie: completeMovie } });
+
+    if (isTmdbMovies) {
+      navigate(`/movie/${movie.tmdbId}`, { state: { movie: completeMovie } });
+    } else {
+      navigate(`/movie/${movie.id}`, { state: { movie: completeMovie } });
+    }
   };
 
   return (
