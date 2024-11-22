@@ -42,31 +42,36 @@ function HomePage() {
 
   return (
     <div>
-      {/* Search Bar */}
-      {/* <div className="input-group input-group-sm mb-3">
-        <input
-          className="form-control"
-          aria-label="Search"
-          aria-describedby="inputGroup-sizing-sm"
-          type="text"
-          placeholder="Find Your Favorite"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyDown={handleKeyDown} // Add key down eventListener
-        />
-        <div class="input-group-prepend">
-          <button
-            class="input-group-text"
-            id="inputGroup-sizing-sm"
-            onClick={handleSearchClick}
-          >
-            Search
-          </button>
-        </div>
-      </div> */}
       {/* TopBar */}
-      <div>
-        <ul class="nav justify-content-end">
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        {/* Search Bar */}
+        <form
+          className="input-group input-group-sm mb-2 "
+          style={{ marginRight: "50px" }}
+        >
+          <input
+            className="form-control"
+            aria-label="Search"
+            aria-describedby="inputGroup-sizing-sm"
+            type="text"
+            placeholder="Find Your Favorite"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleKeyDown} // Add key down eventListener
+          />
+          <div class="input-group-prepend">
+            <button
+              class="input-group-text"
+              id="inputGroup-sizing-sm"
+              onClick={handleSearchClick}
+            >
+              Search
+            </button>
+          </div>
+        </form>
+
+        {/* NavBar */}
+        <ul class="nav d-flex" style={{ minWidth: "180px" }}>
           <li class="nav-item">
             <a class="nav-link active" href="/sign-in-page">
               Sign in
@@ -79,6 +84,7 @@ function HomePage() {
           </li>
         </ul>
       </div>
+
       {/* TMDb movies */}
       <div>
         <p className={styles.title}>Popular</p>
