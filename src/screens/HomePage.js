@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import MovieCards from "../components/Home_Components/MovieCards.js";
@@ -7,6 +7,7 @@ import styles from "./screensStyles/HomePage.module.css";
 
 function HomePage() {
   const [moviesList, setMoviesList] = useState([]);
+  const [limitedMovies, setLimitedMovies] = useState([]);
   // Save search query
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
@@ -21,6 +22,11 @@ function HomePage() {
     if (e.key === "Enter") {
       handleSearchClick();
     }
+  }
+
+  // Handle "See More"
+  function handleSeeMoreClick() {
+    navigate("/showtimes-page");
   }
 
   return (
@@ -48,11 +54,19 @@ function HomePage() {
       </div>
       {/* Fetch movie data */}
       <div>
-        <MovieFetcher setMoviesList={setMoviesList} />
+        <MovieFetcher
+          setMoviesList={setMoviesList}
+          setLimitedMovies={setLimitedMovies}
+        />
       </div>
-      <p className={styles.title}>Top Movies</p>
+      <p className={styles.title}>Now Playing</p>
       <div>
-        <MovieCards movieList={moviesList} />
+        <MovieCards movieList={limitedMovies} />
+      </div>
+      <div className="text-center mt-3">
+        <button onClick={handleSeeMoreClick} className="nav-link">
+          See More...
+        </button>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function MovieFetcher({ setMoviesList }) {
+export default function MovieFetcher({ setMoviesList, setLimitedMovies }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -67,8 +67,10 @@ export default function MovieFetcher({ setMoviesList }) {
         console.log(shows.map((movie) => movie.rating));
         //Sort by Rating in descending order
         const sortedMovies = [...shows].sort((a, b) => b.rating - a.rating);
-        // console.log(sortedMovies);
+        // Limit to 6 movies to start with
+        const limitedMovies = sortedMovies.slice(0, 6);
         setMoviesList(sortedMovies);
+        setLimitedMovies(limitedMovies);
         setLoading(false);
       })
       .catch((error) => {
@@ -77,7 +79,7 @@ export default function MovieFetcher({ setMoviesList }) {
         setError(error.message);
         setLoading(false);
       });
-  }, [setMoviesList]);
+  }, [setMoviesList, setLimitedMovies]);
 
   if (loading) {
     return <div>Loading...</div>;

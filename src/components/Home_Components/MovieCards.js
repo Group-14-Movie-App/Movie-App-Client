@@ -26,10 +26,9 @@ function MovieCards({ movieList }) {
     <div className="container">
       <div className="row">
         {movieList.map((movie) => (
-          <div className="col-lg-3 col-md-4 col-sm-6 mb-4" key={movie.id}>
+          <div className="col-lg-2 col-sm-4 mb-4" key={movie.id}>
             <div
               className="card h-100"
-              key={movie.id}
               // Add handleCardClick function
               onClick={() => handleCardClick(movie)}
               style={{ cursor: "pointer" }}
