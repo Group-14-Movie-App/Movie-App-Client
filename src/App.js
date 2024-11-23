@@ -12,6 +12,8 @@ import GroupsPage from "./screens/GroupsPage.js";
 import MovieReviewsPage from "./screens/MovieReviewsPage.js"; // Import the new component
 import GroupDetails from "./components/Groups_Components/groupDetails.js";
 import GroupCard from "./components/Groups_Components/GroupCard.js"; 
+import TMDBMovieDetails from "./screens/TMDBMovieDetails.js";
+import TMDBtoFinkkinoMovieDetails from "./screens/TMDBtoFinkkinoMovieDetails.js";
 import "./App.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -85,15 +87,21 @@ function App() {
           <Route path="/" element={<HomePage />} index />
           <Route path="/home-page" element={<HomePage />} />
           <Route path="/profile-page" element={<ProfilePage />} />
+
           <Route path="/movie/:id" element={<MovieDetailsPage />} />
-          <Route path="/showtimes-page" element={<ShowtimesPage />} />
+          <Route path="/tmdb-movie-details/:id" element={<TMDBMovieDetails />} />
+          <Route path="/tmdb-to-finnkino-details" element={<TMDBtoFinkkinoMovieDetails />} />
+
+
+          <Route path="/showtimes-page" element={<ShowtimesPage />} />          
           <Route path="/search-page" element={<SearchPage />} />
           <Route path="/groups-page" element={<GroupsPage />} />
           <Route path="/reviews-page" element={<ReviewsPage />} />
           <Route path="/sign-in-page" element={<SignInPage />} />
           <Route path="/register-page" element={<RegisterPage />} />
           {/* New route for displaying reviews of a specific movie */}
-          <Route path="/movie-reviews/:movieTitle" element={<MovieReviewsPage />} />
+          <Route path="/movie-reviews/:movieTitle/:releaseDate" element={<MovieReviewsPage />} />
+
          {/* Home route for rendering all group cards */}
         <Route path="/" element={<GroupList />} />
         {/* Group details route */}

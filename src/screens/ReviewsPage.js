@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // For navigation
-import './screensStyles/ReviewsPage.css'; // For additional styling
+import { useNavigate } from 'react-router-dom';
+import './screensStyles/ReviewsPage.css';
 
 function ReviewsPage() {
   const [reviews, setReviews] = useState([]);
   const [movieDetails, setMovieDetails] = useState({});
-  const navigate = useNavigate(); // React Router navigation
+  const navigate = useNavigate();
 
   // Fetch reviews from the backend
   useEffect(() => {
@@ -34,12 +34,19 @@ function ReviewsPage() {
               },
             }
           );
+
           const data = await response.json();
-          if (data.results.length > 0) {
-            details[review.movietitle] = data.results[0];
-          } else {
-            details[review.movietitle] = null;
-          }
+
+          // Match the correct movie using title and release year
+          const matchedMovie = data.results.find(
+            (movie) =>
+              movie.title === review.movietitle &&
+              new Date(movie.release_date).getFullYear() ===
+                new Date(review.releasedate).getFullYear()
+          );
+
+          const movieKey = `${review.movietitle}-${review.releasedate}`;
+          details[movieKey] = matchedMovie || null;
         } catch (error) {
           console.error('Error fetching movie details:', error);
         }
@@ -52,33 +59,55 @@ function ReviewsPage() {
     }
   }, [reviews]);
 
-  // Extract unique movies
+  // Create unique movie keys by combining title and release date
   const uniqueMovies = Array.from(
-    new Set(reviews.map((review) => review.movietitle))
+    new Set(reviews.map((review) => `${review.movietitle}-${review.releasedate}`))
   );
 
   return (
     <div className="container mt-4">
       <h1 className="text-center mb-5">Reviews</h1>
       <div className="row">
-        {uniqueMovies.map((movieTitle) => {
-          const movie = movieDetails[movieTitle];
+        {uniqueMovies.map((movieKey) => {
+          const [movieTitle, releaseDate] = movieKey.split('-');
+          const movie = movieDetails[movieKey];
           return (
-            <div key={movieTitle} className="col-md-4">
+            <div key={movieKey} className="col-md-4">
               <div
                 className="card mb-4 shadow-sm"
                 style={{ cursor: 'pointer' }}
-                onClick={() => navigate(`/movie-reviews/${encodeURIComponent(movieTitle)}`)}
+                onClick={() =>
+                  navigate(
+                    `/movie-reviews/${encodeURIComponent(movieTitle)}/${encodeURIComponent(
+                      releaseDate
+                    )}`
+                  )
+                }
               >
-                {movie?.poster_path && (
+                {movie?.poster_path ? (
                   <img
                     src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                     className="card-img-top"
                     alt={movieTitle}
                   />
+                ) : (
+                  <div
+                    style={{
+                      height: '300px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      backgroundColor: '#f0f0f0',
+                    }}
+                  >
+                    <p>No Image Available</p>
+                  </div>
                 )}
                 <div className="card-body">
-                  <h5 className="card-title">{movieTitle}</h5>
+                  <h5 className="card-title">{movie?.title || movieTitle}</h5>
+                  <p className="card-text">
+                    Release Year: {new Date(releaseDate).getFullYear()}
+                  </p>
                 </div>
               </div>
             </div>
