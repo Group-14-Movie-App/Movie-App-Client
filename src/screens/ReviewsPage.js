@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './screensStyles/ReviewsPage.css';
+import './screensStyles/ReviewsPage.css'; // Styling
 
 function ReviewsPage() {
   const [reviews, setReviews] = useState([]);
@@ -20,33 +20,32 @@ function ReviewsPage() {
     async function fetchMovieDetails() {
       const details = {};
 
-      for (const review of reviews) {
+      // Group reviews by movie title to avoid duplicates
+      const uniqueMovies = Array.from(
+        new Set(reviews.map((review) => review.movietitle))
+      );
+
+      for (const movieTitle of uniqueMovies) {
         try {
           const response = await fetch(
             `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
-              review.movietitle
+              movieTitle
             )}&language=en-US&page=1&include_adult=false`,
             {
               method: 'GET',
               headers: {
                 accept: 'application/json',
-                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZDFkYTNlOWMzM2Y2NGQ2ZWYyYTA4NmIyMGE1NjJmOCIsIm5iZiI6MTczMTMwNjE5MC4wODgzNjEzLCJzdWIiOiI2NzMxNDAzMDJhNGNiYzJhMTJmNjY2MWUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.lCbmcCPeYybrfMJ2SvqQyT_zZVb7bV6FyPYPZ14B5G4',
+                Authorization: `Bearer ${process.env.REACT_APP_TMDB_API_KEY}`,
               },
             }
           );
 
           const data = await response.json();
 
-          // Match the correct movie using title and release year
-          const matchedMovie = data.results.find(
-            (movie) =>
-              movie.title === review.movietitle &&
-              new Date(movie.release_date).getFullYear() ===
-                new Date(review.releasedate).getFullYear()
-          );
+          // Get the most relevant movie (first result)
+          const matchedMovie = data.results[0] || null;
 
-          const movieKey = `${review.movietitle}-${review.releasedate}`;
-          details[movieKey] = matchedMovie || null;
+          details[movieTitle] = matchedMovie;
         } catch (error) {
           console.error('Error fetching movie details:', error);
         }
@@ -59,28 +58,31 @@ function ReviewsPage() {
     }
   }, [reviews]);
 
-  // Create unique movie keys by combining title and release date
+  // Create unique list of movies by title
   const uniqueMovies = Array.from(
-    new Set(reviews.map((review) => `${review.movietitle}-${review.releasedate}`))
+    new Set(reviews.map((review) => review.movietitle))
   );
 
   return (
     <div className="container mt-4">
       <h1 className="text-center mb-5">Reviews</h1>
       <div className="row">
-        {uniqueMovies.map((movieKey) => {
-          const [movieTitle, releaseDate] = movieKey.split('-');
-          const movie = movieDetails[movieKey];
+        {uniqueMovies.map((movieTitle) => {
+          const movie = movieDetails[movieTitle];
+
+          // Use release year from TMDB API if available
+          const displayReleaseYear = movie?.release_date
+            ? new Date(movie.release_date).getFullYear()
+            : 'Unknown';
+
           return (
-            <div key={movieKey} className="col-md-4">
+            <div key={movieTitle} className="col-md-4">
               <div
                 className="card mb-4 shadow-sm"
                 style={{ cursor: 'pointer' }}
                 onClick={() =>
                   navigate(
-                    `/movie-reviews/${encodeURIComponent(movieTitle)}/${encodeURIComponent(
-                      releaseDate
-                    )}`
+                    `/movie-reviews/${encodeURIComponent(movieTitle)}/${displayReleaseYear}`
                   )
                 }
               >
@@ -106,7 +108,7 @@ function ReviewsPage() {
                 <div className="card-body">
                   <h5 className="card-title">{movie?.title || movieTitle}</h5>
                   <p className="card-text">
-                    Release Year: {new Date(releaseDate).getFullYear()}
+                    Release Year: {displayReleaseYear}
                   </p>
                 </div>
               </div>

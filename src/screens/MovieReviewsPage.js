@@ -4,25 +4,40 @@ import { useParams } from 'react-router-dom';
 function MovieReviewsPage() {
   const { movieTitle, releaseDate } = useParams();
   const [reviews, setReviews] = useState([]);
-  const [editingReviewID, setEditingReviewID] = useState(null); // Track which review is being edited
-  const [editedDescription, setEditedDescription] = useState(''); // Hold new description
-  const [editedRating, setEditedRating] = useState(0); // Hold new rating
+  const [editingReviewID, setEditingReviewID] = useState(null);
+  const [editedDescription, setEditedDescription] = useState('');
+  const [editedRating, setEditedRating] = useState(0);
   const loggedUser = JSON.parse(localStorage.getItem('user')); // Get logged-in user
 
   // Fetch reviews for the specific movie
   useEffect(() => {
+    if (!movieTitle || !releaseDate) return;
+
     fetch(
       `http://localhost:5000/reviews?title=${encodeURIComponent(
         movieTitle
       )}&releaseDate=${encodeURIComponent(releaseDate)}`
     )
-      .then((response) => response.json())
-      .then((data) => setReviews(data))
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch reviews');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setReviews(data);
+        console.log('Fetched reviews:', data);
+      })
       .catch((error) => console.error('Error fetching reviews:', error));
   }, [movieTitle, releaseDate]);
 
   // Handle Edit Submit
   const handleEditSubmit = async (reviewID) => {
+    if (!editedDescription.trim() || editedRating < 1 || editedRating > 5) {
+      alert('Please provide a valid description and rating between 1 and 5.');
+      return;
+    }
+
     try {
       const response = await fetch(`http://localhost:5000/reviews/${reviewID}`, {
         method: 'PUT',
@@ -30,7 +45,7 @@ function MovieReviewsPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          userID: loggedUser.userid, // Pass logged-in user's ID
+          userID: loggedUser.userid,
           description: editedDescription,
           rating: editedRating,
         }),
@@ -38,18 +53,44 @@ function MovieReviewsPage() {
 
       if (response.ok) {
         const updatedReview = await response.json();
-        // Update reviews state
         setReviews((prev) =>
           prev.map((review) =>
             review.reviewid === reviewID ? updatedReview.review : review
           )
         );
-        setEditingReviewID(null); // Exit edit mode
+        setEditingReviewID(null);
       } else {
         console.error('Failed to update review');
       }
     } catch (error) {
       console.error('Error updating review:', error);
+    }
+  };
+
+  // Handle Delete Review
+  const handleDeleteReview = async (reviewID) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this review?');
+    if (!confirmDelete) return;
+
+    try {
+      const response = await fetch(`http://localhost:5000/reviews/${reviewID}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userID: loggedUser.userid, // Pass logged-in user's ID
+        }),
+      });
+
+      if (response.ok) {
+        setReviews((prev) => prev.filter((review) => review.reviewid !== reviewID));
+        console.log('Review deleted successfully');
+      } else {
+        console.error('Failed to delete review');
+      }
+    } catch (error) {
+      console.error('Error deleting review:', error);
     }
   };
 
@@ -64,7 +105,6 @@ function MovieReviewsPage() {
             <div className="card-body">
               {editingReviewID === review.reviewid ? (
                 <>
-                  {/* Editing Mode */}
                   <textarea
                     className="form-control mb-2"
                     value={editedDescription}
@@ -94,7 +134,6 @@ function MovieReviewsPage() {
                 </>
               ) : (
                 <>
-                  {/* Display Mode */}
                   <h5 className="card-title">
                     {review.firstname} {review.lastname} (User {review.userid})
                   </h5>
@@ -108,16 +147,24 @@ function MovieReviewsPage() {
                     </small>
                   </p>
                   {loggedUser.userid === review.userid && (
-                    <button
-                      className="btn btn-primary"
-                      onClick={() => {
-                        setEditingReviewID(review.reviewid);
-                        setEditedDescription(review.description);
-                        setEditedRating(review.rating);
-                      }}
-                    >
-                      Edit
-                    </button>
+                    <>
+                      <button
+                        className="btn btn-primary mr-2"
+                        onClick={() => {
+                          setEditingReviewID(review.reviewid);
+                          setEditedDescription(review.description);
+                          setEditedRating(review.rating);
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => handleDeleteReview(review.reviewid)}
+                      >
+                        Delete
+                      </button>
+                    </>
                   )}
                 </>
               )}

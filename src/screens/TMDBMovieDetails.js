@@ -60,47 +60,48 @@ function TMDBMovieDetails() {
     const user = JSON.parse(localStorage.getItem('user'));
 
     if (!user) {
-      setFeedback('Please log in to submit a review.');
-      return;
+        setFeedback('Please log in to submit a review.');
+        return;
     }
 
     if (!rating || !comment.trim()) {
-      setFeedback('Please provide both a rating and a comment.');
-      return;
+        setFeedback('Please provide both a rating and a comment.');
+        return;
     }
 
     try {
-      const response = await fetch('http://localhost:5000/reviews', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userID: user.userid,
-          movieTitle: movie.title,
-          releaseDate: movie.release_date,
-          description: comment,
-          rating,
-        }),
-      });
+        const response = await fetch('http://localhost:5000/reviews', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userID: user.userid,
+                movieTitle: movie.original_title, // Use the original title here
+                releaseDate: movie.release_date,
+                description: comment,
+                rating,
+            }),
+        });
 
-      if (response.ok) {
-        setFeedback('Thank you for your review!');
-        setRating(0);
-        setComment('');
-      } else {
-        const errorData = await response.json();
-        if (errorData.message.includes('already reviewed')) {
-          alert(`You have already reviewed the movie "${movie.title}".`);
+        if (response.ok) {
+            setFeedback('Thank you for your review!');
+            setRating(0);
+            setComment('');
         } else {
-          setFeedback('Failed to submit review. Please try again.');
+            const errorData = await response.json();
+            if (errorData.message.includes('already reviewed')) {
+                alert(`You have already reviewed the movie "${movie.original_title}".`);
+            } else {
+                setFeedback('Failed to submit review. Please try again.');
+            }
         }
-      }
     } catch (error) {
-      console.error('Error submitting review:', error);
-      setFeedback('An error occurred. Please try again.');
+        console.error('Error submitting review:', error);
+        setFeedback('An error occurred. Please try again.');
     }
-  };
+};
+
 
   if (!movie) {
     return <div>Movie details not found.</div>;
