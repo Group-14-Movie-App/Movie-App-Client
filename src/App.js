@@ -14,6 +14,7 @@ import GroupDetails from "./components/Groups_Components/groupDetails.js";
 import GroupCard from "./components/Groups_Components/GroupCard.js"; 
 import TMDBMovieDetails from "./screens/TMDBMovieDetails.js";
 import TMDBtoFinkkinoMovieDetails from "./screens/TMDBtoFinkkinoMovieDetails.js";
+import FavoriteGroupDetails from "./components/Profile_Components/FavoriteGroupDetails.js";
 import "./App.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -106,6 +107,10 @@ function App() {
         <Route path="/" element={<GroupList />} />
         {/* Group details route */}
         <Route path="/group-details/:groupId" element={<GroupDetailsWrapper />} />
+
+        {/* Favourites Related routes */}
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/favorites/:favoriteID" element={<FavoriteGroupDetails />} />
       </Routes>
       </div>
     </div>

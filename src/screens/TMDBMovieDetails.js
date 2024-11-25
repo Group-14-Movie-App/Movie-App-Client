@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import AddToFavorites from '../components/TMDBMovieDetails_Components/AddToFavorites';
 
 function TMDBMovieDetails() {
   const location = useLocation();
@@ -169,6 +170,7 @@ function TMDBMovieDetails() {
 
         {feedback && <p className="mt-3 text-success">{feedback}</p>}
       </div>
+      <AddToFavorites movie={movie} />
     </div>
   );
 }

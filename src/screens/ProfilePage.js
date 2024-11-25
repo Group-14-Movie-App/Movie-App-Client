@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./screensStyles/ProfilePage.css"; // Create this CSS file for styling
+import Favorites from "../components/Profile_Components/Favorites";
+import "./screensStyles/ProfilePage.css";
 
 function ProfilePage() {
   const [userDetails, setUserDetails] = useState(null);
@@ -30,6 +31,9 @@ function ProfilePage() {
           <p><strong>City:</strong> {userDetails.city}</p>
         </div>
       </div>
+
+      {/* Render the Favorites Component */}
+      <Favorites userID={userDetails.userid} />
     </div>
   );
 }

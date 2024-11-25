@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import AddToFavorites from '../components/TMDBMovieDetails_Components/AddToFavorites';
 
 function TMDBtoFinkkinoMovieDetails() {
   const location = useLocation();
   const movie = location.state?.finnkinoMovie;
 
-  const [rating, setRating] = useState(0); // To hold the selected rating
-  const [comment, setComment] = useState(''); // To hold the user's comment
-  const [feedback, setFeedback] = useState(''); // To give feedback after submission
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
+  const [feedback, setFeedback] = useState('');
 
   if (!movie) {
     return <div>Movie details not found in Finnkino.</div>;
@@ -18,7 +19,6 @@ function TMDBtoFinkkinoMovieDetails() {
   };
 
   const handleSubmitReview = async () => {
-    // Retrieve the logged-in user's data from localStorage
     const user = JSON.parse(localStorage.getItem('user'));
 
     if (!user) {
@@ -38,8 +38,8 @@ function TMDBtoFinkkinoMovieDetails() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          userID: user.userid, // Use the logged-in user's ID from localStorage
-          movieTitle: movie.title, // Use the movie title
+          userID: user.userid,
+          movieTitle: movie.title,
           releaseDate: movie.productionYear ? `${movie.productionYear}-01-01` : null,
           description: comment,
           rating,
@@ -136,6 +136,18 @@ function TMDBtoFinkkinoMovieDetails() {
 
         {feedback && <p className="mt-3 text-success">{feedback}</p>}
       </div>
+
+      {/* Add to Favorites Section */}
+      {movie.title && movie.productionYear ? (
+        <AddToFavorites
+          movie={{
+            original_title: movie.title, // Match the field used in AddToFavorites
+            release_date: `${movie.productionYear}-01-01`, // Construct a full release date
+          }}
+        />
+      ) : (
+        <p className="text-danger">Movie details are incomplete for adding to favorites.</p>
+      )}
     </div>
   );
 }

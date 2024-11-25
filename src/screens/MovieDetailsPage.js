@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import AddToFavorites from '../components/TMDBMovieDetails_Components/AddToFavorites';
 
 function MovieDetailsPage() {
   const location = useLocation();
@@ -10,15 +11,21 @@ function MovieDetailsPage() {
   const [feedback, setFeedback] = useState(''); // To give feedback after submission
 
   if (!movie) {
-    return <div>Movie details not found.</div>; // We can add an error message showing component here
+    return <div>Movie details not found.</div>;
   }
+
+  // Ensure `movie` contains `original_title` and `release_date`
+  const movieDetails = {
+    original_title: movie.originalTitle || movie.title, // Use `title` if `originalTitle` is missing
+    release_date: movie.productionYear ? `${movie.productionYear}-01-01` : movie.startTime.split('T')[0],
+    ...movie, // Spread the rest of the movie object
+  };
 
   const handleRatingClick = (value) => {
     setRating(value);
   };
 
   const handleSubmitReview = async () => {
-    // Retrieve the logged-in user's data from sessionStorage
     const user = JSON.parse(localStorage.getItem('user'));
   
     if (!user) {
@@ -31,11 +38,8 @@ function MovieDetailsPage() {
       return;
     }
   
-    // Ensure the releaseDate is in YYYY-MM-DD format
-    const releaseDate = movie.productionYear
-      ? `${movie.productionYear}-01-01` // If only the year is available, assume January 1st
-      : movie.startTime.split('T')[0]; // If full date is available, use that
-  
+    const releaseDate = movieDetails.release_date;
+
     try {
       const response = await fetch('http://localhost:5000/reviews', {
         method: 'POST',
@@ -43,9 +47,9 @@ function MovieDetailsPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          userID: user.userid, // Use the logged-in user's ID from sessionStorage
-          movieTitle: movie.title, // Use the movie title
-          releaseDate, // Now sending the correct format
+          userID: user.userid,
+          movieTitle: movieDetails.original_title,
+          releaseDate,
           description: comment,
           rating,
         }),
@@ -58,7 +62,7 @@ function MovieDetailsPage() {
       } else {
         const errorData = await response.json();
         if (errorData.message.includes('already reviewed')) {
-          alert(`You have already reviewed the movie "${movie.title}".`);
+          alert(`You have already reviewed the movie "${movieDetails.original_title}".`);
         } else {
           setFeedback('Failed to submit review. Please try again.');
         }
@@ -68,7 +72,6 @@ function MovieDetailsPage() {
       setFeedback('An error occurred. Please try again.');
     }
   };
-  
 
   return (
     <div className="container mt-4">
@@ -142,6 +145,9 @@ function MovieDetailsPage() {
 
         {feedback && <p className="mt-3 text-success">{feedback}</p>}
       </div>
+
+      {/* Add to Favorites */}
+      <AddToFavorites movie={movieDetails} />
     </div>
   );
 }
