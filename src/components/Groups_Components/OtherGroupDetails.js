@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-//import "./OtherGroupDetails.css";
+import { useParams, useNavigate } from "react-router-dom";
+import "./OtherGroupDetails.css";
 
 function OtherGroupDetails() {
   const { groupID } = useParams();
+  const navigate = useNavigate();
   const [groupDetails, setGroupDetails] = useState(null);
   const [relationshipStatus, setRelationshipStatus] = useState(null); // "member", "pending", or null
   const [userID, setUserID] = useState(null);
@@ -27,7 +28,7 @@ function OtherGroupDetails() {
         );
         if (!statusResponse.ok) throw new Error("Failed to fetch relationship status.");
         const statusData = await statusResponse.json();
-        setRelationshipStatus(statusData.status); // "member" or "pending"
+        setRelationshipStatus(statusData.status); // "member", "pending", or null
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -35,6 +36,28 @@ function OtherGroupDetails() {
 
     if (user) fetchGroupDetails();
   }, [groupID]);
+
+  const handleSendRequest = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/group-join-requests", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userID, groupID }),
+      });
+
+      if (response.ok) {
+        alert("Join request sent successfully.");
+        setRelationshipStatus("pending");
+      } else {
+        const errorData = await response.json();
+        alert(errorData.message || "Failed to send join request.");
+      }
+    } catch (error) {
+      console.error("Error sending join request:", error);
+    }
+  };
 
   const handleRemoveMembership = async () => {
     try {
@@ -62,7 +85,7 @@ function OtherGroupDetails() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userID }),
       });
-  
+
       if (response.ok) {
         alert("Join request canceled.");
         setRelationshipStatus(null);
@@ -74,7 +97,16 @@ function OtherGroupDetails() {
       console.error("Error canceling request:", error);
     }
   };
-  
+
+  const handleGoToGroupPosts = () => {
+    if (relationshipStatus === "member") {
+      navigate(`/group-posts/${groupID}`);
+    } else if (relationshipStatus === "pending") {
+      alert("Your join request is still pending. You cannot view group posts yet.");
+    } else {
+      alert("You need to be a member of this group to view posts.");
+    }
+  };
 
   if (!groupDetails) {
     return <p>Loading group details...</p>;
@@ -84,20 +116,31 @@ function OtherGroupDetails() {
     <div className="other-group-details">
       <h1>{groupDetails.groupname}</h1>
       <p>{groupDetails.description || "No description available for this group."}</p>
-
-      {relationshipStatus === "member" && (
-        <button className="btn btn-danger" onClick={handleRemoveMembership}>
-          Remove from Group
+  
+      {/* Buttons container */}
+      <div className="button-container">
+        {relationshipStatus === "member" && (
+          <button className="btn btn-danger" onClick={handleRemoveMembership}>
+            Remove from Group
+          </button>
+        )}
+        {relationshipStatus === "pending" && (
+          <button className="btn btn-warning" onClick={handleCancelRequest}>
+            Cancel Request
+          </button>
+        )}
+        {relationshipStatus === null && (
+          <button className="btn btn-secondary" onClick={handleSendRequest}>
+            Send Request
+          </button>
+        )}
+        <button className="btn btn-primary" onClick={handleGoToGroupPosts}>
+          Go to Group Posts
         </button>
-      )}
-      {relationshipStatus === "pending" && (
-        <button className="btn btn-warning" onClick={handleCancelRequest}>
-          Cancel Request
-        </button>
-      )}
-      {!relationshipStatus && <p>You are not associated with this group.</p>}
+      </div>
     </div>
   );
+  
 }
 
 export default OtherGroupDetails;

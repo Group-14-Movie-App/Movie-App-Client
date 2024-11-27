@@ -116,18 +116,31 @@ function MyGroupDetails() {
 
       <h3>Join Requests</h3>
       {joinRequests.length > 0 ? (
-        <ul>
+        <ul className="join-requests-list">
           {joinRequests.map((request) => (
             <li key={request.userid}>
-              {request.firstname} {request.lastname}
-              <button onClick={() => handleAcceptRequest(request.userid)}>Accept</button>
-              <button onClick={() => handleDeclineRequest(request.userid)}>Decline</button>
+              <span>{request.firstname} {request.lastname}</span>
+              <div className="request-actions">
+                <button
+                  className="btn-accept"
+                  onClick={() => handleAcceptRequest(request.userid)}
+                >
+                  Accept
+                </button>
+                <button
+                  className="btn-decline"
+                  onClick={() => handleDeclineRequest(request.userid)}
+                >
+                  Decline
+                </button>
+              </div>
             </li>
           ))}
         </ul>
-      ) : (
+        ) : (
         <p>No join requests at the moment.</p>
       )}
+
 
       <h3>Current Members</h3>
       {members.length > 0 ? (
@@ -150,7 +163,9 @@ function MyGroupDetails() {
         <p>No members in this group yet.</p>
       )}
 
-      <button onClick={() => navigate(`/group-posts/${groupID}`)}>Go to Group Posts</button>
+    <button onClick={() => navigate(`/my-group-posts/${groupID}`)} className="btn btn-primary">
+      Go to Group Posts
+    </button>
     </div>
   );
 }

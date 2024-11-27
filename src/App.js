@@ -12,6 +12,9 @@ import GroupsPage from "./screens/GroupsMainPage.js";
 import MovieReviewsPage from "./screens/MovieReviewsPage.js"; // Import the new component
 import MyGroupDetails from "./components/Groups_Components/MyGroupDetails.js";
 import OtherGroupDetails from "./components/Groups_Components/OtherGroupDetails.js";
+import OtherGroupPosts from "./components/Groups_Components/OtherGroupPosts.js";
+import MyGroupPosts from "./components/Groups_Components/MyGroupPosts.js";
+
 import GroupCard from "./components/Groups_Components/GroupCard.js"; 
 import TMDBMovieDetails from "./screens/TMDBMovieDetails.js";
 import TMDBtoFinkkinoMovieDetails from "./screens/TMDBtoFinkkinoMovieDetails.js";
@@ -119,6 +122,8 @@ function App() {
         <Route path="/my-group-details/:groupID" element={<MyGroupDetails />} />
         <Route path="/other-group-details/:groupID" element={<OtherGroupDetails />} />
 
+        <Route path="/group-posts/:groupID" element={<OtherGroupPosts />} />
+        <Route path="/my-group-posts/:groupID" element={<MyGroupPosts />} />
       </Routes>
       </div>
     </div>

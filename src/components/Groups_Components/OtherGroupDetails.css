@@ -1,0 +1,96 @@
+/* Scope styles specifically to the .other-group-details container */
+.other-group-details {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Group title styling */
+  .other-group-details h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  /* Group description styling */
+  .other-group-details p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Buttons container for better alignment */
+  .other-group-details .button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Add spacing between buttons */
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  /* Buttons styling */
+  .other-group-details button {
+    width: 200px; /* Fixed width for uniformity */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  /* Primary button styling */
+  .other-group-details .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .other-group-details .btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+  }
+  
+  /* Danger button styling */
+  .other-group-details .btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  .other-group-details .btn-danger:hover {
+    background-color: #b02a37;
+    transform: scale(1.05);
+  }
+  
+  /* Warning button styling */
+  .other-group-details .btn-warning {
+    background-color: #ffc107;
+    color: #212529;
+  }
+  
+  .other-group-details .btn-warning:hover {
+    background-color: #e0a800;
+    transform: scale(1.05);
+  }
+  
+  /* Secondary button styling */
+  .other-group-details .btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+  }
+  
+  .other-group-details .btn-secondary:hover {
+    background-color: #5a6268;
+    transform: scale(1.05);
+  }
+  
+  /* Add margin to separate sections visually */
+  .other-group-details .mt-4 {
+    margin-top: 20px;
+  }
+  
