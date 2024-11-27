@@ -8,9 +8,10 @@ import SearchPage from "./screens/SearchPage.js";
 import ReviewsPage from "./screens/ReviewsPage.js";
 import SignInPage from "./screens/SignInPage.js";
 import RegisterPage from "./screens/RegisterPage.js";
-import GroupsPage from "./screens/GroupsPage.js";
+import GroupsPage from "./screens/GroupsMainPage.js";
 import MovieReviewsPage from "./screens/MovieReviewsPage.js"; // Import the new component
-import GroupDetails from "./components/Groups_Components/groupDetails.js";
+import MyGroupDetails from "./components/Groups_Components/MyGroupDetails.js";
+import OtherGroupDetails from "./components/Groups_Components/OtherGroupDetails.js";
 import GroupCard from "./components/Groups_Components/GroupCard.js"; 
 import TMDBMovieDetails from "./screens/TMDBMovieDetails.js";
 import TMDBtoFinkkinoMovieDetails from "./screens/TMDBtoFinkkinoMovieDetails.js";
@@ -96,7 +97,7 @@ function App() {
 
           <Route path="/showtimes-page" element={<ShowtimesPage />} />          
           <Route path="/search-page" element={<SearchPage />} />
-          <Route path="/groups-page" element={<GroupsPage />} />
+          
           <Route path="/reviews-page" element={<ReviewsPage />} />
           <Route path="/sign-in-page" element={<SignInPage />} />
           <Route path="/register-page" element={<RegisterPage />} />
@@ -106,11 +107,18 @@ function App() {
          {/* Home route for rendering all group cards */}
         <Route path="/" element={<GroupList />} />
         {/* Group details route */}
-        <Route path="/group-details/:groupId" element={<GroupDetailsWrapper />} />
+        
+
 
         {/* Favourites Related routes */}
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/favorites/:favoriteID" element={<FavoriteGroupDetails />} />
+
+        {/* Groups Related routes */}
+        <Route path="/groups-page" element={<GroupsPage />} />
+        <Route path="/my-group-details/:groupID" element={<MyGroupDetails />} />
+        <Route path="/other-group-details/:groupID" element={<OtherGroupDetails />} />
+
       </Routes>
       </div>
     </div>
@@ -137,7 +145,7 @@ const GroupList = () => {
 // Wrapper for GroupDetails to pass groupId from URL
 const GroupDetailsWrapper = () => {
   const { groupId } = useParams();
-  return <GroupDetails groupId={groupId} />;
+  return <MyGroupDetails groupId={groupId} />;
 };
 
 
