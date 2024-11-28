@@ -17,7 +17,7 @@ function HomePage() {
 
   // Handle TMDb movie click
   function handleTmdbClick(movie) {
-    navigate(`/reviews?${encodeURIComponent(movie.title)}`, {
+    navigate(`/tmdb-movie-details/${movie.tmdbId}`, {
       state: { movie },
     });
   }
@@ -48,7 +48,7 @@ function HomePage() {
       {/* TopBar */}
       <div className="d-flex justify-content-between align-items-center mb-3">
         {/* Search Bar */}
-        <form
+        {/* <form
           className="input-group input-group-sm mb-2 "
           style={{ marginRight: "50px" }}
         >
@@ -78,7 +78,7 @@ function HomePage() {
               Search
             </button>
           </div>
-        </form>
+        </form> */}
 
         {/* NavBar */}
         <ul class="nav d-flex" style={{ minWidth: "180px" }}>
@@ -114,12 +114,12 @@ function HomePage() {
 
       {/* Finnkino movies */}
       <div>
+        <p className={styles.title}>Now Playing</p>
         <MovieFetcher
           setMoviesList={setMoviesList}
           setLimitedMovies={setLimitedMovies}
         />
       </div>
-      <p className={styles.title}>Now Playing</p>
       <div>
         <MovieCards
           movieList={limitedMovies}
