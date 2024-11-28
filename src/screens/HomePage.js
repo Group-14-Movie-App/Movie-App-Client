@@ -12,7 +12,7 @@ function HomePage() {
   const [TmdbMovies, setTmdbMovies] = useState([]);
   const [TmdbLimitedMovies, setTmdbLimitedMovies] = useState([]); //For TMDb
   // Save search query
-  const [searchQuery, setSearchQuery] = useState("");
+  // const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
   // Handle TMDb movie click
