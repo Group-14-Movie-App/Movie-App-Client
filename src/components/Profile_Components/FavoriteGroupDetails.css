@@ -1,49 +1,91 @@
-.favorite-group-details {
-    margin: 20px;
-  }
-  
-  .movie-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
-    gap: 20px;
-    justify-content: center;
-    max-width: 800px; /* Set a maximum width for the grid */
-    margin: 0 auto; /* Center the grid on the page */
-  }
-  
-  
-  
-  .card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: #f9f9f9;
-    transition: transform 0.2s;
-  }
-  
-  .card:hover {
-    transform: scale(1.05);
-  }
-  
-  .card-img-top {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-  }
-  
-  .card-body {
-    padding: 15px;
-    text-align: center;
-  }
-  
-  .card-body h5 {
-    font-size: 18px;
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
-  
-  .card-body p {
-    font-size: 14px;
-    color: #555;
-  }
-  
+.share-buttons-modern {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.share-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.share-icon span {
+  margin-left: 5px;
+  z-index: 1; /* Ensure the text stays on top */
+}
+
+.share-icon::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  z-index: 0;
+  transition: left 0.3s ease-in-out;
+}
+
+.share-icon:hover::before {
+  left: 100%;
+}
+
+.share-icon:hover {
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.share-icon.whatsapp {
+  background-color: #25d366;
+}
+
+.share-icon.facebook {
+  background-color: #3b5998;
+}
+
+.share-icon.twitter {
+  background-color: #1da1f2;
+}
+
+.share-icon.telegram {
+  background-color: #0088cc;
+}
+
+.share-icon.copy {
+  background-color: #6c757d;
+}
+
+.share-icon:hover.whatsapp {
+  background-color: #1ebe57;
+}
+
+.share-icon:hover.facebook {
+  background-color: #304d86;
+}
+
+.share-icon:hover.twitter {
+  background-color: #1991d1;
+}
+
+.share-icon:hover.telegram {
+  background-color: #0075b5;
+}
+
+.share-icon:hover.copy {
+  background-color: #5a6268;
+}
