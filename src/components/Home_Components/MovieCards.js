@@ -25,9 +25,13 @@ function MovieCards({
       };
 
       if (isTmdbMovies) {
-        navigate(`/movie/${movie.tmdbId}`, { state: { movie: completeMovie } });
+        navigate(`/tmdb-movie-details/${movie.tmdbId}`, {
+          state: { movie: completeMovie },
+        });
       } else {
-        navigate(`/movie/${movie.id}`, { state: { movie: completeMovie } });
+        navigate(`/movie-details/${movie.id}`, {
+          state: { movie: completeMovie },
+        });
       }
     } else if (navigateTo === "reviews") {
       navigate(`/movie-reviews/${movie.title}`);

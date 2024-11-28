@@ -1,7 +1,5 @@
 import { Link, Route, Routes } from "react-router-dom";
 import { useParams } from "react-router-dom";
-
-// Screen Components
 import HomePage from "./screens/HomePage.js";
 import ProfilePage from "./screens/ProfilePage.js";
 import MovieDetailsPage from "./screens/MovieDetailsPage.js";
@@ -10,25 +8,21 @@ import SearchPage from "./screens/SearchPage.js";
 import ReviewsPage from "./screens/ReviewsPage.js";
 import SignInPage from "./screens/SignInPage.js";
 import RegisterPage from "./screens/RegisterPage.js";
-import MovieReviewsPage from "./screens/MovieReviewsPage.js";
-import TMDBMovieDetails from "./screens/TMDBMovieDetails.js";
-import TMDBtoFinkkinoMovieDetails from "./screens/TMDBtoFinkkinoMovieDetails.js";
-import UserFavourites from "./screens/UserFavourites.js"; // Import UserFavourites component
-
-// Groups Components
 import GroupsPage from "./screens/GroupsMainPage.js";
+import MovieReviewsPage from "./screens/MovieReviewsPage.js"; // Import the new component
 import MyGroupDetails from "./components/Groups_Components/MyGroupDetails.js";
 import OtherGroupDetails from "./components/Groups_Components/OtherGroupDetails.js";
-import MyGroupPosts from "./components/Groups_Components/MyGroupPosts.js";
 import OtherGroupPosts from "./components/Groups_Components/OtherGroupPosts.js";
+import MyGroupPosts from "./components/Groups_Components/MyGroupPosts.js";
 
-// Favourites Components
+import UserFavourites from "./screens/UserFavourites.js"; // Import the UserFavourites component
+
+import GroupCard from "./components/Groups_Components/GroupCard.js"; 
+import TMDBMovieDetails from "./screens/TMDBMovieDetails.js";
+import TMDBtoFinkkinoMovieDetails from "./screens/TMDBtoFinkkinoMovieDetails.js";
 import FavoriteGroupDetails from "./components/Profile_Components/FavoriteGroupDetails.js";
-
-// Shared Components
-import GroupCard from "./components/Groups_Components/GroupCard.js";
-
 import "./App.css";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
@@ -37,7 +31,7 @@ import {
   faUser,
   faUsers,
   faStar,
-  faHeart, // Heart icon for Favorites
+  faHeart,
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -83,13 +77,14 @@ function App() {
               <small>Reviews</small>
             </Link>
           </li>
+        </ul>
+
           <li>
             <Link to="/user-favourites">
               <FontAwesomeIcon icon={faHeart} />
               <small>Favorites</small>
             </Link>
           </li>
-        </ul>
 
         {/* Logout Button Positioned at Bottom */}
         <div className="logout">
@@ -103,75 +98,54 @@ function App() {
       {/* Main Content Area */}
       <div className="content">
         <Routes>
-          {/* General Pages */}
+          {/* Set HomePage as default page */}
           <Route path="/" element={<HomePage />} index />
           <Route path="/home-page" element={<HomePage />} />
           <Route path="/profile-page" element={<ProfilePage />} />
 
-          {/* Movie Pages */}
           <Route path="/movie/:id" element={<MovieDetailsPage />} />
-          <Route
-            path="/tmdb-movie-details/:id"
-            element={<TMDBMovieDetails />}
-          />
-          <Route
-            path="/tmdb-to-finnkino-details"
-            element={<TMDBtoFinkkinoMovieDetails />}
-          />
-          <Route
-            path="/movie-reviews/:movieTitle/:releaseDate"
-            element={<MovieReviewsPage />}
-          />
+          <Route path="/tmdb-movie-details/:id" element={<TMDBMovieDetails />} />
+          <Route path="/tmdb-to-finnkino-details" element={<TMDBtoFinkkinoMovieDetails />} />
 
-          {/* Showtimes and Search */}
-          <Route path="/showtimes-page" element={<ShowtimesPage />} />
+
+          <Route path="/showtimes-page" element={<ShowtimesPage />} />          
           <Route path="/search-page" element={<SearchPage />} />
-
-          {/* Reviews */}
+          
           <Route path="/reviews-page" element={<ReviewsPage />} />
-
-          {/* Authentication Pages */}
           <Route path="/sign-in-page" element={<SignInPage />} />
           <Route path="/register-page" element={<RegisterPage />} />
+          {/* New route for displaying reviews of a specific movie */}
+          <Route path="/movie-reviews/:movieTitle/:releaseDate" element={<MovieReviewsPage />} />
 
-          {/* Favorites Related Routes */}
-          <Route path="/user-favourites" element={<UserFavourites />} />
-          <Route
-            path="/favorites/:favoriteID"
-            element={<FavoriteGroupDetails />}
-          />
+         {/* Home route for rendering all group cards */}
+        <Route path="/" element={<GroupList />} />
+        {/* Group details route */}
+        
 
-          {/* Groups Related Routes */}
-          <Route path="/groups-page" element={<GroupsPage />} />
-          <Route
-            path="/my-group-details/:groupID"
-            element={<MyGroupDetails />}
-          />
-          <Route
-            path="/other-group-details/:groupID"
-            element={<OtherGroupDetails />}
-          />
-          <Route path="/my-group-posts/:groupID" element={<MyGroupPosts />} />
-          <Route path="/group-posts/:groupID" element={<OtherGroupPosts />} />
-        </Routes>
+
+        {/* Favourites Related routes */}
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/favorites/:favoriteID" element={<FavoriteGroupDetails />} />
+
+        {/* Groups Related routes */}
+        <Route path="/groups-page" element={<GroupsPage />} />
+        <Route path="/my-group-details/:groupID" element={<MyGroupDetails />} />
+        <Route path="/other-group-details/:groupID" element={<OtherGroupDetails />} />
+
+        <Route path="/group-posts/:groupID" element={<OtherGroupPosts />} />
+        <Route path="/my-group-posts/:groupID" element={<MyGroupPosts />} />
+
+        <Route path="/user-favourites" element={<UserFavourites />} />
+
+      </Routes>
       </div>
     </div>
   );
 }
-
-// Dummy GroupList Component
 const GroupList = () => {
   const groups = [
-    {
-      groupid: "1",
-      groupname: "Movie Lovers",
-      description: "A group for movie fans",
-    },
-    {
-      groupid: "2",
-      groupname: "Tech Geeks",
-      description: "Discuss technology trends",
-    },
+    { groupid: "1", groupname: "Movie Lovers", description: "A group for movie fans" },
+    { groupid: "2", groupname: "Tech Geeks", description: "Discuss technology trends" },
   ];
 
   return (
@@ -185,5 +159,12 @@ const GroupList = () => {
     </div>
   );
 };
+
+// Wrapper for GroupDetails to pass groupId from URL
+const GroupDetailsWrapper = () => {
+  const { groupId } = useParams();
+  return <MyGroupDetails groupId={groupId} />;
+};
+
 
 export default App;

@@ -2,24 +2,17 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import AddToFavorites from '../components/TMDBMovieDetails_Components/AddToFavorites';
 
-function MovieDetailsPage() {
+function TMDBtoFinkkinoMovieDetails() {
   const location = useLocation();
-  const movie = location.state?.movie;
+  const movie = location.state?.finnkinoMovie;
 
-  const [rating, setRating] = useState(0); // To hold the selected rating
-  const [comment, setComment] = useState(''); // To hold the user's comment
-  const [feedback, setFeedback] = useState(''); // To give feedback after submission
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
+  const [feedback, setFeedback] = useState('');
 
   if (!movie) {
-    return <div>Movie details not found.</div>;
+    return <div>Movie details not found in Finnkino.</div>;
   }
-
-  // Ensure `movie` contains `original_title` and `release_date`
-  const movieDetails = {
-    original_title: movie.originalTitle || movie.title, // Use `title` if `originalTitle` is missing
-    release_date: movie.productionYear ? `${movie.productionYear}-01-01` : movie.startTime.split('T')[0],
-    ...movie, // Spread the rest of the movie object
-  };
 
   const handleRatingClick = (value) => {
     setRating(value);
@@ -27,18 +20,16 @@ function MovieDetailsPage() {
 
   const handleSubmitReview = async () => {
     const user = JSON.parse(localStorage.getItem('user'));
-  
+
     if (!user) {
       setFeedback('Please log in to submit a review.');
       return;
     }
-  
+
     if (!rating || !comment.trim()) {
       setFeedback('Please provide both a rating and a comment.');
       return;
     }
-  
-    const releaseDate = movieDetails.release_date;
 
     try {
       const response = await fetch('http://localhost:5000/reviews', {
@@ -48,13 +39,13 @@ function MovieDetailsPage() {
         },
         body: JSON.stringify({
           userID: user.userid,
-          movieTitle: movieDetails.original_title,
-          releaseDate,
+          movieTitle: movie.title,
+          releaseDate: movie.productionYear ? `${movie.productionYear}-01-01` : null,
           description: comment,
           rating,
         }),
       });
-  
+
       if (response.ok) {
         setFeedback('Thank you for your review!');
         setRating(0);
@@ -62,7 +53,7 @@ function MovieDetailsPage() {
       } else {
         const errorData = await response.json();
         if (errorData.message.includes('already reviewed')) {
-          alert(`You have already reviewed the movie "${movieDetails.original_title}".`);
+          alert(`You have already reviewed the movie "${movie.title}".`);
         } else {
           setFeedback('Failed to submit review. Please try again.');
         }
@@ -90,7 +81,7 @@ function MovieDetailsPage() {
       <p><strong>Spoken Language:</strong> {movie.spokenLanguage}</p>
       <p><strong>Subtitles:</strong> {movie.subtitleLanguage1}, {movie.subtitleLanguage2}</p>
 
-      {movie.contentDescriptors.length > 0 && (
+      {movie.contentDescriptors?.length > 0 && (
         <div>
           <strong>Content Descriptors:</strong>
           <ul>
@@ -146,10 +137,19 @@ function MovieDetailsPage() {
         {feedback && <p className="mt-3 text-success">{feedback}</p>}
       </div>
 
-      {/* Add to Favorites */}
-      <AddToFavorites movie={movieDetails} />
+      {/* Add to Favorites Section */}
+      {movie.title && movie.productionYear ? (
+        <AddToFavorites
+          movie={{
+            original_title: movie.title, // Match the field used in AddToFavorites
+            release_date: `${movie.productionYear}-01-01`, // Construct a full release date
+          }}
+        />
+      ) : (
+        <p className="text-danger">Movie details are incomplete for adding to favorites.</p>
+      )}
     </div>
   );
 }
 
-export default MovieDetailsPage;
+export default TMDBtoFinkkinoMovieDetails;

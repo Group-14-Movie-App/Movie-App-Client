@@ -1,0 +1,170 @@
+.group-details {
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 800px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.group-details h1 {
+  margin-bottom: 15px;
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+}
+
+.group-details p {
+  font-size: 16px;
+  color: #666;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 20px;
+  color: #555;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 5px;
+}
+
+.members-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.member-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.member-item:hover {
+  background-color: #f0f0f0;
+}
+
+.member-item div {
+  font-size: 16px;
+  color: #444;
+}
+
+.member-item button {
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.member-item button:hover {
+  background-color: #c9302c;
+  transform: scale(1.05);
+}
+
+ul {
+  padding-left: 0;
+}
+
+li {
+  list-style: none;
+}
+
+button.btn-primary {
+  display: block;
+  margin: 30px auto;
+  padding: 10px 20px;
+  background-color: #0275d8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button.btn-primary:hover {
+  background-color: #025aa5;
+  transform: scale(1.05);
+}
+
+button.btn-danger {
+  margin-left: 10px;
+}
+
+.button-container {
+  text-align: center;
+}
+
+.join-requests-list li,
+.current-members-list li {
+  margin-bottom: 10px;
+}
+
+
+
+
+
+/* Styles for Accept and Decline buttons */
+.request-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.request-actions button {
+  padding: 8px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.request-actions .btn-accept {
+  background-color: #5cb85c;
+  color: white;
+}
+
+.request-actions .btn-accept:hover {
+  background-color: #4cae4c;
+  transform: scale(1.05);
+}
+
+.request-actions .btn-decline {
+  background-color: #d9534f;
+  color: white;
+}
+
+.request-actions .btn-decline:hover {
+  background-color: #c9302c;
+  transform: scale(1.05);
+}
+
+/* Request list item styling */
+ul.join-requests-list li {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+
+
+

@@ -1,0 +1,54 @@
+.favorites-container {
+  margin-top: 20px;
+}
+
+.favorites-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive grid for groups */
+  gap: 15px;
+}
+
+.favorite-group {
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.favorite-group:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-group-form {
+  margin-top: 20px;
+}
+
+.add-group-form input {
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 70%;
+}
+
+.add-group-form button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-group-form button:hover {
+  background-color: #0056b3;
+}
+
+.feedback-message {
+  color: green;
+  margin-top: 10px;
+}

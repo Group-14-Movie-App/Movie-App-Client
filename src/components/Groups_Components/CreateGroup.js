@@ -1,94 +1,71 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-function CreateGroup({ onCreate }) {
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [error, setError] = useState(null);
-    const [success, setSuccess] = useState(null);
+function CreateGroup() {
+  const [groupName, setGroupName] = useState("");
+  const [description, setDescription] = useState("");
+  const [feedback, setFeedback] = useState("");
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+  const handleCreateGroup = async () => {
+    if (!groupName.trim()) {
+      setFeedback("Group name is required.");
+      return;
+    }
 
-        // Retrieve the logged-in user's data from localStorage
-        const user = JSON.parse(localStorage.getItem('user'));  // Assuming the logged-in user is stored in localStorage as 'user'
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      setFeedback("Please log in to create a group.");
+      return;
+    }
 
-        // Check if the user is logged in and has a valid user ID
-        if (!user || !user.userid) {
-            setError("You must be logged in to create a group.");
-            return;
-        }
+    try {
+      const response = await fetch("http://localhost:5000/groups", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          groupName,
+          description,
+          ownerID: user.userid,
+        }),
+      });
 
-        const ownerID = user.userid;  // Use the logged-in user's ID as the ownerID
+      if (response.ok) {
+        setFeedback("Group created successfully!");
+        setGroupName("");
+        setDescription("");
+      } else {
+        const errorData = await response.json();
+        setFeedback(errorData.message || "Failed to create group.");
+      }
+    } catch (error) {
+      console.error("Error creating group:", error);
+      setFeedback("An error occurred. Please try again.");
+    }
+  };
 
-        // Debugging logs
-        console.log("Group Name:", name);
-        console.log("Group Description:", description);
-        console.log("Owner ID:", ownerID);
-
-        // Ensure that the group name and description are provided
-        if (!name || !description) {
-            setError("Both group name and description are required.");
-            return;
-        }
-
-        try {
-            const response = await fetch('http://localhost:5000/CreateGroup', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    groupName: name,  
-                    description, 
-                    ownerID,       // Send the logged-in user's ID as ownerID
-                }),
-        
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                console.log("Group created:", data);
-                setSuccess("Group created successfully!");
-                setName('');
-                setDescription('');
-                onCreate(data.group); // Notify parent component about the new group
-            } else {
-                const errorData = await response.json();
-                setError(errorData.message || "Failed to create group.");
-            }
-        } catch (err) {
-            console.error("Error creating group:", err);
-            setError("An error occurred. Please try again.");
-        }
-    };
-
-    return (
-        <div className="create-group">
-            <h1>Create a Group</h1>
-            {error && <p className="error-message">{error}</p>}
-            {success && <p className="success-message">{success}</p>}
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label>Group Name</label>
-                    <input
-                        type="text"
-                        placeholder="Enter group name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Group Description</label>
-                    <textarea
-                        placeholder="Enter group description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit">Create Group</button>
-            </form>
-        </div>
-    );
+  return (
+    <div className="create-group">
+        <h2>Create Group</h2>
+        <input
+            type="text"
+            placeholder="Group Name"
+            value={groupName}
+            onChange={(e) => setGroupName(e.target.value)}
+            className="form-control mb-2"
+        />
+        <textarea
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="form-control mb-2"
+        />
+        <button onClick={handleCreateGroup} className="btn btn-primary">
+            Create Group
+        </button>
+        {feedback && <p className="feedback-message">{feedback}</p>}
+    </div>
+  );
 }
 
 export default CreateGroup;
