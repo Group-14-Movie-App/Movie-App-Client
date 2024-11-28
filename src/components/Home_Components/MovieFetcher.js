@@ -67,10 +67,14 @@ export default function MovieFetcher({ setMoviesList, setLimitedMovies }) {
         console.log(shows.map((movie) => movie.rating));
         //Sort by Rating in descending order
         const sortedMovies = [...shows].sort((a, b) => b.rating - a.rating);
-        // Limit to 6 movies to start with
-        const limitedMovies = sortedMovies.slice(0, 6);
         setMoviesList(sortedMovies);
-        setLimitedMovies(limitedMovies);
+
+        // Limit to 6 movies to start with
+        if (setLimitedMovies) {
+          const limitedMovies = sortedMovies.slice(0, 6);
+          setLimitedMovies(limitedMovies);
+        }
+
         setLoading(false);
       })
       .catch((error) => {

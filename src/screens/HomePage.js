@@ -7,38 +7,41 @@ import TmdbFetcher from "../components/Home_Components/TmdbFetcher.js";
 import styles from "./screensStyles/HomePage.module.css";
 
 function HomePage() {
-  const [moviesList, setMoviesList] = useState([]);
-  const [limitedMovies, setLimitedMovies] = useState([]); //For Finnkino
+  const [moviesList, setMoviesList] = useState([]); //Finnkino Movies
+  const [limitedMovies, setLimitedMovies] = useState([]); // Limited Finnkino
   const [TmdbMovies, setTmdbMovies] = useState([]);
   const [TmdbLimitedMovies, setTmdbLimitedMovies] = useState([]); //For TMDb
   // Save search query
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
-  // Handle search button
-  function handleSearchClick() {
-    navigate(`/search-page?query=${searchQuery}`);
+  // Handle TMDb movie click
+  function handleTmdbClick(movie) {
+    navigate(`/reviews?${encodeURIComponent(movie.title)}`, {
+      state: { movie },
+    });
+  }
+
+  // Handle NowPlaying click
+  function handleNowPlayingClick(movie) {
+    navigate(`/movie/${movie.id}`, { state: { movie } });
   }
 
   // Handle Enter key press to submit
-  function handleKeyDown(e) {
-    if (e.key === "Enter") {
-      handleSearchClick();
-    }
-  }
+  // function handleKeyDown(e) {
+  //   if (e.key === "Enter") {
+  //     handleSearchClick();
+  //   }
+  // }
 
   // Handle "See More"
-  function handleNowShowingSeeMoreClick() {
-    navigate("/showtimes-page");
-  }
-
   function handlePopularSeeMoreClick() {
     navigate("/search-page");
   }
 
-  // function handleTmdbCardClick(movieId) {
-  //   navigate(`/movie/${movieId}`, { state: { movieId, source: "tmdb" } });
-  // }
+  function handleNowShowingSeeMoreClick() {
+    navigate("/showtimes-page");
+  }
 
   return (
     <div>
@@ -57,13 +60,20 @@ function HomePage() {
             placeholder="Find Your Favorite"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={handleKeyDown} // Add key down eventListener
+            onKeyDown={(e) =>
+              e.key === "Enter" &&
+              navigate(`/search-page?query=${encodeURIComponent(searchQuery)}`)
+            } // Add key down eventListener
           />
           <div class="input-group-prepend">
             <button
               class="input-group-text"
               id="inputGroup-sizing-sm"
-              onClick={handleSearchClick}
+              onClick={() =>
+                navigate(
+                  `/search-page?query=${encodeURIComponent(searchQuery)}`
+                )
+              }
             >
               Search
             </button>
@@ -92,7 +102,11 @@ function HomePage() {
           setTmdbMovies={setTmdbMovies}
           setLimitedMovies={setTmdbLimitedMovies}
         />
-        <MovieCards movieList={TmdbLimitedMovies} isTmdbMovies={true} />
+        <MovieCards
+          movieList={TmdbLimitedMovies}
+          isTmdbMovies={true}
+          onCardClick={handleTmdbClick}
+        />
         <button onClick={handlePopularSeeMoreClick} className="nav-link">
           See More...
         </button>
@@ -107,7 +121,11 @@ function HomePage() {
       </div>
       <p className={styles.title}>Now Playing</p>
       <div>
-        <MovieCards movieList={limitedMovies} isTmdbMovies={false} />
+        <MovieCards
+          movieList={limitedMovies}
+          isTmdbMovies={false}
+          onCardClick={handleNowPlayingClick}
+        />
         <button onClick={handleNowShowingSeeMoreClick} className="nav-link">
           See More...
         </button>

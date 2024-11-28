@@ -1,28 +1,36 @@
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function MovieCards({ movieList, isTmdbMovies = false }) {
+function MovieCards({
+  movieList,
+  isTmdbMovies = false,
+  navigateTo = "details",
+}) {
   const navigate = useNavigate();
 
   // Navigate to MovieDetailsPage
   const handleCardClick = (movie) => {
-    const completeMovie = {
-      ...movie,
-      contentDescriptors: movie.contentDescriptors || [],
-      spokenLanguage: movie.spokenLanguage || "",
-      subtitleLanguage1: movie.subtitleLanguage1 || "",
-      subtitleLanguage2: movie.subtitleLanguage2 || "",
-      productionYear: movie.productionYear || "Unknown",
-      eventType: movie.eventType || "",
-      theatreAndAuditorium: movie.theatreAndAuditorium || "",
-      genres: movie.genres || "",
-      ratingImageUrl: movie.ratingImageUrl || "",
-    };
+    if (navigateTo === "details") {
+      const completeMovie = {
+        ...movie,
+        contentDescriptors: movie.contentDescriptors || [],
+        spokenLanguage: movie.spokenLanguage || "",
+        subtitleLanguage1: movie.subtitleLanguage1 || "",
+        subtitleLanguage2: movie.subtitleLanguage2 || "",
+        productionYear: movie.productionYear || "Unknown",
+        eventType: movie.eventType || "",
+        theatreAndAuditorium: movie.theatreAndAuditorium || "",
+        genres: movie.genres || "",
+        ratingImageUrl: movie.ratingImageUrl || "",
+      };
 
-    if (isTmdbMovies) {
-      navigate(`/movie/${movie.tmdbId}`, { state: { movie: completeMovie } });
-    } else {
-      navigate(`/movie/${movie.id}`, { state: { movie: completeMovie } });
+      if (isTmdbMovies) {
+        navigate(`/movie/${movie.tmdbId}`, { state: { movie: completeMovie } });
+      } else {
+        navigate(`/movie/${movie.id}`, { state: { movie: completeMovie } });
+      }
+    } else if (navigateTo === "reviews") {
+      navigate(`/movie-reviews/${movie.title}`);
     }
   };
 
@@ -30,7 +38,10 @@ function MovieCards({ movieList, isTmdbMovies = false }) {
     <div className="container">
       <div className="row">
         {movieList.map((movie) => (
-          <div className="col-lg-2 col-sm-4 mb-4" key={movie.id}>
+          <div
+            className="col-lg-2 col-sm-4 mb-4"
+            key={movie.id || movie.tmdbId}
+          >
             <div
               className="card h-100"
               // Add handleCardClick function

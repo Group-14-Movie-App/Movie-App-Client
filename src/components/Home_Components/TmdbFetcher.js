@@ -1,12 +1,27 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function TmdbFetcher({ setTmdbMovies, setLimitedMovies }) {
+export default function TmdbFetcher({
+  setTmdbMovies,
+  setLimitedMovies,
+  category = "popular",
+}) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const genreMap = {
+    action: 28,
+    comedy: 35,
+    horror: 27,
+    romance: 10749,
+    crime: 80,
+  };
+
   useEffect(() => {
-    const apiKey = "fd1da3e9c33f64d6ef2a086b20a562f8";
-    const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=1`;
+    const apiKey = process.env.REACT_APP_TMDB_API_KEY;
+    const url =
+      genreMap[category] !== undefined
+        ? `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&with_genres=${genreMap[category]}&page=1`
+        : `https://api.themoviedb.org/3/movie/${category}?api_key=${apiKey}&language=en-US&page=1`;
 
     fetch(url)
       .then((response) => response.json())
@@ -36,7 +51,7 @@ export default function TmdbFetcher({ setTmdbMovies, setLimitedMovies }) {
         setError(error.message);
         setLoading(false);
       });
-  }, [setTmdbMovies, setLimitedMovies]);
+  }, [category, setTmdbMovies, setLimitedMovies]);
 
   if (loading) {
     return <div>Loading...</div>;
