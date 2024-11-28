@@ -58,8 +58,7 @@ function MyGroupPosts() {
         setNewPostContent("");
         alert("Post added successfully.");
       } else {
-        const errorData = await response.json();
-        alert(errorData.message || "Failed to add post. Please try again.");
+        alert("Failed to add post. Please try again.");
       }
     } catch (error) {
       console.error("Error adding post:", error);
@@ -143,7 +142,7 @@ function MyGroupPosts() {
               key={post.postid}
               className={`post-card ${post.userid === ownerID ? "admin-post" : ""}`}
             >
-              {editPostID === post.postid ? (
+              {editPostID === post.postid && post.userid === ownerID ? (
                 <>
                   <textarea
                     value={editPostContent}
@@ -167,24 +166,22 @@ function MyGroupPosts() {
                     Posted by: {post.firstname} {post.lastname}
                   </p>
                   {post.userid === ownerID && (
-                    <>
-                      <button
-                        className="btn btn-warning"
-                        onClick={() => {
-                          setEditPostID(post.postid);
-                          setEditPostContent(post.content);
-                        }}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => handleDeletePost(post.postid)}
-                      >
-                        Delete
-                      </button>
-                    </>
+                    <button
+                      className="btn btn-warning"
+                      onClick={() => {
+                        setEditPostID(post.postid);
+                        setEditPostContent(post.content);
+                      }}
+                    >
+                      Edit
+                    </button>
                   )}
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => handleDeletePost(post.postid)}
+                  >
+                    Delete
+                  </button>
                 </>
               )}
             </div>
