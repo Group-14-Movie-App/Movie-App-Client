@@ -1,34 +1,108 @@
 .card {
-    border: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
-    cursor: pointer;
-  }
-  
+  position: relative;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  background: linear-gradient(135deg, #ffffff, #f3e5f5);
+  overflow: hidden;
+}
+
 .card:hover {
-transform: scale(1.03);
+  transform: scale(1.08) rotate(-1deg);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
 .card-img-top {
-height: 200px;
-object-fit: cover;
-border-top-left-radius: 5px;
-border-top-right-radius: 5px;
+  height: 240px;
+  object-fit: cover;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.2);
+  opacity: 0.9;
 }
 
 .card-body {
-background-color: #fff;
-padding: 15px;
+  position: relative;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 0 0 15px 15px;
+  text-align: center;
+  overflow: hidden;
+  z-index: 1;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.card-body:hover {
+  background-color: #ede7f6;
 }
 
 .card-title {
-font-size: 1.2em;
-font-weight: bold;
-color: #343a40;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #512da8;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .card-text {
-font-size: 0.9em;
-color: #6c757d;
+  font-size: 1em;
+  color: #757575;
+  margin-bottom: 10px;
+  line-height: 1.5;
 }
-  
+
+/* Button-like animation for movie genres */
+.card-text strong {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 0.85em;
+  background: #d1c4e9;
+  color: #311b92;
+  border-radius: 12px;
+  margin: 0 2px;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.card-body:hover .card-text strong {
+  background-color: #311b92;
+  color: #ffffff;
+}
+
+/* Bottom overlay for theater details */
+.card-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px 15px;
+  background: rgba(63, 81, 181, 0.9);
+  color: white;
+  text-align: center;
+  font-size: 0.9em;
+  letter-spacing: 0.5px;
+  transition: transform 0.3s ease-in-out;
+  transform: translateY(100%);
+}
+
+.card:hover .card-footer {
+  transform: translateY(0);
+}
+
+/* Animated shadow around cards */
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 5px 15px rgba(81, 45, 168, 0.2);
+  }
+  50% {
+    box-shadow: 0 10px 30px rgba(81, 45, 168, 0.4);
+  }
+}
+
+.card:hover {
+  animation: pulse 1s infinite;
+}

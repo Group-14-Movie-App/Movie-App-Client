@@ -1,22 +1,65 @@
 .showtimes-container {
-    padding: 20px;
-    background-color: #f8f9fa;
+  padding: 20px;
+  background: linear-gradient(135deg, #e3f2fd, #e1bee7);
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.showtimes-title {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #3f51b5;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 1s ease-in-out;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto 20px;
+  padding: 12px;
+  border-radius: 50px;
+  border: 2px solid #80cbc4;
+  font-size: 1em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #26a69a;
+  box-shadow: 0 4px 8px rgba(38, 166, 154, 0.3);
+}
+
+/* Region Tabs */
+.nav-tabs {
+  justify-content: center;
+  border-bottom: 2px solid #c5cae9;
+}
+
+.nav-item .nav-link {
+  color: #3949ab;
+  font-weight: bold;
+  border: none;
+  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.nav-item .nav-link:hover,
+.nav-item .nav-link.active {
+  background-color: #7986cb;
+  color: white;
+  border-radius: 5px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
-  
-  .showtimes-title {
-    font-size: 2em;
-    margin-bottom: 20px;
-    text-align: center;
-    color: #343a40;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .search-input {
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto 20px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ced4da;
-    font-size: 1em;
-  }
-  
+}
