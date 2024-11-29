@@ -1,4 +1,4 @@
-.card {
+.movie-card {
   position: relative;
   border: none;
   border-radius: 15px;
@@ -8,25 +8,26 @@
   overflow: hidden;
 }
 
-.card:hover {
-  transform: scale(1.08) rotate(-1deg);
+.movie-card:hover {
+  transform: scale(1.05); /* Removed tilt, subtle scaling */
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
-.card-img-top {
-  height: 240px;
+.movie-card-img-top {
+  height: 300px; /* Increased height for better proportion */
+  width: 100%; /* Ensure full width */
   object-fit: cover;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
-.card:hover .card-img-top {
-  transform: scale(1.2);
+.movie-card:hover .movie-card-img-top {
+  transform: scale(1.1); /* Slight zoom-in effect */
   opacity: 0.9;
 }
 
-.card-body {
+.movie-card-body {
   position: relative;
   padding: 20px;
   background-color: #ffffff;
@@ -37,11 +38,11 @@
   transition: background-color 0.3s ease-in-out;
 }
 
-.card-body:hover {
+.movie-card-body:hover {
   background-color: #ede7f6;
 }
 
-.card-title {
+.movie-card-title {
   font-size: 1.5em;
   font-weight: bold;
   color: #512da8;
@@ -50,7 +51,7 @@
   letter-spacing: 1px;
 }
 
-.card-text {
+.movie-card-text {
   font-size: 1em;
   color: #757575;
   margin-bottom: 10px;
@@ -58,7 +59,7 @@
 }
 
 /* Button-like animation for movie genres */
-.card-text strong {
+.movie-card-text strong {
   display: inline-block;
   padding: 2px 8px;
   font-size: 0.85em;
@@ -69,13 +70,13 @@
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
-.card-body:hover .card-text strong {
+.movie-card-body:hover .movie-card-text strong {
   background-color: #311b92;
   color: #ffffff;
 }
 
 /* Bottom overlay for theater details */
-.card-footer {
+.movie-card-footer {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -89,12 +90,12 @@
   transform: translateY(100%);
 }
 
-.card:hover .card-footer {
+.movie-card:hover .movie-card-footer {
   transform: translateY(0);
 }
 
 /* Animated shadow around cards */
-@keyframes pulse {
+@keyframes movie-card-pulse {
   0%, 100% {
     box-shadow: 0 5px 15px rgba(81, 45, 168, 0.2);
   }
@@ -103,6 +104,6 @@
   }
 }
 
-.card:hover {
-  animation: pulse 1s infinite;
+.movie-card:hover {
+  animation: movie-card-pulse 1s infinite;
 }

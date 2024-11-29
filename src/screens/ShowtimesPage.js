@@ -94,9 +94,9 @@ function ShowtimesPage() {
   };
 
   return (
-    <div className="showtimes-container">
+    <div className="showtimes-page showtimes-container">
       <h1 className="showtimes-title">Showtimes by Region</h1>
-
+  
       {/* Region Tabs */}
       <div className="mb-4">
         <ul className="nav nav-tabs">
@@ -114,7 +114,7 @@ function ShowtimesPage() {
           ))}
         </ul>
       </div>
-
+  
       {/* Search Input */}
       <div className="mb-4">
         <input
@@ -125,13 +125,14 @@ function ShowtimesPage() {
           onChange={handleSearch}
         />
       </div>
-
+  
       {/* Movie Cards */}
       <div>
         <MovieCards movieList={filteredMovies} />
       </div>
     </div>
   );
+  
 }
 
 export default ShowtimesPage;

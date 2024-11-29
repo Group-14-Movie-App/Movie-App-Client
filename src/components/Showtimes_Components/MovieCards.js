@@ -7,31 +7,30 @@ function MovieCards({ movieList }) {
   const navigate = useNavigate();
 
   const handleCardClick = (movie) => {
-    // Navigate to MovieDetailsPage with the movie ID
     navigate(`/movie/${movie.id}`, { state: { movie } });
   };
 
   return (
-    <div className="container">
+    <div className="container movie-cards-container">
       <div className="row">
         {movieList.map((movie) => (
           <div className="col-lg-3 col-md-4 col-sm-6 mb-4" key={movie.id}>
             <div
-              className="card h-100"
+              className="movie-card h-100"
               onClick={() => handleCardClick(movie)}
               style={{ cursor: 'pointer' }}
             >
               <img
                 src={movie.image}
-                className="card-img-top"
+                className="movie-card-img-top"
                 alt={movie.title}
               />
-              <div className="card-body">
-                <h5 className="card-title">{movie.title}</h5>
-                <p className="card-text">
+              <div className="movie-card-body">
+                <h5 className="movie-card-title">{movie.title}</h5>
+                <p className="movie-card-text">
                   <strong>Original Title:</strong> {movie.originalTitle}
                 </p>
-                <p className="card-text">
+                <p className="movie-card-text">
                   <strong>Start Time:</strong>{' '}
                   {new Date(movie.startTime).toLocaleString('en-GB', {
                     weekday: 'short',
@@ -41,7 +40,7 @@ function MovieCards({ movieList }) {
                     minute: '2-digit',
                   })}
                 </p>
-                <p className="card-text">
+                <p className="movie-card-text">
                   <strong>End Time:</strong>{' '}
                   {new Date(movie.endTime).toLocaleString('en-GB', {
                     weekday: 'short',
@@ -51,11 +50,11 @@ function MovieCards({ movieList }) {
                     minute: '2-digit',
                   })}
                 </p>
-                <p className="card-text">
+                <p className="movie-card-text">
                   <strong>Genres:</strong> {movie.genres}
                 </p>
-                <p className="card-text">
-                  <strong>Theatre:</strong> {movie.theatreAndAuditorium}
+                <p className="movie-card-footer">
+                  Theatre: {movie.theatreAndAuditorium}
                 </p>
               </div>
             </div>
