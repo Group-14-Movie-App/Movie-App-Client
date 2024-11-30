@@ -28,6 +28,9 @@ import FavoriteGroupDetails from "./components/Profile_Components/FavoriteGroupD
 // Shared Components
 import GroupCard from "./components/Groups_Components/GroupCard.js";
 
+// Chatbot Component
+import ChatBot from "./components/Chatbot.js";
+
 import "./App.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -154,6 +157,9 @@ function App() {
           <Route path="/my-group-posts/:groupID" element={<MyGroupPosts />} />
           <Route path="/group-posts/:groupID" element={<OtherGroupPosts />} />
         </Routes>
+        
+        {/* Chatbot */}
+        <ChatBot />
       </div>
     </div>
   );
