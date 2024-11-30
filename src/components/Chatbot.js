@@ -15,6 +15,8 @@ function ChatBot() {
 
     const userMessage = { text: userInput, sender: "user" };
     setMessages((prev) => [...prev, userMessage]);
+    const currentInput = userInput; // Store input before clearing
+    setUserInput(""); // Clear input immediately after sending
 
     try {
       const response = await fetch("http://localhost:5000/chatbot", {
@@ -22,7 +24,7 @@ function ChatBot() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message: userInput }),
+        body: JSON.stringify({ message: currentInput }),
       });
 
       const data = await response.json();
@@ -35,37 +37,53 @@ function ChatBot() {
         { text: "Something went wrong. Please try again.", sender: "bot" },
       ]);
     }
+  };
 
-    setUserInput("");
+  const handleClearChat = () => {
+    setMessages([]); // Clear all messages
   };
 
   return (
-    <div className={`chatbot-container ${isOpen ? "open" : ""}`}>
-      <div className="chatbot-header" onClick={toggleChat}>
-        <h4>{isOpen ? "Close Chat" : "MovieBot"}</h4>
+    <div>
+      {/* Chatbot Modal */}
+      <div className={`chatbot-modal ${isOpen ? "open" : ""}`}>
+        <div className="chatbot-header">
+          <h4>{isOpen ? "MovieBot" : "Open Chat"}</h4>
+          <button className="clear-btn" onClick={handleClearChat}>
+            Clear Chat
+          </button>
+          <button className="close-btn" onClick={toggleChat}>
+            {isOpen ? "Close" : "Open"}
+          </button>
+        </div>
+
+        {isOpen && (
+          <div className="chatbot-body">
+            <div className="messages">
+              {messages.map((msg, index) => (
+                <div key={index} className={`message ${msg.sender}`}>
+                  {msg.text}
+                </div>
+              ))}
+            </div>
+
+            <div className="chatbot-input">
+              <input
+                type="text"
+                value={userInput}
+                onChange={(e) => setUserInput(e.target.value)}
+                placeholder="Ask about movies..."
+              />
+              <button onClick={handleSendMessage}>Send</button>
+            </div>
+          </div>
+        )}
       </div>
 
-      {isOpen && (
-        <div className="chatbot-body">
-          <div className="messages">
-            {messages.map((msg, index) => (
-              <div key={index} className={`message ${msg.sender}`}>
-                {msg.text}
-              </div>
-            ))}
-          </div>
-
-          <div className="chatbot-input">
-            <input
-              type="text"
-              value={userInput}
-              onChange={(e) => setUserInput(e.target.value)}
-              placeholder="Ask about movies..."
-            />
-            <button onClick={handleSendMessage}>Send</button>
-          </div>
-        </div>
-      )}
+      {/* Button to toggle the chatbot */}
+      <button className="open-chat-btn" onClick={toggleChat}>
+        {isOpen ? "Close Chat" : "Open Chat"}
+      </button>
     </div>
   );
 }

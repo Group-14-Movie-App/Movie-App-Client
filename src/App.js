@@ -1,5 +1,4 @@
 import { Link, Route, Routes } from "react-router-dom";
-import { useParams } from "react-router-dom";
 
 // Screen Components
 import HomePage from "./screens/HomePage.js";
@@ -25,11 +24,9 @@ import OtherGroupPosts from "./components/Groups_Components/OtherGroupPosts.js";
 // Favourites Components
 import FavoriteGroupDetails from "./components/Profile_Components/FavoriteGroupDetails.js";
 
-// Shared Components
-import GroupCard from "./components/Groups_Components/GroupCard.js";
 
 // Chatbot Component
-import ChatBot from "./components/Chatbot.js";
+import ChatBot from "./components/ChatBot.js";
 
 import "./App.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -165,31 +162,6 @@ function App() {
   );
 }
 
-// Dummy GroupList Component
-const GroupList = () => {
-  const groups = [
-    {
-      groupid: "1",
-      groupname: "Movie Lovers",
-      description: "A group for movie fans",
-    },
-    {
-      groupid: "2",
-      groupname: "Tech Geeks",
-      description: "Discuss technology trends",
-    },
-  ];
 
-  return (
-    <div>
-      <h1>All Groups</h1>
-      <div className="group-list">
-        {groups.map((group) => (
-          <GroupCard key={group.groupid} group={group} isMyGroup={false} />
-        ))}
-      </div>
-    </div>
-  );
-};
 
 export default App;
