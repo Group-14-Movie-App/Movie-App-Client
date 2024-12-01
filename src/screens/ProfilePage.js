@@ -30,6 +30,9 @@ function ProfilePage() {
           <p><strong>Email:</strong> {userDetails.email}</p>
           <p><strong>City:</strong> {userDetails.city}</p>
         </div>
+        <div>
+            <button className="edit-profile-button">Edit Profile</button>
+        </div>
       </div>
 
       {/* Render the Favorites Component */}
