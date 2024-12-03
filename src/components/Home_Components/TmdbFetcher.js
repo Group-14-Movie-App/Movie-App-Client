@@ -51,7 +51,7 @@ export default function TmdbFetcher({
         setError(error.message);
         setLoading(false);
       });
-  }, [category, setTmdbMovies, setLimitedMovies, genreMap]);
+  }, [category, setTmdbMovies, setLimitedMovies]);
 
   if (loading) {
     return <div>Loading...</div>;
