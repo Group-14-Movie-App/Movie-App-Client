@@ -18,6 +18,7 @@ export default function TmdbFetcher({
 
   useEffect(() => {
     const apiKey = process.env.REACT_APP_TMDB_API_KEY;
+    // Debug for deploy issue
     console.log("API Key: " + apiKey);
     const url =
       genreMap[category] !== undefined
@@ -27,6 +28,8 @@ export default function TmdbFetcher({
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
+        // Debug for deploy issue
+        console.log("Fetched data:", data);
         const movies = data.results.map((movie) => ({
           id: movie.id,
           title: movie.title,
@@ -51,6 +54,8 @@ export default function TmdbFetcher({
         console.error("Error fetching TMDb data: ", error);
         setError(error.message);
         setLoading(false);
+        // Debug for deploy issue
+        console.error("Error fetching TMDb data: ", error);
       });
   }, [category, setTmdbMovies, setLimitedMovies]);
 
