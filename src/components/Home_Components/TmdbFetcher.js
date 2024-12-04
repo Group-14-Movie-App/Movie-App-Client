@@ -18,6 +18,7 @@ export default function TmdbFetcher({
 
   useEffect(() => {
     const apiKey = process.env.REACT_APP_TMDB_API_KEY;
+    console.log("API Key: " + apiKey);
     const url =
       genreMap[category] !== undefined
         ? `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&with_genres=${genreMap[category]}&page=1`
@@ -26,7 +27,6 @@ export default function TmdbFetcher({
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.log("Fetched data:", data);
         const movies = data.results.map((movie) => ({
           id: movie.id,
           title: movie.title,
