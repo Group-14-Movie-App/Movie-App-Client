@@ -26,6 +26,7 @@ export default function TmdbFetcher({
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
+        console.log("Fetched data:", data);
         const movies = data.results.map((movie) => ({
           id: movie.id,
           title: movie.title,
