@@ -2,50 +2,63 @@
   position: relative;
   border: none;
   border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  background: linear-gradient(135deg, #ffffff, #f3e5f5);
+  background: linear-gradient(135deg, #ffffff, #eceff1);
   overflow: hidden;
 }
 
 .movie-card:hover {
-  transform: scale(1.05); /* Removed tilt, subtle scaling */
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  transform: scale(1.06); /* Subtle scaling effect */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
 }
 
 .movie-card-img-top {
-  height: 300px; /* Increased height for better proportion */
-  width: 100%; /* Ensure full width */
+  height: 280px; /* Slightly reduced height for better layout */
+  width: 100%; /* Full width */
   object-fit: cover;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition: transform 0.4s ease, opacity 0.3s ease;
 }
 
 .movie-card:hover .movie-card-img-top {
-  transform: scale(1.1); /* Slight zoom-in effect */
-  opacity: 0.9;
+  transform: scale(1.2); /* Enhanced zoom effect */
+  opacity: 0.8;
 }
 
+/* Card Body */
 .movie-card-body {
-  position: relative;
   padding: 20px;
-  background-color: #ffffff;
+  background: rgba(0, 0, 0, 0.8);
   border-radius: 0 0 15px 15px;
   text-align: center;
-  overflow: hidden;
   z-index: 1;
-  transition: background-color 0.3s ease-in-out;
-}
-
-.movie-card-body:hover {
-  background-color: #ede7f6;
+  color: white;
+  position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .movie-card-title {
-  font-size: 1.5em;
+  font-size: 1.3em;
   font-weight: bold;
-  color: #512da8;
+  color: #ffffff;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Enhanced text effect */
+}
+
+.movie-card-body:hover {
+  transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    background: linear-gradient(135deg, #002042, #00495e);
+}
+
+.movie-card-title {
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #3949ab; /* A vibrant blue */
   margin-bottom: 10px;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -53,57 +66,76 @@
 
 .movie-card-text {
   font-size: 1em;
-  color: #757575;
+  color: #616161;
   margin-bottom: 10px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
-/* Button-like animation for movie genres */
 .movie-card-text strong {
   display: inline-block;
-  padding: 2px 8px;
+  padding: 3px 8px;
   font-size: 0.85em;
-  background: #d1c4e9;
+  background: #c4dfe9;
   color: #311b92;
-  border-radius: 12px;
-  margin: 0 2px;
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .movie-card-body:hover .movie-card-text strong {
-  background-color: #311b92;
+  background-color: #15229e;
   color: #ffffff;
 }
 
-/* Bottom overlay for theater details */
+/* Footer with theater details */
 .movie-card-footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  padding: 10px 15px;
-  background: rgba(63, 81, 181, 0.9);
-  color: white;
+  padding: 12px;
+  background: linear-gradient(90deg, #a9c7df, #1e88e5);
+  color: #ffffff;
   text-align: center;
   font-size: 0.9em;
   letter-spacing: 0.5px;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease, opacity 0.3s ease;
   transform: translateY(100%);
+  opacity: 0;
 }
 
 .movie-card:hover .movie-card-footer {
   transform: translateY(0);
+  opacity: 1;
 }
 
-/* Animated shadow around cards */
-@keyframes movie-card-pulse {
+/* Glowing shadow effect */
+@keyframes glow {
   0%, 100% {
-    box-shadow: 0 5px 15px rgba(81, 45, 168, 0.2);
+    box-shadow: 0 5px 15px rgba(63, 81, 181, 0.3);
   }
   50% {
-    box-shadow: 0 10px 30px rgba(81, 45, 168, 0.4);
+    box-shadow: 0 10px 25px rgba(63, 81, 181, 0.5);
   }
 }
 
 .movie-card:hover {
-  animation: movie-card-pulse 1s infinite;
+  animation: glow 1s infinite alternate;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .movie-card {
+    margin-bottom: 20px;
+  }
+
+  .movie-card-img-top {
+    height: 200px; /* Reduced height for smaller screens */
+  }
+
+  .movie-card-title {
+    font-size: 1.2em;
+  }
+
+  .movie-card-text {
+    font-size: 0.9em;
+  }
 }

@@ -2,80 +2,87 @@
 .register-container {
   max-width: 600px;
   margin: 50px auto;
-  padding: 20px;
-  background: linear-gradient(135deg, #ffffff, #f8f9fa);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  padding: 40px;
+  background: linear-gradient(145deg, #1e1e2f, #2b2d42);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
   text-align: center;
+  font-family: "Poppins", sans-serif;
+  color: white;
 }
 
+/* Title Styling */
 .register-title {
-  font-size: 2rem;
-  color: #6610f2;
-  margin-bottom: 20px;
+  font-size: 36px;
   font-weight: bold;
+  margin-bottom: 25px;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  text-shadow: 0 4px 10px rgba(0, 212, 255, 0.6);
 }
 
+/* Error Message */
 .error-message {
-  color: #ff6f61;
-  font-size: 0.9rem;
+  color: #ff6b6b;
+  font-size: 14px;
+  font-weight: 600;
   margin-bottom: 15px;
+  text-align: center;
 }
 
 /* Form Styling */
 .register-form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
+.form-group label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #dcdde1;
+  margin-bottom: 8px;
   text-align: left;
 }
 
-label {
-  font-size: 1rem;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 5px;
+.form-group input,
+.form-group select {
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  background: #44475a;
+  color: white;
+  transition: all 0.3s ease;
 }
 
-input,
-select {
-  padding: 10px;
-  font-size: 1rem;
-  border: 2px solid #ddd;
-  border-radius: 5px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-input:focus,
-select:focus {
-  border-color: #6610f2;
-  box-shadow: 0 0 8px rgba(102, 16, 242, 0.3);
+.form-group input:focus,
+.form-group select:focus {
+  background: #53587a;
   outline: none;
+  box-shadow: 0 0 12px rgba(98, 114, 164, 0.8);
 }
 
 /* Buttons Styling */
 .register-button,
 .signin-button {
-  padding: 10px 20px;
-  font-size: 1rem;
+  padding: 14px 20px;
+  font-size: 18px;
   font-weight: bold;
   border: none;
-  border-radius: 5px;
-  background: linear-gradient(135deg, #6610f2, #007bff);
+  border-radius: 15px;
+  background: linear-gradient(145deg, #6610f2, #007bff);
   color: white;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .register-button:hover,
 .signin-button:hover {
-  background: linear-gradient(135deg, #007bff, #6610f2);
-  transform: translateY(-2px);
+  background: linear-gradient(145deg, #0056b3, #6610f2);
+  box-shadow: 0 0 15px rgba(102, 16, 242, 0.6);
+  transform: translateY(-3px);
 }
 
 .register-button:active,
@@ -83,23 +90,47 @@ select:focus {
   transform: translateY(1px);
 }
 
-.signin-button {
-  margin-top: 15px;
-}
-
 /* Dropdown Styling */
 select {
-  background: #f8f9fa;
+  background: #3c4045;
   cursor: pointer;
 }
 
 /* Sign-in Redirect Styling */
 .signin-redirect {
   margin-top: 20px;
+  font-size: 14px;
+  color: #dcdde1;
 }
 
 .signin-redirect p {
   margin: 0;
-  font-size: 0.9rem;
-  color: #333;
+}
+
+.signin-redirect .signin-button {
+  margin-top: 10px;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .register-container {
+    margin: 20px auto;
+    padding: 30px;
+  }
+
+  .register-title {
+    font-size: 28px;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .register-button,
+  .signin-button {
+    padding: 12px;
+    font-size: 16px;
+  }
 }

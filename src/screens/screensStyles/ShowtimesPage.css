@@ -1,65 +1,136 @@
+/* General Container */
 .showtimes-page .showtimes-container {
-  padding: 20px;
-  background: linear-gradient(135deg, #e3f2fd, #e1bee7);
-  border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  padding: 40px 20px;
+  background: linear-gradient(145deg, #1f2833, #3f4d61);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  color: white;
 }
 
+/* Page Title */
 .showtimes-page .showtimes-title {
-  font-size: 2.5em;
-  margin-bottom: 20px;
+  font-size: 2.8em;
+  margin-bottom: 30px;
   text-align: center;
-  color: #3f51b5;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  animation: fadeIn 1s ease-in-out;
+  color: #66fcf1;
+  text-shadow: 0 4px 10px rgba(102, 252, 241, 0.7);
+  animation: fadeIn 1.2s ease-in-out;
+  font-weight: bold;
 }
 
+/* Search Input */
 .showtimes-page .search-input {
   width: 100%;
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto 20px;
-  padding: 12px;
-  border-radius: 50px;
-  border: 2px solid #80cbc4;
-  font-size: 1em;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-in-out;
+  padding: 14px;
+  font-size: 1.2em;
+  border-radius: 25px;
+  border: 2px solid #45a29e;
+  background: #1f2833;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.showtimes-page .search-input::placeholder {
+  color: #c5c6c7;
+  font-style: italic;
 }
 
 .showtimes-page .search-input:focus {
   outline: none;
-  border-color: #26a69a;
-  box-shadow: 0 4px 8px rgba(38, 166, 154, 0.3);
+  border-color: #66fcf1;
+  box-shadow: 0 8px 16px rgba(102, 252, 241, 0.4);
 }
 
 /* Region Tabs */
 .showtimes-page .nav-tabs {
   justify-content: center;
-  border-bottom: 2px solid #c5cae9;
+  border-bottom: 2px solid #45a29e;
 }
 
 .showtimes-page .nav-item .nav-link {
-  color: #3949ab;
+  color: #66fcf1;
+  font-size: 1.1em;
   font-weight: bold;
+  padding: 12px 20px;
   border: none;
-  transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  border-radius: 25px;
+  transition: all 0.3s ease;
 }
 
 .showtimes-page .nav-item .nav-link:hover,
 .showtimes-page .nav-item .nav-link.active {
-  background-color: #7986cb;
-  color: white;
-  border-radius: 5px;
+  background: linear-gradient(135deg, #45a29e, #66fcf1);
+  color: #1f2833;
+  box-shadow: 0 4px 8px rgba(102, 252, 241, 0.4);
 }
 
 /* Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-15px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Movie Cards Styling */
+.movie-card {
+  background: linear-gradient(135deg, #1f2833, #2c3e50);
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+.movie-card img {
+  border-bottom: 2px solid #45a29e;
+}
+
+.movie-card h5 {
+  color: #1e5e9b;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+  text-shadow: 0 4px 10px rgba(0, 212, 255, 0.6);
+}
+
+.movie-card p {
+  color: #8e9297;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .showtimes-page .showtimes-title {
+    font-size: 2em;
+  }
+
+  .showtimes-page .search-input {
+    font-size: 1em;
+    padding: 12px;
+  }
+
+  .showtimes-page .nav-item .nav-link {
+    font-size: 0.9em;
+    padding: 10px 15px;
+  }
+
+  .movie-card h5 {
+    font-size: 1em;
+  }
+
+  .movie-card p {
+    font-size: 0.9em;
   }
 }
