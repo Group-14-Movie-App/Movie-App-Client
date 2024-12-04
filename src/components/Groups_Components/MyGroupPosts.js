@@ -121,77 +121,96 @@ function MyGroupPosts() {
   };
 
   return (
-    <div className="my-group-posts">
-      <h1>My Group Posts</h1>
-
-      <div className="add-post">
+    <div className="my-group-posts-container">
+      <h1 className="my-group-posts-title">My Group Posts</h1>
+  
+      {/* Add Post Section */}
+      <div className="add-post-container">
         <textarea
           value={newPostContent}
           onChange={(e) => setNewPostContent(e.target.value)}
           placeholder="Write something..."
+          className="add-post-textarea"
         />
-        <button className="btn btn-primary" onClick={handleAddPost}>
+        <button className="btn-add-post" onClick={handleAddPost}>
           Add Post
         </button>
       </div>
-
-      <div className="posts-list">
+  
+      {/* Posts List */}
+      <div className="posts-list-container">
         {posts.length > 0 ? (
           posts.map((post) => (
             <div
               key={post.postid}
               className={`post-card ${post.userid === ownerID ? "admin-post" : ""}`}
             >
+              {post.userid === ownerID && (
+                <span className="admin-label">Admin</span>
+              )}
+              {/* Editing a Post */}
               {editPostID === post.postid && post.userid === ownerID ? (
-                <>
+                <div className="edit-post-container">
                   <textarea
                     value={editPostContent}
                     onChange={(e) => setEditPostContent(e.target.value)}
                     placeholder="Edit your post..."
+                    className="edit-post-textarea"
                   />
-                  <button className="btn btn-success" onClick={handleEditPost}>
-                    Save
-                  </button>
-                  <button
-                    className="btn btn-secondary"
-                    onClick={() => setEditPostID(null)}
-                  >
-                    Cancel
-                  </button>
-                </>
-              ) : (
-                <>
-                  <p>{post.content}</p>
-                  <p className="post-meta">
-                    Posted by: {post.firstname} {post.lastname}
-                  </p>
-                  {post.userid === ownerID && (
-                    <button
-                      className="btn btn-warning"
-                      onClick={() => {
-                        setEditPostID(post.postid);
-                        setEditPostContent(post.content);
-                      }}
-                    >
-                      Edit
+                  <div className="edit-post-buttons">
+                    <button className="btn-save-post" onClick={handleEditPost}>
+                      Save
                     </button>
-                  )}
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => handleDeletePost(post.postid)}
-                  >
-                    Delete
-                  </button>
-                </>
+                    <button
+                      className="btn-cancel-edit"
+                      onClick={() => setEditPostID(null)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="post-content">
+                  {/* Post Content */}
+                  <p className="post-text">{post.content}</p>
+                  <p className="post-meta">
+                    <span className="post-author">
+                      Posted by: {post.firstname} {post.lastname}
+                    </span>
+                  </p>
+                  {/* Post Buttons */}
+                  <div className="post-buttons">
+                    {post.userid === ownerID && (
+                      <button
+                        className="btn-edit-post"
+                        onClick={() => {
+                          setEditPostID(post.postid);
+                          setEditPostContent(post.content);
+                        }}
+                      >
+                        Edit
+                      </button>
+                    )}
+                    <button
+                      className="btn-delete-post"
+                      onClick={() => handleDeletePost(post.postid)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
               )}
             </div>
           ))
         ) : (
-          <p>No posts available. Be the first to add one!</p>
+          <p className="no-posts-message">No posts available. Be the first to add one!</p>
         )}
       </div>
     </div>
   );
+
+  
+  
 }
 
 export default MyGroupPosts;

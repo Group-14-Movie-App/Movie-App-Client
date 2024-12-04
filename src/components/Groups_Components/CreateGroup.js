@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './CreateGroup.css'
 
 function CreateGroup() {
   const [groupName, setGroupName] = useState("");

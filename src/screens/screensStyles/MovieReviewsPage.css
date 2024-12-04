@@ -1,0 +1,205 @@
+/* General Container Styling */
+.movie-reviews-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: linear-gradient(135deg, #1e1e2f, #2b2d42);
+    color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Page Title Styling */
+  .movie-reviews-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #00d4ff;
+    text-shadow: 0 4px 10px rgba(0, 212, 255, 0.6);
+  }
+  
+  /* Card Styling */
+  .movie-reviews-card {
+    background: linear-gradient(135deg, #2b2d42, #3c4045);
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .movie-reviews-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  }
+  
+  .movie-reviews-card-body {
+    padding: 20px;
+    color: white;
+  }
+  
+  /* Card Title Styling */
+  .movie-reviews-card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #00d4ff;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 5px rgba(0, 212, 255, 0.5);
+  }
+  
+  /* Card Text Styling */
+  .movie-reviews-card-text {
+    font-size: 1rem;
+    color: #d4d4d4;
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+  
+  .movie-reviews-card-text strong {
+    color: #ffd700; /* Gold color for rating */
+  }
+  
+  .movie-reviews-card-timestamp {
+    font-size: 0.9rem;
+    color: #aaa;
+  }
+  
+  /* Buttons inside Card */
+  .movie-reviews-card-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start; /* Align buttons to the left */
+    margin-top: 15px;
+  }
+  
+  .movie-reviews-edit-btn,
+  .movie-reviews-delete-btn {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  .movie-reviews-edit-btn {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    border: none;
+  }
+  
+  .movie-reviews-edit-btn:hover {
+    background: linear-gradient(135deg, #0056b3, #003f7f);
+  }
+  
+  .movie-reviews-delete-btn {
+    background: linear-gradient(135deg, #ff5f5f, #d63333);
+    color: white;
+    border: none;
+  }
+  
+  .movie-reviews-delete-btn:hover {
+    background: linear-gradient(135deg, #d63333, #ff1e1e);
+  }
+  
+  /* Edit Popup Styling */
+  .movie-reviews-edit-popup {
+    background: linear-gradient(135deg, #222, #2c2f3f);
+    border-radius: 15px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+  }
+  
+  .movie-reviews-textarea,
+  .movie-reviews-input {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 12px;
+    border: 1px solid #555;
+    border-radius: 10px;
+    background: #333;
+    color: white;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .movie-reviews-textarea:focus,
+  .movie-reviews-input:focus {
+    border-color: #00d4ff;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+    outline: none;
+  }
+  
+  /* Buttons inside Edit Popup */
+  .movie-reviews-edit-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+  }
+  
+  .movie-reviews-save-btn,
+  .movie-reviews-cancel-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .movie-reviews-save-btn {
+    background: linear-gradient(135deg, #00d4ff, #007bff);
+    color: white;
+  }
+  
+  .movie-reviews-save-btn:hover {
+    background: linear-gradient(135deg, #007bff, #00aaff);
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+  }
+  
+  .movie-reviews-cancel-btn {
+    background: linear-gradient(135deg, #ff5f5f, #d63333);
+    color: white;
+  }
+  
+  .movie-reviews-cancel-btn:hover {
+    background: linear-gradient(135deg, #d63333, #ff1e1e);
+    box-shadow: 0 0 10px rgba(255, 95, 95, 0.6);
+  }
+  
+  /* No Reviews Message */
+  .movie-reviews-no-data {
+    font-size: 1.1rem;
+    text-align: center;
+    color: #d4d4d4;
+    margin-top: 20px;
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .movie-reviews-container {
+      padding: 15px;
+    }
+  
+    .movie-reviews-title {
+      font-size: 2rem;
+    }
+  
+    .movie-reviews-card-title {
+      font-size: 1.1rem;
+    }
+  
+    .movie-reviews-card-text {
+      font-size: 0.9rem;
+    }
+  
+    .movie-reviews-save-btn,
+    .movie-reviews-cancel-btn {
+      font-size: 0.9rem;
+      padding: 8px 15px;
+    }
+  }
+  

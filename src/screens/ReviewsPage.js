@@ -64,9 +64,9 @@ function ReviewsPage() {
   );
 
   return (
-    <div className="container mt-4">
-      <h1 className="text-center mb-5">Reviews</h1>
-      <div className="row">
+    <div className="reviews-container">
+      <h1 className="reviews-title">Reviews</h1>
+      <div className="reviews-grid">
         {uniqueMovies.map((movieTitle) => {
           const movie = movieDetails[movieTitle];
 
@@ -76,10 +76,9 @@ function ReviewsPage() {
             : 'Unknown';
 
           return (
-            <div key={movieTitle} className="col-md-4">
+            <div key={movieTitle} className="review-card">
               <div
-                className="card mb-4 shadow-sm"
-                style={{ cursor: 'pointer' }}
+                className="review-card-content"
                 onClick={() =>
                   navigate(
                     `/movie-reviews/${encodeURIComponent(movieTitle)}/${displayReleaseYear}`
@@ -89,25 +88,19 @@ function ReviewsPage() {
                 {movie?.poster_path ? (
                   <img
                     src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                    className="card-img-top"
+                    className="review-card-img"
                     alt={movieTitle}
                   />
                 ) : (
-                  <div
-                    style={{
-                      height: '300px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      backgroundColor: '#f0f0f0',
-                    }}
-                  >
+                  <div className="review-card-placeholder">
                     <p>No Image Available</p>
                   </div>
                 )}
-                <div className="card-body">
-                  <h5 className="card-title">{movie?.title || movieTitle}</h5>
-                  <p className="card-text">
+                <div className="review-card-body">
+                  <h5 className="review-card-title">
+                    {movie?.title || movieTitle}
+                  </h5>
+                  <p className="review-card-text">
                     Release Year: {displayReleaseYear}
                   </p>
                 </div>

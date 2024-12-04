@@ -1,19 +1,114 @@
-.container {
-    max-width: 1200px;
+/* General Styling for Reviews Page */
+.reviews-container {
+  background: linear-gradient(135deg, #1a1a1a, #222222);
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  padding: 10px 20px;
+  border-radius: 20px;
+  margin: 20px auto;
+  max-width: 1200px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+/* Title Styling */
+.reviews-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #00d4ff;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+  letter-spacing: 1.5px;
+  text-shadow: 0 4px 10px rgba(0, 212, 255, 0.6);
+}
+
+/* Grid for Cards */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+/* Card Styling */
+.review-card {
+  position: relative;
+  background: linear-gradient(135deg, #1e1e1e, #333);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  cursor: pointer;
+}
+
+.review-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(135deg, #007bff, #00c6ff);
+}
+
+/* Card Image */
+.review-card-img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+}
+
+.review-card:hover .review-card-img {
+  transform: scale(1.1);
+  opacity: 0.9;
+}
+
+/* Card Body */
+.review-card-body {
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  text-align: center;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.review-card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #00d4ff;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.review-card-text {
+  font-size: 1rem;
+  color: #ccc;
+  line-height: 1.5;
+}
+
+/* Placeholder for Missing Image */
+.review-card-placeholder {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #444;
+  color: #aaa;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .review-card-img {
+    height: 200px;
   }
-  
-  .card {
-    transition: transform 0.2s ease-in-out;
-    border: none;
+
+  .review-card-title {
+    font-size: 1rem;
   }
-  
-  .card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+
+  .review-card-text {
+    font-size: 0.9rem;
   }
-  
-  .text-primary {
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
+}

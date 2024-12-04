@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./UserFavourites.css";
+import "./screensStyles/UserFavourites.css";
 
 function UserFavourites() {
   const [favoriteGroups, setFavoriteGroups] = useState([]);

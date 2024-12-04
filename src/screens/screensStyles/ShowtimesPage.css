@@ -98,7 +98,8 @@
 }
 
 .movie-card h5 {
-  color: #1e5e9b;
+  color: #12bac0; /* Active color */
+  text-shadow: 0 0 25px rgba(0, 247, 255, 0.6), 0 0 50px rgba(255, 0, 122, 0.5); /* Glow */
   font-weight: bold;
   margin-top: 10px;
   text-align: center;

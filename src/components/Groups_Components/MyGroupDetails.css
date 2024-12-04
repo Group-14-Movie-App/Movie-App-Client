@@ -1,170 +1,149 @@
-.group-details {
+/* Container Styling */
+.group-details-container {
+  padding: 30px;
+  background: linear-gradient(135deg, #1e1e2f, #2b2d42);
+  border-radius: 15px;
+  color: white;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   margin: 20px auto;
-  padding: 20px;
   max-width: 800px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.group-details h1 {
+/* Title Styling */
+.group-details-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #00d4ff;
   margin-bottom: 15px;
-  font-size: 24px;
-  color: #333;
-  text-align: center;
+  text-shadow: 0 4px 10px rgba(0, 212, 255, 0.6);
 }
 
-.group-details p {
-  font-size: 16px;
-  color: #666;
-  text-align: center;
-  margin-bottom: 20px;
+/* Description Styling */
+.group-details-description {
+  font-size: 1.2rem;
+  color: #d4d4d4;
+  margin-bottom: 30px;
 }
 
-h3 {
-  font-size: 20px;
-  color: #555;
-  margin-top: 30px;
+/* Section Title Styling */
+.section-title {
+  font-size: 1.5rem;
+  color: #00d4ff;
   margin-bottom: 15px;
-  border-bottom: 2px solid #ddd;
-  padding-bottom: 5px;
+  text-shadow: 0 2px 5px rgba(0, 212, 255, 0.5);
 }
 
+/* List Styling */
+.join-requests-list,
 .members-list {
-  list-style-type: none;
+  list-style: none;
   padding: 0;
+  margin-bottom: 30px;
 }
 
+/* List Item Styling */
+.join-request-item,
 .member-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 10px 0;
+  background: #2b2d42;
   padding: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #fff;
-  transition: background-color 0.3s ease;
-}
-
-.member-item:hover {
-  background-color: #f0f0f0;
-}
-
-.member-item div {
-  font-size: 16px;
-  color: #444;
-}
-
-.member-item button {
-  background-color: #d9534f;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 14px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.member-item button:hover {
-  background-color: #c9302c;
-  transform: scale(1.05);
-}
-
-ul {
-  padding-left: 0;
-}
-
-li {
-  list-style: none;
-}
-
-button.btn-primary {
-  display: block;
-  margin: 30px auto;
-  padding: 10px 20px;
-  background-color: #0275d8;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-button.btn-primary:hover {
-  background-color: #025aa5;
-  transform: scale(1.05);
-}
-
-button.btn-danger {
-  margin-left: 10px;
-}
-
-.button-container {
-  text-align: center;
-}
-
-.join-requests-list li,
-.current-members-list li {
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
   margin-bottom: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.join-request-item:hover,
+.member-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
 
+/* Requester Name */
+.requester-name,
+.member-name {
+  font-size: 1rem;
+  color: white;
+}
 
+/* No Requests or Members Message */
+.no-requests-message,
+.no-members-message {
+  font-size: 1rem;
+  color: #d4d4d4;
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-
-/* Styles for Accept and Decline buttons */
+/* Request Action Buttons */
 .request-actions {
   display: flex;
   gap: 10px;
 }
 
-.request-actions button {
-  padding: 8px 15px;
-  border-radius: 5px;
+.btn-accept-request {
+  padding: 10px 15px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #28a745, #218838);
+  color: white;
   border: none;
   cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: bold;
+  transition: all 0.3s ease;
 }
 
-.request-actions .btn-accept {
-  background-color: #5cb85c;
-  color: white;
+.btn-accept-request:hover {
+  background: linear-gradient(135deg, #218838, #1e7e34);
 }
 
-.request-actions .btn-accept:hover {
-  background-color: #4cae4c;
-  transform: scale(1.05);
-}
-
-.request-actions .btn-decline {
-  background-color: #d9534f;
-  color: white;
-}
-
-.request-actions .btn-decline:hover {
-  background-color: #c9302c;
-  transform: scale(1.05);
-}
-
-/* Request list item styling */
-ul.join-requests-list li {
-  margin-bottom: 15px;
-  padding: 10px;
-  border: 1px solid #ccc;
+.btn-decline-request {
+  padding: 10px 15px;
   border-radius: 8px;
-  background-color: #fff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  background: linear-gradient(135deg, #dc3545, #a71d2a);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
 }
 
+.btn-decline-request:hover {
+  background: linear-gradient(135deg, #c82333, #87181e);
+}
 
+/* Member Remove Button */
+.btn-remove-member {
+  padding: 10px 15px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ff5f5f, #d63333);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
 
+.btn-remove-member:hover {
+  background: linear-gradient(135deg, #d63333, #ff1e1e);
+}
 
+/* Go to Group Posts Button */
+.btn-go-posts {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-
+.btn-go-posts:hover {
+  background: linear-gradient(135deg, #0056b3, #003f7f);
+}

@@ -1,0 +1,59 @@
+/* Main container for the groups page */
+.groups-page-container {
+    padding: 40px;
+    background: linear-gradient(135deg, #1e1e2f, #2b2d42);
+    border-radius: 15px;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    margin: 20px auto;
+    max-width: 1200px;
+  }
+  
+  /* Page title styling */
+  .groups-page-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #00d4ff;
+    text-shadow: 0 4px 10px rgba(0, 212, 255, 0.6);
+    letter-spacing: 1.5px;
+  }
+  
+  /* Create Group Section */
+  .create-group-section {
+    margin-bottom: 40px;
+    padding: 20px;
+    background: #2b2d42;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* My Groups Section */
+  .my-groups-section {
+    margin-bottom: 40px;
+    padding: 20px;
+    background: #1e1e2f;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* All Groups Section */
+  .all-groups-section {
+    margin-top: 40px;
+    padding: 20px;
+    background: #1e1e2f;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Section title styling */
+  .section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #00d4ff;
+    text-shadow: 0 4px 10px rgba(0, 212, 255, 0.6);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  

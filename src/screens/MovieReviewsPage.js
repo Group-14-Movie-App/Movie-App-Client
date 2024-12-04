@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import './screensStyles/MovieReviewsPage.css';
 
 function MovieReviewsPage() {
   const { movieTitle, releaseDate } = useParams();
@@ -16,7 +17,7 @@ function MovieReviewsPage() {
     fetch(
       `http://localhost:5000/reviews?title=${encodeURIComponent(
         movieTitle
-      )}&releaseDate=${encodeURIComponent(releaseDate)}`
+      )}&releaseDate=${encodeURIComponent(releaseDate)}`,
     )
       .then((response) => {
         if (!response.ok) {
@@ -26,12 +27,10 @@ function MovieReviewsPage() {
       })
       .then((data) => {
         setReviews(data);
-        console.log('Fetched reviews:', data);
       })
       .catch((error) => console.error('Error fetching reviews:', error));
   }, [movieTitle, releaseDate]);
 
-  // Handle Edit Submit
   const handleEditSubmit = async (reviewID) => {
     if (!editedDescription.trim() || editedRating < 1 || editedRating > 5) {
       alert('Please provide a valid description and rating between 1 and 5.');
@@ -55,8 +54,8 @@ function MovieReviewsPage() {
         const updatedReview = await response.json();
         setReviews((prev) =>
           prev.map((review) =>
-            review.reviewid === reviewID ? updatedReview.review : review
-          )
+            review.reviewid === reviewID ? updatedReview.review : review,
+          ),
         );
         setEditingReviewID(null);
       } else {
@@ -67,9 +66,10 @@ function MovieReviewsPage() {
     }
   };
 
-  // Handle Delete Review
   const handleDeleteReview = async (reviewID) => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this review?');
+    const confirmDelete = window.confirm(
+      'Are you sure you want to delete this review?',
+    );
     if (!confirmDelete) return;
 
     try {
@@ -85,7 +85,6 @@ function MovieReviewsPage() {
 
       if (response.ok) {
         setReviews((prev) => prev.filter((review) => review.reviewid !== reviewID));
-        console.log('Review deleted successfully');
       } else {
         console.error('Failed to delete review');
       }
@@ -95,61 +94,65 @@ function MovieReviewsPage() {
   };
 
   return (
-    <div className="container mt-4">
-      <h1 className="text-center mb-4">
+    <div className="movie-reviews-container mt-4">
+      <h1 className="movie-reviews-title text-center mb-4">
         Reviews for {movieTitle} ({new Date(releaseDate).getFullYear()})
       </h1>
       {reviews.length > 0 ? (
         reviews.map((review) => (
-          <div key={review.reviewid} className="card mb-3">
-            <div className="card-body">
+          <div key={review.reviewid} className="movie-reviews-card mb-3">
+            <div className="movie-reviews-card-body">
               {editingReviewID === review.reviewid ? (
-                <>
+                <div className="movie-reviews-edit-popup">
                   <textarea
-                    className="form-control mb-2"
                     value={editedDescription}
                     onChange={(e) => setEditedDescription(e.target.value)}
-                    placeholder="Edit your review"
-                  />
+                    placeholder="Edit your review..."
+                    rows="4"
+                    className="movie-reviews-textarea"
+                  ></textarea>
                   <input
                     type="number"
-                    className="form-control mb-2"
                     value={editedRating}
                     onChange={(e) => setEditedRating(e.target.value)}
                     min="1"
                     max="5"
+                    placeholder="Rating (1-5)"
+                    className="movie-reviews-input"
                   />
-                  <button
-                    className="btn btn-success mr-2"
-                    onClick={() => handleEditSubmit(review.reviewid)}
-                  >
-                    Save
-                  </button>
-                  <button
-                    className="btn btn-secondary"
-                    onClick={() => setEditingReviewID(null)}
-                  >
-                    Cancel
-                  </button>
-                </>
+                  <div className="movie-reviews-edit-buttons">
+                    <button
+                      className="movie-reviews-save-btn"
+                      onClick={() => handleEditSubmit(review.reviewid)}
+                    >
+                      Save
+                    </button>
+                    <button
+                      className="movie-reviews-cancel-btn"
+                      onClick={() => setEditingReviewID(null)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
               ) : (
                 <>
-                  <h5 className="card-title">
+                  <h5 className="movie-reviews-card-title">
                     {review.firstname} {review.lastname} (User {review.userid})
                   </h5>
-                  <p className="card-text">{review.description}</p>
-                  <p className="card-text">
+                  <p className="movie-reviews-card-text">{review.description}</p>
+                  <p className="movie-reviews-card-text">
                     <strong>Rating:</strong> {review.rating} / 5
                   </p>
-                  <p className="card-text">
-                    <small className="text-muted">
+                  <p className="movie-reviews-card-timestamp">
+                    <small>
                       {new Date(review.timestamp).toLocaleString()}
                     </small>
                   </p>
                   {loggedUser.userid === review.userid && (
-                    <>
+                    <div className="movie-reviews-card-buttons">
                       <button
-                        className="btn btn-primary mr-2"
+                        className="movie-reviews-edit-btn"
                         onClick={() => {
                           setEditingReviewID(review.reviewid);
                           setEditedDescription(review.description);
@@ -159,12 +162,12 @@ function MovieReviewsPage() {
                         Edit
                       </button>
                       <button
-                        className="btn btn-danger"
+                        className="movie-reviews-delete-btn"
                         onClick={() => handleDeleteReview(review.reviewid)}
                       >
                         Delete
                       </button>
-                    </>
+                    </div>
                   )}
                 </>
               )}
@@ -172,10 +175,12 @@ function MovieReviewsPage() {
           </div>
         ))
       ) : (
-        <p>No reviews available for this movie.</p>
+        <p className="movie-reviews-no-data">No reviews available for this movie.</p>
       )}
     </div>
   );
+  
+  
 }
 
 export default MovieReviewsPage;

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./ChatBot.css";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,19 +46,21 @@ function ChatBot() {
   };
 
   return (
-    <div>
+    <div className="chatbot-container">
       {/* Chatbot Modal */}
       <div className={`chatbot-modal ${isOpen ? "open" : ""}`}>
         <div className="chatbot-header">
           <h4>{isOpen ? "MovieBot" : "Open Chat"}</h4>
-          <button className="clear-btn" onClick={handleClearChat}>
-            Clear Chat
-          </button>
-          <button className="close-btn" onClick={toggleChat}>
-            {isOpen ? "Close" : "Open"}
-          </button>
+          <div className="chatbot-header-buttons">
+            <button className="clear-btn" onClick={handleClearChat}>
+              Clear Chat
+            </button>
+            <button className="close-btn" onClick={toggleChat}>
+              {isOpen ? "Close" : "Open"}
+            </button>
+          </div>
         </div>
-
+  
         {isOpen && (
           <div className="chatbot-body">
             <div className="messages">
@@ -66,7 +70,7 @@ function ChatBot() {
                 </div>
               ))}
             </div>
-
+  
             <div className="chatbot-input">
               <input
                 type="text"
@@ -79,13 +83,14 @@ function ChatBot() {
           </div>
         )}
       </div>
-
+  
       {/* Button to toggle the chatbot */}
       <button className="open-chat-btn" onClick={toggleChat}>
-        {isOpen ? "Close Chat" : "Open Chat"}
-      </button>
+  {isOpen ? <i className="fas fa-times"></i> : <i className="fas fa-comments"></i>}
+</button>
     </div>
   );
+  
 }
 
 export default ChatBot;

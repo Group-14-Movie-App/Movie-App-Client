@@ -31,18 +31,30 @@ function ProfilePage() {
           </div>
           <div className="profile-details">
             <h2>{`${userDetails.firstname} ${userDetails.lastname}`}</h2>
-            <p><strong>Email:</strong> {userDetails.email}</p>
-            <p><strong>City:</strong> {userDetails.city}</p>
+            <p>
+              <strong>Email:</strong> {userDetails.email}
+            </p>
+            <p>
+              <strong>City:</strong> {userDetails.city}
+            </p>
           </div>
           <div>
-            <button className="edit-profile-button" onClick={() => setIsEditing(true)}>Edit Profile</button>
+            <button
+              className="edit-profile-button"
+              onClick={() => setIsEditing(true)}
+            >
+              Edit Profile
+            </button>
           </div>
         </div>
       )}
-      {/* Render the Favorites Component */}
-      <Favorites userID={userDetails.userid} />
+      <div className="favorites-container">
+        <h3>Your Favorites</h3>
+        <Favorites userID={userDetails.userid} />
+      </div>
     </div>
   );
+  
 }
 
 export default ProfilePage;

@@ -57,10 +57,16 @@ function MyGroups() {
               <h3>{group.groupname}</h3>
               <p>{group.description || "No description provided."}</p>
               <div className="group-actions">
-                <button className="btn btn-primary" onClick={() => handleViewGroup(group)}>
+                <button
+                  className="group-action-btn view-btn"
+                  onClick={() => handleViewGroup(group)}
+                >
                   View
                 </button>
-                <button className="btn btn-danger" onClick={() => handleDeleteGroup(group.groupid)}>
+                <button
+                  className="group-action-btn delete-btn"
+                  onClick={() => handleDeleteGroup(group.groupid)}
+                >
                   Delete
                 </button>
               </div>
@@ -72,6 +78,7 @@ function MyGroups() {
       </div>
     </div>
   );
+  
 }
 
 export default MyGroups;

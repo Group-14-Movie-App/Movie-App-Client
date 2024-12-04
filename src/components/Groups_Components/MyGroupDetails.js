@@ -110,25 +110,27 @@ function MyGroupDetails() {
   
 
   return (
-    <div className="group-details">
-      <h1>{group.groupname}</h1>
-      <p>{group.description}</p>
-
-      <h3>Join Requests</h3>
+    <div className="group-details-container">
+      <h1 className="group-details-title">{group.groupname}</h1>
+      <p className="group-details-description">{group.description}</p>
+  
+      <h3 className="section-title">Join Requests</h3>
       {joinRequests.length > 0 ? (
         <ul className="join-requests-list">
           {joinRequests.map((request) => (
-            <li key={request.userid}>
-              <span>{request.firstname} {request.lastname}</span>
+            <li key={request.userid} className="join-request-item">
+              <span className="requester-name">
+                {request.firstname} {request.lastname}
+              </span>
               <div className="request-actions">
                 <button
-                  className="btn-accept"
+                  className="btn-accept-request"
                   onClick={() => handleAcceptRequest(request.userid)}
                 >
                   Accept
                 </button>
                 <button
-                  className="btn-decline"
+                  className="btn-decline-request"
                   onClick={() => handleDeclineRequest(request.userid)}
                 >
                   Decline
@@ -137,21 +139,20 @@ function MyGroupDetails() {
             </li>
           ))}
         </ul>
-        ) : (
-        <p>No join requests at the moment.</p>
+      ) : (
+        <p className="no-requests-message">No join requests at the moment.</p>
       )}
-
-
-      <h3>Current Members</h3>
+  
+      <h3 className="section-title">Current Members</h3>
       {members.length > 0 ? (
         <ul className="members-list">
           {members.map((member) => (
             <li key={member.userid} className="member-item">
-              <div>
+              <div className="member-name">
                 {member.firstname} {member.lastname}
               </div>
               <button
-                className="btn btn-danger"
+                className="btn-remove-member"
                 onClick={() => handleRemoveMember(member.userid)}
               >
                 Remove
@@ -160,14 +161,18 @@ function MyGroupDetails() {
           ))}
         </ul>
       ) : (
-        <p>No members in this group yet.</p>
+        <p className="no-members-message">No members in this group yet.</p>
       )}
-
-    <button onClick={() => navigate(`/my-group-posts/${groupID}`)} className="btn btn-primary">
-      Go to Group Posts
-    </button>
+  
+      <button
+        onClick={() => navigate(`/my-group-posts/${groupID}`)}
+        className="btn-go-posts"
+      >
+        Go to Group Posts
+      </button>
     </div>
   );
+  
 }
 
 export default MyGroupDetails;

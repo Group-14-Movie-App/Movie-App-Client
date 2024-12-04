@@ -123,28 +123,28 @@ function AllGroups() {
               <p>{group.description}</p>
               <div className="group-card-buttons">
                 <button
-                  className="btn btn-primary"
+                  className="group-btn group-view-btn"
                   onClick={() => handleViewGroup(group.groupid)}
                 >
                   View Group
                 </button>
                 {statuses[group.groupid] === "member" ? (
                   <button
-                    className="btn btn-danger"
+                    className="group-btn group-remove-btn"
                     onClick={() => handleRemoveFromGroup(group.groupid)}
                   >
                     Remove from Group
                   </button>
                 ) : statuses[group.groupid] === "pending" ? (
                   <button
-                    className="btn btn-warning"
+                    className="group-btn group-cancel-btn"
                     onClick={() => handleCancelRequest(group.groupid)}
                   >
                     Cancel Request
                   </button>
                 ) : (
                   <button
-                    className="btn btn-secondary"
+                    className="group-btn group-send-btn"
                     onClick={() => handleSendRequest(group.groupid)}
                   >
                     Send Request
@@ -158,6 +158,8 @@ function AllGroups() {
       )}
     </div>
   );
+  
+  
 }
 
 export default AllGroups;
