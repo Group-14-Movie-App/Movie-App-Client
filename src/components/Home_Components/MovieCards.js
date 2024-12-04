@@ -1,27 +1,10 @@
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./MovieCards.css"; // Import the new CSS file
 
 function MovieCards({ movieList, isTmdbMovies = false, onCardClick }) {
-  const navigate = useNavigate();
-
-  // Navigate to MovieDetailsPage
   const handleCardClick = (movie) => {
-    const completeMovie = {
-      ...movie,
-      contentDescriptors: movie.contentDescriptors || [],
-      spokenLanguage: movie.spokenLanguage || "",
-      subtitleLanguage1: movie.subtitleLanguage1 || "",
-      subtitleLanguage2: movie.subtitleLanguage2 || "",
-      productionYear: movie.productionYear || "Unknown",
-      eventType: movie.eventType || "",
-      theatreAndAuditorium: movie.theatreAndAuditorium || "",
-      genres: movie.genres || "",
-      ratingImageUrl: movie.ratingImageUrl || "",
-    };
-
     onCardClick(movie);
-
-    // navigate(`/movie/${movie.id}`, { state: { movie: completeMovie } });
   };
 
   return (
@@ -30,24 +13,28 @@ function MovieCards({ movieList, isTmdbMovies = false, onCardClick }) {
         {movieList.map((movie) => (
           <div className="col-lg-2 col-sm-4 mb-4" key={movie.id}>
             <div
-              className="card h-100"
-              // Add handleCardClick function
+              className="card h-100 shadow-sm"
               onClick={() => handleCardClick(movie)}
-              style={{ cursor: "pointer" }}
             >
-              {/* Move Poster */}
               <img
-                src={movie.image}
+                src={
+                  isTmdbMovies
+                    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` // Use `poster_path` for TMDb
+                    : movie.image // Use `image` for Finnkino
+                }
                 className="card-img-top"
                 alt={movie.title}
               />
               <div className="card-body">
-                {/* Movie Title */}
-                <h3 className="card-title">{movie.title}</h3>
-                {/* Movie Rating */}
+                <h5 className="card-title">{movie.title}</h5>
                 <p className="card-text">
-                  <strong>Rating:</strong> {movie.rating ? movie.rating : 0}
+                  <strong>Rating:</strong> {movie.vote_average || movie.rating || "N/A"} {/* Handle rating */}
                 </p>
+                {movie.release_date && (
+                  <p className="card-text">
+                    <strong>Release Date:</strong> {movie.release_date}
+                  </p>
+                )}
               </div>
             </div>
           </div>

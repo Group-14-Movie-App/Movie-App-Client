@@ -1,49 +1,45 @@
 import { useEffect, useState } from "react";
 
-export default function TmdbFetcher({
-  setTmdbMovies,
-  setLimitedMovies,
-  category = "popular",
-}) {
+export default function TmdbFetcher({ setTmdbMovies }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const genreMap = {
-    action: 28,
-    comedy: 35,
-    horror: 27,
-    romance: 10749,
-    crime: 80,
-  };
-
   useEffect(() => {
-    const apiKey = process.env.REACT_APP_TMDB_API_KEY;
-    const url =
-      genreMap[category] !== undefined
-        ? `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&with_genres=${genreMap[category]}&page=1`
-        : `https://api.themoviedb.org/3/movie/${category}?api_key=${apiKey}&language=en-US&page=1`;
+    const apiKey = process.env.REACT_APP_TMDB_API_KEY; // Fetch API key from .env file
 
-    fetch(url)
+    if (!apiKey) {
+      console.error("TMDB API Key is missing in the .env file!");
+      setError("API Key is missing");
+      setLoading(false);
+      return;
+    }
+
+    const url =
+      "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${apiKey}`, // Use the fetched API key
+      },
+    };
+
+    fetch(url, options)
       .then((response) => response.json())
       .then((data) => {
         const movies = data.results.map((movie) => ({
           id: movie.id,
           title: movie.title,
-          rating: movie.vote_average,
-          image: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
+          original_title: movie.original_title,
+          release_date: movie.release_date,
           overview: movie.overview,
-          releaseDate: movie.release_date,
+          genre_ids: movie.genre_ids,
+          vote_average: movie.vote_average,
+          vote_count: movie.vote_count,
+          poster_path: movie.poster_path,
         }));
-        // setTmdbMovies(movies);
-        const sortedMovies = [...movies].sort((a, b) => b.rating - a.rating);
 
-        // Limit to 6 movies
-        const limitedMovies = sortedMovies.slice(0, 6);
-
-        // Update limitedMovies
-        setTmdbMovies(sortedMovies);
-        setLimitedMovies(limitedMovies);
-
+        setTmdbMovies(movies); // Only update the main movies list
         setLoading(false);
       })
       .catch((error) => {
@@ -51,7 +47,7 @@ export default function TmdbFetcher({
         setError(error.message);
         setLoading(false);
       });
-  }, [category, setTmdbMovies, setLimitedMovies]);
+  }, [setTmdbMovies]);
 
   if (loading) {
     return <div>Loading...</div>;
