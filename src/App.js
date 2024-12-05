@@ -25,7 +25,7 @@ import OtherGroupPosts from "./components/Groups_Components/OtherGroupPosts.js";
 import FavoriteGroupDetails from "./components/Profile_Components/FavoriteGroupDetails.js";
 
 // Chatbot Component
-import Chatbot from "./components/ChatBot.js";
+import ChatBot from "./screens/ChatBot.js";
 
 import "./App.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -155,8 +155,7 @@ function App() {
         </Routes>
 
         {/* Chatbot Added*/}
-        <Chatbot />
-        
+        <ChatBot />
       </div>
     </div>
   );
