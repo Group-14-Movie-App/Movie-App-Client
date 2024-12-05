@@ -44,6 +44,10 @@
   transition: all 0.3s ease;
 }
 
+.search-input::placeholder {
+  color: #cccccc;
+}
+
 .search-input:focus {
   background: #61657a;
   outline: none;
@@ -74,7 +78,7 @@
 }
 
 /* Movie Grid */
-.movie-grid {
+.search-movie-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
@@ -82,7 +86,7 @@
 }
 
 /* Movie Card */
-.movie-card {
+.search-movie-card {
   position: relative;
   border: none;
   border-radius: 15px;
@@ -92,14 +96,14 @@
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.movie-card:hover {
+.search-movie-card:hover {
   transform: scale(1.06); /* Subtle scaling effect */
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
   background: linear-gradient(135deg, #007bff, #00c6ff); /* Modern gradient */
 }
 
 /* Movie Image */
-.movie-image {
+.search-movie-image {
   width: 100%;
   height: 300px;
   object-fit: cover;
@@ -108,13 +112,13 @@
   transition: transform 0.4s ease, opacity 0.3s ease;
 }
 
-.movie-card:hover .movie-image {
+.search-movie-card:hover .search-movie-image {
   transform: scale(1.2); /* Enhanced zoom effect */
   opacity: 0.8;
 }
 
 /* Movie Details */
-.movie-details {
+.search-movie-details {
   padding: 15px;
   text-align: center;
   background: rgba(0, 0, 0, 0.8);
@@ -123,7 +127,7 @@
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
-.movie-title {
+.search-movie-title {
   font-size: 18px;
   font-weight: bold;
   color: #00d4ff; /* Vibrant highlight */
@@ -132,17 +136,15 @@
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Subtle shadow */
 }
 
-.movie-date {
+.search-movie-date {
   font-size: 14px;
   color: #a9a9a9;
 }
 
-.movie-details:hover {
+.search-movie-details:hover {
   background: linear-gradient(135deg, #1c1c3c, #00495e);
   color: #ffffff;
 }
-
-
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {
@@ -172,23 +174,23 @@
     border-radius: 30px;
   }
 
-  .movie-grid {
+  .search-movie-grid {
     gap: 15px;
   }
 
-  .movie-card {
+  .search-movie-card {
     border-radius: 10px;
   }
 
-  .movie-image {
+  .search-movie-image {
     height: 250px;
   }
 
-  .movie-title {
+  .search-movie-title {
     font-size: 16px;
   }
 
-  .movie-date {
+  .search-movie-date {
     font-size: 13px;
   }
 }

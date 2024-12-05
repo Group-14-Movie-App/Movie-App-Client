@@ -6,6 +6,8 @@ function Favorites({ userID }) {
   const [favoriteGroups, setFavoriteGroups] = useState([]);
   const [newGroupName, setNewGroupName] = useState("");
   const [feedback, setFeedback] = useState("");
+  const [editingGroup, setEditingGroup] = useState(null); // Track group being edited
+  const [editGroupName, setEditGroupName] = useState(""); // Name of the group being edited
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,8 +49,57 @@ function Favorites({ userID }) {
   };
 
   const handleGroupClick = (favoriteID, groupName) => {
-    // Navigate to the FavoriteGroupDetails page
     navigate(`/favorites/${favoriteID}`, { state: { groupName } });
+  };
+
+  const handleEditGroup = (group) => {
+    setEditingGroup(group.favoriteid);
+    setEditGroupName(group.name);
+  };
+
+  const handleSaveEditGroup = () => {
+    fetch(`http://localhost:5000/favorites/${editingGroup}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name: editGroupName }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setFavoriteGroups(
+          favoriteGroups.map((group) =>
+            group.favoriteid === editingGroup ? { ...group, name: editGroupName } : group
+          )
+        );
+        setEditingGroup(null);
+        setEditGroupName("");
+        setFeedback("Group updated successfully!");
+      })
+      .catch((error) => {
+        console.error("Error editing group:", error);
+        setFeedback("Failed to update group. Try again.");
+      });
+  };
+
+  const handleDeleteGroup = (favoriteID) => {
+    if (!window.confirm("Are you sure you want to delete this group?")) return;
+
+    fetch(`http://localhost:5000/favorites/${favoriteID}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.ok) {
+          setFavoriteGroups(favoriteGroups.filter((group) => group.favoriteid !== favoriteID));
+          setFeedback("Group deleted successfully!");
+        } else {
+          setFeedback("Failed to delete group. Try again.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error deleting group:", error);
+        setFeedback("Failed to delete group. Try again.");
+      });
   };
 
   return (
@@ -57,12 +108,26 @@ function Favorites({ userID }) {
       <div className="favorites-list">
         {favoriteGroups.length > 0 ? (
           favoriteGroups.map((group) => (
-            <div
-              key={group.favoriteid}
-              className="favorite-group"
-              onClick={() => handleGroupClick(group.favoriteid, group.name)}
-            >
-              <h3>{group.name}</h3>
+            <div key={group.favoriteid} className="favorite-group">
+              {editingGroup === group.favoriteid ? (
+                <>
+                  <input
+                    type="text"
+                    value={editGroupName}
+                    onChange={(e) => setEditGroupName(e.target.value)}
+                  />
+                  <button onClick={handleSaveEditGroup}>Save</button>
+                  <button onClick={() => setEditingGroup(null)}>Cancel</button>
+                </>
+              ) : (
+                <>
+                  <h3 onClick={() => handleGroupClick(group.favoriteid, group.name)}>
+                    {group.name}
+                  </h3>
+                  <button onClick={() => handleEditGroup(group)}>Edit</button>
+                  <button onClick={() => handleDeleteGroup(group.favoriteid)}>Delete</button>
+                </>
+              )}
             </div>
           ))
         ) : (

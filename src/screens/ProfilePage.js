@@ -8,10 +8,39 @@ function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false); // Added state to toggle the Edit mode
 
   useEffect(() => {
-    // Simulating fetching user details from localStorage or an API
-    const user = JSON.parse(localStorage.getItem("user")); // Assuming the user is stored in localStorage after login
+    // Fetch user details from localStorage or an API
+    const user = JSON.parse(localStorage.getItem("user"));
     setUserDetails(user);
   }, []);
+
+  const handleProfileUpdate = (updatedDetails) => {
+    setUserDetails(updatedDetails); // Update the userDetails state
+    setIsEditing(false); // Exit edit mode
+  };
+
+  const handleDeleteProfile = async () => {
+    if (!window.confirm("Are you sure you want to delete your profile? This action cannot be undone.")) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:5000/profile/${userDetails.userid}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        alert("Profile deleted successfully.");
+        localStorage.removeItem("user"); // Remove user from localStorage
+        window.location.href = "/"; // Redirect to home or login page
+      } else {
+        const errorMessage = await response.json();
+        alert(errorMessage.message || "Failed to delete profile.");
+      }
+    } catch (error) {
+      console.error("Error deleting profile:", error);
+      alert("An error occurred while deleting the profile.");
+    }
+  };
 
   if (!userDetails) {
     return <p>Loading...</p>;
@@ -20,7 +49,11 @@ function ProfilePage() {
   return (
     <div className="profile-container">
       {isEditing ? (
-        <EditProfile userDetails={userDetails} setIsEditing={setIsEditing} />
+        <EditProfile
+          userDetails={userDetails}
+          setIsEditing={setIsEditing}
+          onProfileUpdate={handleProfileUpdate} // Pass callback to update state
+        />
       ) : (
         <div className="profile-card">
           <div className="profile-picture">
@@ -38,23 +71,31 @@ function ProfilePage() {
               <strong>City:</strong> {userDetails.city}
             </p>
           </div>
-          <div>
+          <div className="profile-actions">
             <button
               className="edit-profile-button"
               onClick={() => setIsEditing(true)}
             >
               Edit Profile
             </button>
+            <button
+              className="delete-profile-button"
+              onClick={handleDeleteProfile}
+            >
+              Delete Profile
+            </button>
           </div>
         </div>
       )}
       <div className="favorites-container">
-        <h3>Your Favorites</h3>
-        <Favorites userID={userDetails.userid} />
+        <h3>Your Favorite Groups</h3>
+        <Favorites
+          userID={userDetails.userid}
+          showEditAndDeleteButtons={true} // Allow editing and deleting for favorite groups
+        />
       </div>
     </div>
   );
-  
 }
 
 export default ProfilePage;

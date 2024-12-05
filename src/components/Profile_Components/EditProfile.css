@@ -1,0 +1,112 @@
+/* Main Container */
+.edit-profile-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: linear-gradient(135deg, #1e1e2f, #2b2d42);
+    color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  /* Title Styling */
+  .edit-profile-container h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #00d4ff;
+    text-shadow: 0 4px 10px rgba(0, 212, 255, 0.6);
+  }
+  
+  /* Form Styling */
+  .edit-profile-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .edit-profile-container label {
+    font-size: 1rem;
+    color: #d4d4d4;
+    margin-bottom: 5px;
+  }
+  
+  .edit-profile-container input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #555;
+    border-radius: 8px;
+    background: #2b2d42;
+    color: white;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .edit-profile-container input:focus {
+    outline: none;
+    border-color: #00d4ff;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+  }
+  
+  /* Buttons Container */
+  .edit-profile-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  
+  /* Save Button */
+  .edit-profile-buttons button {
+    flex: 1;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .edit-profile-buttons button:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Save Button Styling */
+  .edit-profile-buttons button[type="button"]:first-child {
+    background: linear-gradient(135deg, #28a745, #218838);
+    color: white;
+  }
+  
+  .edit-profile-buttons button[type="button"]:first-child:hover {
+    background: linear-gradient(135deg, #218838, #19672b);
+  }
+  
+  /* Cancel Button Styling */
+  .cancel-button {
+    background: linear-gradient(135deg, #dc3545, #a71d2a);
+    color: white;
+  }
+  
+  .cancel-button:hover {
+    background: linear-gradient(135deg, #c82333, #87181e);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .edit-profile-container {
+      padding: 15px;
+    }
+  
+    .edit-profile-container h2 {
+      font-size: 1.8rem;
+    }
+  
+    .edit-profile-buttons button {
+      font-size: 0.9rem;
+      padding: 8px 15px;
+    }
+  }
+  

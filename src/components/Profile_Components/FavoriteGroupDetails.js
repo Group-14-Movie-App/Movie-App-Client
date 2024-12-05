@@ -13,18 +13,18 @@ function FavoriteGroupDetails() {
 
   const pageURL = `${window.location.origin}${location.pathname}`; // Current page URL
 
-  useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const response = await fetch(`http://localhost:5000/favorites/movies/${favoriteID}`);
-        if (!response.ok) throw new Error("Failed to fetch movies");
-        const data = await response.json();
-        setMovies(data);
-      } catch (error) {
-        console.error("Error fetching movies in favorite group:", error);
-      }
-    };
+  const fetchMovies = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/favorites/movies/${favoriteID}`);
+      if (!response.ok) throw new Error("Failed to fetch movies");
+      const data = await response.json();
+      setMovies(data);
+    } catch (error) {
+      console.error("Error fetching movies in favorite group:", error);
+    }
+  };
 
+  useEffect(() => {
     fetchMovies();
   }, [favoriteID]);
 
@@ -33,6 +33,7 @@ function FavoriteGroupDetails() {
       try {
         const details = await Promise.all(
           movies.map(async (movie) => {
+            console.log("Movie object:", movie); // Debug movie object structure
             const response = await fetch(
               `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
                 movie.movietitle
@@ -70,6 +71,39 @@ function FavoriteGroupDetails() {
     navigate(`/tmdb-movie-details/${movie.id || encodeURIComponent(movie.movietitle)}`, {
       state: { movie },
     });
+  };
+
+  const handleRemoveMovie = async (movieTitle, releaseYear) => {
+    console.log("Removing movie:", { movieTitle, releaseYear }); // Debug log
+    if (!movieTitle || !releaseYear) {
+      console.error("Invalid movie data:", { movieTitle, releaseYear });
+      alert("Invalid movie data. Please try again.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:5000/favorite-movies/${favoriteID}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ movieTitle, releaseYear }),
+        }
+      );
+
+      if (response.ok) {
+        await fetchMovies(); // Re-fetch movies to ensure state is up-to-date
+        alert("Movie removed successfully!");
+      } else {
+        console.error("Failed to remove movie. Response:", await response.json());
+        alert("Failed to remove movie. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error removing movie:", error);
+      alert("An error occurred. Please try again.");
+    }
   };
 
   const handleShareClick = async (platform) => {
@@ -121,20 +155,22 @@ function FavoriteGroupDetails() {
       {movieDetails.length > 0 ? (
         <div className="movie-grid">
           {movieDetails.map((movie, index) => (
-            <div
-              key={index}
-              className="card"
-              onClick={() => handleMovieClick(movie)}
-              style={{ cursor: "pointer" }}
-            >
+            <div key={index} className="card" style={{ cursor: "pointer" }}>
               <img
                 src={`https://image.tmdb.org/t/p/w500/${movie.poster_path || ""}`}
                 alt={movie.movietitle}
                 className="card-img-top"
+                onClick={() => handleMovieClick(movie)}
               />
               <div className="card-body">
                 <h5>{movie.title || movie.movietitle}</h5>
                 <p>Release Year: {movie.releaseyear || movie.release_date?.split("-")[0]}</p>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => handleRemoveMovie(movie.movietitle || movie.title, movie.releaseyear || movie.release_date?.split("-")[0])}
+                >
+                  Remove
+                </button>
               </div>
             </div>
           ))}

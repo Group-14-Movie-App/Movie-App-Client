@@ -1,77 +1,113 @@
-.movie-card {
+/* Container for Movie Cards */
+.unique-container {
+  margin-top: 30px;
+  padding: 20px;
+}
+
+/* Row for Wrapping Movie Cards */
+.unique-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Movie Card Container */
+.unique-movie-card-container {
+  flex: 1 1 calc(16.666% - 20px); /* 6 cards in 1 row on large screens */
+  max-width: calc(16.666% - 20px); /* 6 cards in 1 row on large screens */
+}
+
+@media (max-width: 1200px) {
+  .unique-movie-card-container {
+    flex: 1 1 calc(25% - 20px); /* 4 cards in 1 row on medium screens */
+    max-width: calc(25% - 20px);
+  }
+}
+
+@media (max-width: 768px) {
+  .unique-movie-card-container {
+    flex: 1 1 calc(50% - 20px); /* 2 cards in 1 row on small screens */
+    max-width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 576px) {
+  .unique-movie-card-container {
+    flex: 1 1 100%; /* 1 card in 1 row on extra small screens */
+    max-width: 100%;
+  }
+}
+
+/* Movie Card */
+.unique-movie-card {
   position: relative;
   border: none;
   border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  background: linear-gradient(135deg, #ffffff, #eceff1);
+  background-color: rgb(36, 55, 58); /* Light gray background */
   overflow: hidden;
 }
 
-.movie-card:hover {
+.unique-movie-card:hover {
   transform: scale(1.06); /* Subtle scaling effect */
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  animation: glow 1s infinite alternate; /* Glowing shadow effect */
+  color: #1abc9c; /* Match sidebar hover text color */
+  background-color: transparent;
 }
 
-.movie-card-img-top {
-  height: 280px; /* Slightly reduced height for better layout */
-  width: 100%; /* Full width */
+/* Movie Card Image */
+.unique-movie-card-img-top {
+  height: 280px;
+  width: 100%;
   object-fit: cover;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   transition: transform 0.4s ease, opacity 0.3s ease;
 }
 
-.movie-card:hover .movie-card-img-top {
-  transform: scale(1.2); /* Enhanced zoom effect */
+.unique-movie-card:hover .unique-movie-card-img-top {
+  transform: scale(1.2);
   opacity: 0.8;
 }
 
 /* Card Body */
-.movie-card-body {
-  padding: 20px;
-  background: rgba(0, 0, 0, 0.8);
-  border-radius: 0 0 15px 15px;
-  text-align: center;
-  z-index: 1;
+.unique-movie-card-body {
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.8); /* Updated background color */
   color: white;
+  text-align: center;
+  border-radius: 0 0 15px 15px;
   position: relative;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
-.movie-card-title {
+.unique-movie-card-title {
   font-size: 1.3em;
   font-weight: bold;
-  color: #ffffff;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Enhanced text effect */
-}
-
-.movie-card-body:hover {
-  transform: scale(1.05);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    background: linear-gradient(135deg, #002042, #00495e);
-}
-
-.movie-card-title {
-  font-size: 1.3em;
-  font-weight: bold;
-  color: #3949ab; /* A vibrant blue */
+  color: #ffffff; /* Active color */
+  text-shadow: 0 0 25px rgba(0, 247, 255, 0.6), 0 0 50px rgba(255, 0, 122, 0.5); /* Glow */
   margin-bottom: 10px;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-.movie-card-text {
+.unique-movie-card:hover .unique-movie-card-title {
+  color: #12bac0; /* Active color */
+  text-shadow: 0 0 25px rgba(57, 73, 171, 0.6), 0 0 50px rgba(255, 0, 122, 0.5); /* Glow */
+}
+
+/* Text */
+.unique-movie-card-text {
   font-size: 1em;
   color: #616161;
   margin-bottom: 10px;
   line-height: 1.6;
 }
 
-.movie-card-text strong {
+.unique-movie-card-text strong {
   display: inline-block;
   padding: 3px 8px;
   font-size: 0.85em;
@@ -81,13 +117,13 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.movie-card-body:hover .movie-card-text strong {
+.unique-movie-card-body:hover .unique-movie-card-text strong {
   background-color: #15229e;
   color: #ffffff;
 }
 
-/* Footer with theater details */
-.movie-card-footer {
+/* Footer with Theater Details */
+.unique-movie-card-footer {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -102,12 +138,12 @@
   opacity: 0;
 }
 
-.movie-card:hover .movie-card-footer {
+.unique-movie-card:hover .unique-movie-card-footer {
   transform: translateY(0);
   opacity: 1;
 }
 
-/* Glowing shadow effect */
+/* Glowing Shadow Effect */
 @keyframes glow {
   0%, 100% {
     box-shadow: 0 5px 15px rgba(63, 81, 181, 0.3);
@@ -117,25 +153,21 @@
   }
 }
 
-.movie-card:hover {
-  animation: glow 1s infinite alternate;
-}
-
-/* Responsive Design */
+/* Responsive Adjustments for Card Content */
 @media (max-width: 768px) {
-  .movie-card {
+  .unique-movie-card {
     margin-bottom: 20px;
   }
 
-  .movie-card-img-top {
+  .unique-movie-card-img-top {
     height: 200px; /* Reduced height for smaller screens */
   }
 
-  .movie-card-title {
+  .unique-movie-card-title {
     font-size: 1.2em;
   }
 
-  .movie-card-text {
+  .unique-movie-card-text {
     font-size: 0.9em;
   }
 }

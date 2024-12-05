@@ -153,3 +153,62 @@
     padding: 10px 20px;
   }
 }
+
+
+
+/* Buttons in Favorite Groups */
+.favorite-group button {
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Edit Button */
+.favorite-group button:nth-child(2) {
+  background: linear-gradient(135deg, #ffc107, #e0a800);
+  color: #212529;
+}
+
+.favorite-group button:nth-child(2):hover {
+  background: linear-gradient(135deg, #e0a800, #c69500);
+}
+
+/* Delete Button */
+.favorite-group button:nth-child(3) {
+  background: linear-gradient(135deg, #dc3545, #a71d2a);
+  color: white;
+}
+
+.favorite-group button:nth-child(3):hover {
+  background: linear-gradient(135deg, #c82333, #87181e);
+}
+
+/* Save Button */
+.favorite-group input + button:first-child {
+  background: linear-gradient(135deg, #28a745, #218838);
+  color: white;
+}
+
+.favorite-group input + button:first-child:hover {
+  background: linear-gradient(135deg, #218838, #19672b);
+}
+
+/* Cancel Button */
+.favorite-group input + button:last-child {
+  background: linear-gradient(135deg, #6c757d, #5a6268);
+  color: white;
+}
+
+.favorite-group input + button:last-child:hover {
+  background: linear-gradient(135deg, #545b62, #464e54);
+}
+
+/* Button Alignment */
+.favorite-group button,
+.favorite-group input + button {
+  margin-right: 10px;
+}

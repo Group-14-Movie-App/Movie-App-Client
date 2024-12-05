@@ -45,25 +45,26 @@ function SearchPage() {
           🔍 Search
         </button>
       </div>
-      <div className="movie-grid">
+      <div className="search-movie-grid">
         {movies.map((movie) => (
           <div
             key={movie.id}
-            className="movie-card"
+            className="search-movie-card"
             onClick={() => handleCardClick(movie)}
           >
             <img
               src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
               alt={movie.title}
-              className="movie-image"
+              className="search-movie-image"
             />
-            <div className="movie-details">
-              <h5 className="movie-title">{movie.title}</h5>
-              <p className="movie-date">{movie.release_date}</p>
+            <div className="search-movie-details">
+              <h5 className="search-movie-title">{movie.title}</h5>
+              <p className="search-movie-date">{movie.release_date}</p>
             </div>
           </div>
         ))}
       </div>
+
     </div>
   );
 }

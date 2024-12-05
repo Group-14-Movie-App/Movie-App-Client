@@ -142,3 +142,37 @@
     font-size: 1.3rem;
   }
 }
+
+
+/* Delete Profile Button */
+.delete-profile-button {
+  margin-top: 20px;
+  background: linear-gradient(135deg, #dc3545, #a71d2a);
+  color: white;
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.delete-profile-button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #c82333, #87181e);
+  box-shadow: 0 8px 20px rgba(220, 53, 69, 0.5);
+}
+
+.delete-profile-button:active {
+  transform: scale(1);
+}
+
+
+/* Profile Buttons Container */
+.profile-actions {
+  display: flex;
+  gap: 15px; /* Add spacing between buttons */
+  justify-content: center; /* Align buttons to the center */
+  margin-top: 20px; /* Add margin above the button group */
+}
