@@ -7,6 +7,9 @@ export default function TmdbFetcher({ setTmdbMovies }) {
   useEffect(() => {
     const apiKey = process.env.REACT_APP_TMDB_API_KEY; // Fetch API key from .env file
 
+    // Debug for deploy issue: Log API key
+    console.log("API Key: " + apiKey);
+
     if (!apiKey) {
       console.error("TMDB API Key is missing in the .env file!");
       setError("API Key is missing");
@@ -27,6 +30,9 @@ export default function TmdbFetcher({ setTmdbMovies }) {
     fetch(url, options)
       .then((response) => response.json())
       .then((data) => {
+        // Debug for deploy issue: Log fetched data
+        console.log("Fetched data:", data);
+
         const movies = data.results.map((movie) => ({
           id: movie.id,
           title: movie.title,
@@ -46,6 +52,8 @@ export default function TmdbFetcher({ setTmdbMovies }) {
         console.error("Error fetching TMDb data: ", error);
         setError(error.message);
         setLoading(false);
+        // Debug for deploy issue: Log fetch error
+        console.error("Error fetching TMDb data: ", error);
       });
   }, [setTmdbMovies]);
 
