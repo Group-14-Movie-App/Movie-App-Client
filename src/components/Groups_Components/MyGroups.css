@@ -87,3 +87,13 @@
   background: linear-gradient(135deg, #d63333, #ff1e1e);
   box-shadow: 0 0 10px rgba(255, 95, 95, 0.5);
 }
+
+
+/* Styling for the markdown content inside a post */
+.markdown-content img {
+  max-width: 100%; /* Ensure image is responsive */
+  max-height: 150px; /* Limit the height */
+  display: block;
+  margin: 10px auto; /* Center the image */
+  border-radius: 5px; /* Optional: Add rounded corners */
+}

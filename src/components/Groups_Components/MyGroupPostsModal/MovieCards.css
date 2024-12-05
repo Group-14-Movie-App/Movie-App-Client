@@ -1,0 +1,120 @@
+/* Movie Cards Container */
+.movie-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Flexible grid layout */
+    gap: 20px; /* Increased spacing for better readability */
+    padding: 20px;
+    justify-content: center; /* Center content in the grid */
+  }
+  
+  /* Individual Movie Card */
+  .movie-card {
+    border-radius: 10px;
+    background: linear-gradient(135deg, #2b2d42, #3c4045); /* Futuristic gradient background */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Soft shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    cursor: pointer;
+    padding: 10px;
+  }
+  
+  .movie-card:hover {
+    transform: scale(1.05); /* Slight zoom effect */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Enhanced shadow on hover */
+  }
+  
+  /* Movie Image */
+  .movie-card img {
+    width: 100%;
+    height: 180px; /* Adjusted height for larger images */
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease; /* Smooth image scaling on hover */
+  }
+  
+  .movie-card:hover img {
+    transform: scale(1.1); /* Slight zoom effect on image hover */
+  }
+  
+  /* Movie Card Content */
+  .movie-card .movie-card-content {
+    padding: 10px;
+    color: white;
+  }
+  
+  /* Title */
+  .movie-card .title {
+    font-size: 1.1em;
+    margin: 5px 0;
+    font-weight: bold;
+    color: #00d4ff; /* Vibrant blue for movie titles */
+    text-shadow: 0 2px 5px rgba(0, 212, 255, 0.5);
+  }
+  
+  /* Time Info */
+  .movie-card .time {
+    font-size: 0.9em;
+    color: #d4d4d4; /* Subtle gray for time text */
+    margin: 3px 0;
+    transition: color 0.3s ease; /* Smooth color change on hover */
+  }
+  
+  /* Theater Info */
+  .movie-card .theater {
+    font-size: 0.85em;
+    color: #a9a9a9; /* Subtle light gray for theater info */
+    margin-top: 5px;
+    transition: color 0.3s ease; /* Smooth color change on hover */
+  }
+
+  /* Hover Effects for Time and Theater Info */
+  .movie-card:hover .title {
+    color: #00eeff; /* Vibrant blue for movie titles */
+    text-shadow: 0 2px 5px rgba(1, 10, 12, 0.5);
+    animation: fadeIn 0.7s ease-in-out;
+  }
+  
+  /* Hover Effects for Time and Theater Info */
+  .movie-card:hover .time {
+    color: #ffd700; /* Gold color on hover */
+  }
+  
+  .movie-card:hover .theater {
+    color: #000000; /* Vibrant blue on hover */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .movie-card img {
+      height: 150px; /* Adjusted height for smaller screens */
+    }
+  
+    .movie-card .title {
+      font-size: 1em; /* Slightly smaller title */
+    }
+  
+    .movie-card .time,
+    .movie-card .theater {
+      font-size: 0.8em; /* Smaller text for time and theater */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .movie-cards-container {
+      gap: 15px; /* Reduce gap for smaller screens */
+    }
+  
+    .movie-card img {
+      height: 120px; /* Further adjust image height for small screens */
+    }
+  
+    .movie-card .movie-card-content {
+      padding: 8px; /* Reduce padding */
+    }
+  }
+  

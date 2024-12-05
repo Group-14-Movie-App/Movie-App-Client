@@ -1,0 +1,192 @@
+/* Modal Container */
+.my-group-posts-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 10, 20, 0.9); /* Dark semi-transparent overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 15px;
+  overflow-y: auto; /* Enable scrolling for small screens */
+  backdrop-filter: blur(8px); /* Add a subtle blur effect */
+}
+
+/* Modal Content */
+.modal-content {
+  background: linear-gradient(135deg, #1e1e2f, #2b2d42); /* Futuristic gradient */
+  color: white;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+/* Modal Title */
+.modal-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  color: #00d4ff;
+  text-shadow: 0 4px 10px rgba(0, 212, 255, 0.6);
+  margin-bottom: 20px;
+}
+
+/* Close Button */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: linear-gradient(135deg, #ff5f5f, #d63333);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.close-btn:hover {
+  background: linear-gradient(135deg, #d63333, #ff1e1e);
+  transform: scale(1.1);
+}
+
+/* Location Dropdown */
+.form-select {
+  background: #2b2d42;
+  color: white;
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: #00d4ff;
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+}
+
+/* Search Input */
+.form-control {
+  background: #2b2d42;
+  color: white;
+  border: 1px solid #555;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+/* Placeholder Text Color */
+.form-control::placeholder {
+  color: #a9a9a9; /* Light gray for better visibility */
+  font-style: italic; /* Optional: make the placeholder italicized */
+}
+
+
+.form-control:focus {
+  outline: none;
+  border-color: #00d4ff;
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+}
+
+/* Movie Cards Container */
+.movie-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+/* Individual Movie Card */
+.movie-card {
+  background: linear-gradient(135deg, #2b2d42, #3c4045);
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  padding: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+.movie-card img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.movie-card .title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #00d4ff;
+  margin-bottom: 8px;
+}
+
+.movie-card .time {
+  font-size: 0.9rem;
+  color: #d4d4d4;
+  margin-bottom: 5px;
+}
+
+.movie-card .theater {
+  font-size: 0.85rem;
+  color: #a9a9a9;
+}
+
+/* No Movies Message */
+.movie-cards-container p {
+  text-align: center;
+  font-size: 1rem;
+  color: #d4d4d4;
+  margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .modal-title {
+    font-size: 1.5rem;
+  }
+
+  .movie-card .title {
+    font-size: 1rem;
+  }
+
+  .movie-card .time {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 15px;
+  }
+
+  .movie-card {
+    padding: 10px;
+  }
+
+  .movie-card .title {
+    font-size: 0.9rem;
+  }
+
+  .movie-card .time {
+    font-size: 0.8rem;
+  }
+}

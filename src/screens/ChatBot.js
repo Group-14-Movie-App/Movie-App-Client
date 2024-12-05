@@ -49,17 +49,19 @@ function ChatBot() {
     <div className="chatbot-container">
       {/* Chatbot Modal */}
       <div className={`chatbot-modal ${isOpen ? "open" : ""}`}>
-        <div className="chatbot-header">
-          <h4>{isOpen ? "MovieBot" : "Open Chat"}</h4>
-          <div className="chatbot-header-buttons">
-            <button className="clear-btn" onClick={handleClearChat}>
-              Clear Chat
-            </button>
-            <button className="close-btn" onClick={toggleChat}>
-              {isOpen ? "Close" : "Open"}
-            </button>
-          </div>
+      <div className="chatbot-header">
+        <h4>{isOpen ? "MovieBot" : "Open Chat"}</h4>
+        {/* Ensure buttons are grouped inside chatbot-header-buttons */}
+        <div className="chatbot-header-buttons">
+          <button className="chatbot-clear-btn" onClick={handleClearChat}>
+            Clear Chat
+          </button>
+          <button className="chatbot-close-btn" onClick={toggleChat}>
+            {isOpen ? "Close" : "Open"}
+          </button>
         </div>
+      </div>
+
   
         {isOpen && (
           <div className="chatbot-body">

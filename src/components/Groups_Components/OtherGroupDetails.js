@@ -100,13 +100,16 @@ function OtherGroupDetails() {
 
   const handleGoToGroupPosts = () => {
     if (relationshipStatus === "member") {
-      navigate(`/group-posts/${groupID}`);
+      navigate(`/group-posts/${groupID}`, {
+        state: { group: groupDetails }, // Pass the group details
+      });
     } else if (relationshipStatus === "pending") {
       alert("Your join request is still pending. You cannot view group posts yet.");
     } else {
       alert("You need to be a member of this group to view posts.");
     }
   };
+  
 
   if (!groupDetails) {
     return <p>Loading group details...</p>;

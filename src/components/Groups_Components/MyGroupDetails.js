@@ -165,7 +165,7 @@ function MyGroupDetails() {
       )}
   
       <button
-        onClick={() => navigate(`/my-group-posts/${groupID}`)}
+        onClick={() => navigate(`/my-group-posts/${groupID}`, { state: { group } })}
         className="btn-go-posts"
       >
         Go to Group Posts

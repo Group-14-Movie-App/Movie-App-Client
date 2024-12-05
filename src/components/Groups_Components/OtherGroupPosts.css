@@ -254,3 +254,143 @@
     padding: 8px 12px;
   }
 }
+
+
+
+
+/* Open Modal Button for OtherGroupPosts (identical to MyGroupPosts button) */
+.other-btn-open-modal {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #00d4ff, #007bff); /* Identical gradient */
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px; /* Same spacing as MyGroupPosts */
+}
+
+.other-btn-open-modal:hover {
+  background: linear-gradient(135deg, #0056b3, #003f7f); /* Identical hover gradient */
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.5);
+}
+
+/* Modal Overlay for OtherGroupPosts (identical to MyGroupPosts overlay) */
+.other-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(5px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 999;
+}
+
+.other-modal-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* OtherGroupPosts Modal Container (identical to MyGroupPosts modal) */
+.other-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  max-width: 400px;
+  background: linear-gradient(135deg, #1e1e2f, #2b2d42);
+  color: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  transform: translate(-50%, -50%) scale(0.8);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 1000;
+}
+
+.other-modal.open {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+/* Modal Header (identical gradient and style as MyGroupPosts) */
+.other-modal-header {
+  background: linear-gradient(135deg, #00d4ff, #007bff); /* Same gradient as MyGroupPosts */
+  padding: 10px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-align: center;
+  border-radius: 15px 15px 0 0;
+  text-shadow: 0 2px 5px rgba(0,212,255,0.5);
+  position: relative;
+}
+
+/* Modal Close Button (same style as MyGroupPosts close button) */
+.other-modal-close-btn {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: #6c757d;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.other-modal-close-btn:hover {
+  background: #545b62;
+}
+
+/* Modal Body (same spacing and color as MyGroupPosts) */
+.other-modal-body {
+  padding: 20px;
+  font-size: 1rem;
+  color: #d4d4d4;
+}
+
+/* Modal Footer (identical layout and spacing as MyGroupPosts) */
+.other-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 10px 20px;
+}
+
+.other-modal-footer button {
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Confirm (like .btn-save-post in MyGroupPosts) */
+.other-modal-footer .other-btn-confirm {
+  background: linear-gradient(135deg, #28a745, #218838);
+  color: white;
+}
+
+.other-modal-footer .other-btn-confirm:hover {
+  background: linear-gradient(135deg, #218838, #19672b);
+}
+
+/* Cancel (like .btn-cancel-edit in MyGroupPosts) */
+.other-modal-footer .other-btn-cancel {
+  background: linear-gradient(135deg, #6c757d, #5a6268);
+  color: white;
+}
+
+.other-modal-footer .other-btn-cancel:hover {
+  background: linear-gradient(135deg, #545b62, #464e54);
+}
