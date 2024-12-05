@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import "./ChatBot.css";
+import "./Chatbot.css";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
-function ChatBot() {
+function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState("");
@@ -93,4 +93,4 @@ function ChatBot() {
   
 }
 
-export default ChatBot;
+export default Chatbot;
