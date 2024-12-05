@@ -154,7 +154,7 @@ function App() {
           <Route path="/group-posts/:groupID" element={<OtherGroupPosts />} />
         </Routes>
 
-        {/* Chatbot */}
+        {/* Chatbot Added*/}
         <ChatBot />
       </div>
     </div>
