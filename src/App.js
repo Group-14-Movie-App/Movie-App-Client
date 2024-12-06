@@ -1,4 +1,15 @@
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHome,
+  faSearch,
+  faClock,
+  faUser,
+  faUsers,
+  faStar,
+  faHeart,
+  faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons";
 
 // Screen Components
 import HomePage from "./screens/HomePage.js";
@@ -12,7 +23,7 @@ import RegisterPage from "./screens/RegisterPage.js";
 import MovieReviewsPage from "./screens/MovieReviewsPage.js";
 import TMDBMovieDetails from "./screens/TMDBMovieDetails.js";
 import TMDBtoFinkkinoMovieDetails from "./screens/TMDBtoFinkkinoMovieDetails.js";
-import UserFavourites from "./screens/UserFavourites.js"; // Import UserFavourites component
+import UserFavourites from "./screens/UserFavourites.js";
 
 // Groups Components
 import GroupsPage from "./screens/GroupsMainPage.js";
@@ -27,62 +38,65 @@ import FavoriteGroupDetails from "./components/Profile_Components/FavoriteGroupD
 // Chatbot Component
 import ChatBot from "./screens/ChatBot.js";
 
+// Import the logo
 import "./App.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHome,
-  faSearch,
-  faClock,
-  faUser,
-  faUsers,
-  faStar,
-  faHeart, // Heart icon for Favorites
-  faSignOutAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import FinnFlixLogo from "./assests/FinnFlix Logo.jpg"; // Adjust the path if necessary
 
 function App() {
+  const location = useLocation();
+
+  // Function to check if a route is active
+  const isActive = (path) => location.pathname === path;
+
   return (
     <div className="d-flex">
-      {/* Modern Sidebar Navigation */}
+      {/* Sidebar Navigation */}
       <nav className="sidebar">
+        {/* App Logo */}
+        <div className="sidebar-logo">
+          <Link to="/home-page">
+            <img src={FinnFlixLogo} alt="FinnFlix Logo" />
+          </Link>
+        </div>
+
         <ul className="sidebar-nav">
-          <li>
+          <li className={isActive("/home-page") ? "active" : ""}>
             <Link to="/home-page">
               <FontAwesomeIcon icon={faHome} />
               <small>Home</small>
             </Link>
           </li>
-          <li>
+          <li className={isActive("/search-page") ? "active" : ""}>
             <Link to="/search-page">
               <FontAwesomeIcon icon={faSearch} />
               <small>Search</small>
             </Link>
           </li>
-          <li>
+          <li className={isActive("/showtimes-page") ? "active" : ""}>
             <Link to="/showtimes-page">
               <FontAwesomeIcon icon={faClock} />
               <small>Showtimes</small>
             </Link>
           </li>
-          <li>
+          <li className={isActive("/profile-page") ? "active" : ""}>
             <Link to="/profile-page">
               <FontAwesomeIcon icon={faUser} />
               <small>Profile</small>
             </Link>
           </li>
-          <li>
+          <li className={isActive("/groups-page") ? "active" : ""}>
             <Link to="/groups-page">
               <FontAwesomeIcon icon={faUsers} />
               <small>Groups</small>
             </Link>
           </li>
-          <li>
+          <li className={isActive("/reviews-page") ? "active" : ""}>
             <Link to="/reviews-page">
               <FontAwesomeIcon icon={faStar} />
               <small>Reviews</small>
             </Link>
           </li>
-          <li>
+          <li className={isActive("/user-favourites") ? "active" : ""}>
             <Link to="/user-favourites">
               <FontAwesomeIcon icon={faHeart} />
               <small>Favorites</small>
@@ -90,7 +104,7 @@ function App() {
           </li>
         </ul>
 
-        {/* Logout Button Positioned at Bottom */}
+        {/* Logout Button */}
         <div className="logout">
           <Link to="/sign-in-page">
             <FontAwesomeIcon icon={faSignOutAlt} />
@@ -102,12 +116,9 @@ function App() {
       {/* Main Content Area */}
       <div className="content">
         <Routes>
-          {/* General Pages */}
           <Route path="/" element={<HomePage />} index />
           <Route path="/home-page" element={<HomePage />} />
           <Route path="/profile-page" element={<ProfilePage />} />
-
-          {/* Movie Pages */}
           <Route path="/movie/:id" element={<MovieDetailsPage />} />
           <Route
             path="/tmdb-movie-details/:id"
@@ -121,26 +132,16 @@ function App() {
             path="/movie-reviews/:movieTitle/:releaseDate"
             element={<MovieReviewsPage />}
           />
-
-          {/* Showtimes and Search */}
           <Route path="/showtimes-page" element={<ShowtimesPage />} />
           <Route path="/search-page" element={<SearchPage />} />
-
-          {/* Reviews */}
           <Route path="/reviews-page" element={<ReviewsPage />} />
-
-          {/* Authentication Pages */}
           <Route path="/sign-in-page" element={<SignInPage />} />
           <Route path="/register-page" element={<RegisterPage />} />
-
-          {/* Favorites Related Routes */}
           <Route path="/user-favourites" element={<UserFavourites />} />
           <Route
             path="/favorites/:favoriteID"
             element={<FavoriteGroupDetails />}
           />
-
-          {/* Groups Related Routes */}
           <Route path="/groups-page" element={<GroupsPage />} />
           <Route
             path="/my-group-details/:groupID"
@@ -153,8 +154,6 @@ function App() {
           <Route path="/my-group-posts/:groupID" element={<MyGroupPosts />} />
           <Route path="/group-posts/:groupID" element={<OtherGroupPosts />} />
         </Routes>
-
-        {/* Chatbot Added*/}
         <ChatBot />
       </div>
     </div>

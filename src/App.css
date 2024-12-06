@@ -196,3 +196,134 @@ a:hover {
   color: #1abc9c; /* Match sidebar hover text color */
   background-color: transparent;
 }
+
+
+
+
+
+/* NavLink Highlight */
+.sidebar-nav li.active a {
+  background: linear-gradient(45deg, #3498db, #2980b9, #1abc9c, #16a085);
+  background-size: 500% 500%; /* Smooth gradient flow */
+  animation: gradientBackground 4s ease infinite; /* Continuous gradient animation */
+  color: #ffffff; /* White text for contrast */
+  box-shadow: 0 0 20px #3498db, 0 0 40px #2980b9, 0 0 60px #1abc9c; /* Bluish glow */
+  border-radius: 12px; /* Rounded corners for a modern look */
+  position: relative; /* Required for pseudo-elements */
+  overflow: hidden; /* Prevents pseudo-elements overflow */
+  z-index: 1; /* Layer above pseudo-elements */
+  text-shadow: 0 0 5px #ecf0f1, 0 0 10px #bdc3c7; /* Subtle glow for text */
+}
+
+/* Animated radial light effect for NavLinks */
+.sidebar-nav li.active a::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
+  animation: radialPulse 3s infinite;
+  z-index: -1; /* Behind the main element */
+}
+
+/* Subtext Styling */
+.sidebar-nav li.active a small {
+  color: #ecf0f1; /* Soft gray for contrast */
+  font-weight: bold; /* Highlight subtext */
+  text-shadow: 0 0 10px #3498db, 0 0 15px #1abc9c; /* Blue neon glow for subtext */
+}
+
+/* Icon Glow Effect */
+.sidebar-nav li.active a svg {
+  animation: iconGlowEffect 1.5s ease-in-out infinite alternate;
+}
+
+/* Hover Effects */
+.sidebar-nav li.active a:hover {
+  transform: scale(1.15); /* Slight zoom on hover */
+  box-shadow: 0 0 25px #2980b9, 0 0 50px #3498db, 0 0 75px #1abc9c; /* Intense bluish glow */
+  text-shadow: 0 0 8px #ffffff, 0 0 12px #16a085; /* Glow text effect */
+}
+
+/* Gradient Animation */
+@keyframes gradientBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Radial Pulse Animation */
+@keyframes radialPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+}
+
+/* Icon Glow Animation */
+@keyframes iconGlowEffect {
+  0% {
+    filter: drop-shadow(0 0 10px #3498db) drop-shadow(0 0 20px #1abc9c);
+  }
+  100% {
+    filter: drop-shadow(0 0 20px #2980b9) drop-shadow(0 0 30px #16a085);
+  }
+}
+
+/* Logo Styling */
+.sidebar-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  background: linear-gradient(135deg, #2980b9, #3498db, #1abc9c); /* Bluish gradient */
+  border-bottom: 2px solid #34495e; /* Separation line */
+}
+
+.sidebar-logo img {
+  width: 80px;
+  height: auto;
+  border-radius: 15%; /* Rounded for a modern feel */
+  transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out; /* Smooth transitions */
+  border: 2px solid #ecf0f1; /* Soft border */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Subtle depth effect */
+}
+
+.sidebar-logo img:hover {
+  transform: rotate(360deg) scale(1.2); /* Rotation and zoom effect */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px #3498db; /* Enhance hover effect */
+  border-color: #2980b9; /* Change border color on hover */
+}
+
+/* Logo Glow Animation */
+@keyframes logoGlow {
+  0% {
+    filter: drop-shadow(0 0 5px #3498db);
+  }
+  50% {
+    filter: drop-shadow(0 0 15px #1abc9c);
+  }
+  100% {
+    filter: drop-shadow(0 0 5px #2980b9);
+  }
+}
+
+.sidebar-logo img:hover {
+  animation: logoGlow 2s infinite ease-in-out; /* Glow animation on hover */
+}

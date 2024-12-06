@@ -76,54 +76,62 @@ function MovieDetailsPage() {
 
   return (
     <div className="movie-details-container mt-4">
-      <h1 className="movie-title">{movie.title}</h1>
-      <img src={movie.image} alt={movie.title} className="movie-poster img-fluid mb-4" />
+      <h1 className="movie-details-title">{movie.title}</h1>
+      <img
+        src={movie.image}
+        alt={movie.title}
+        className="movie-details-poster img-fluid mb-4"
+      />
   
-      <p className="movie-detail">
-        <strong className="detail-label">Original Title:</strong> {movie.originalTitle}
+      <p className="movie-details-item">
+        <strong className="movie-details-label">Original Title:</strong> {movie.originalTitle}
       </p>
-      <p className="movie-detail">
-        <strong className="detail-label">Production Year:</strong> {movie.productionYear}
+      <p className="movie-details-item">
+        <strong className="movie-details-label">Production Year:</strong> {movie.productionYear}
       </p>
-      <p className="movie-detail">
-        <strong className="detail-label">Event Type:</strong> {movie.eventType}
+      <p className="movie-details-item">
+        <strong className="movie-details-label">Event Type:</strong> {movie.eventType}
       </p>
-      <p className="movie-detail">
-        <strong className="detail-label special-detail">Start Time:</strong> {movie.startTime}
+      <p className="movie-details-item">
+        <strong className="movie-details-label movie-details-highlight">Start Time:</strong> {movie.startTime}
       </p>
-      <p className="movie-detail">
-        <strong className="detail-label special-detail">End Time:</strong> {movie.endTime}
+      <p className="movie-details-item">
+        <strong className="movie-details-label movie-details-highlight">End Time:</strong> {movie.endTime}
       </p>
-      <p className="movie-detail">
-        <strong className="detail-label">Genres:</strong> {movie.genres}
+      <p className="movie-details-item">
+        <strong className="movie-details-label">Genres:</strong> {movie.genres}
       </p>
-      <p className="movie-detail">
-        <strong className="detail-label">Rating:</strong> 
-        <img src={movie.ratingImageUrl} alt="Rating" className="rating-image" />
+      <p className="movie-details-item">
+        <strong className="movie-details-label">Rating:</strong>
+        <img
+          src={movie.ratingImageUrl}
+          alt="Rating"
+          className="movie-details-rating-icon"
+        />
       </p>
-      <p className="movie-detail">
-        <strong className="detail-label">Theatre and Auditorium:</strong> {movie.theatreAndAuditorium}
+      <p className="movie-details-item">
+        <strong className="movie-details-label">Theatre and Auditorium:</strong> {movie.theatreAndAuditorium}
       </p>
-      <p className="movie-detail">
-        <strong className="detail-label">Presentation Method and Language:</strong> {movie.presentationMethodAndLanguage}
+      <p className="movie-details-item">
+        <strong className="movie-details-label">Presentation Method and Language:</strong> {movie.presentationMethodAndLanguage}
       </p>
-      <p className="movie-detail">
-        <strong className="detail-label">Spoken Language:</strong> {movie.spokenLanguage}
+      <p className="movie-details-item">
+        <strong className="movie-details-label">Spoken Language:</strong> {movie.spokenLanguage}
       </p>
-      <p className="movie-detail">
-        <strong className="detail-label">Subtitles:</strong> {movie.subtitleLanguage1}, {movie.subtitleLanguage2}
+      <p className="movie-details-item">
+        <strong className="movie-details-label">Subtitles:</strong> {movie.subtitleLanguage1}, {movie.subtitleLanguage2}
       </p>
   
       {movie.contentDescriptors.length > 0 && (
-        <div className="content-descriptors">
-          <strong className="detail-label">Content Descriptors:</strong>
-          <ul className="content-descriptor-list">
+        <div className="movie-details-descriptors">
+          <strong className="movie-details-label">Content Descriptors:</strong>
+          <ul className="movie-details-descriptor-list">
             {movie.contentDescriptors.map((descriptor, index) => (
-              <li key={index} className="content-descriptor-item">
+              <li key={index} className="movie-details-descriptor-item">
                 <img
                   src={descriptor.imageURL}
                   alt={descriptor.name}
-                  className="descriptor-icon"
+                  className="movie-details-descriptor-icon"
                 />
                 {descriptor.name}
               </li>
@@ -133,14 +141,16 @@ function MovieDetailsPage() {
       )}
   
       {/* Add Review Section */}
-      <div className="review-section mt-5">
-        <h3 className="review-title">Rate this Movie</h3>
-        <div className="rating-stars mb-3">
+      <div className="movie-details-review-section mt-5">
+        <h3 className="movie-details-review-title">Rate this Movie</h3>
+        <div className="movie-details-rating-stars mb-3">
           {[1, 2, 3, 4, 5].map((value) => (
             <button
               key={value}
               onClick={() => handleRatingClick(value)}
-              className={`rating-star ${value <= rating ? "selected" : ""}`}
+              className={`movie-details-rating-star ${
+                value <= rating ? "selected" : ""
+              }`}
             >
               ★
             </button>
@@ -148,24 +158,28 @@ function MovieDetailsPage() {
         </div>
   
         <textarea
-          className="review-comment form-control mb-3"
+          className="movie-details-review-comment form-control mb-3"
           rows="4"
           placeholder="Write your review here..."
           value={comment}
           onChange={(e) => setComment(e.target.value)}
         />
   
-        <button className="btn btn-primary submit-review-btn" onClick={handleSubmitReview}>
+        <button
+          className="btn btn-primary movie-details-submit-review-btn"
+          onClick={handleSubmitReview}
+        >
           Submit Review
         </button>
   
-        {feedback && <p className="review-feedback mt-3">{feedback}</p>}
+        {feedback && <p className="movie-details-review-feedback mt-3">{feedback}</p>}
       </div>
   
       {/* Add to Favorites */}
       <AddToFavorites movie={movieDetails} />
     </div>
   );
+  
   
 }
 

@@ -1,208 +1,208 @@
 /* General Container Styling */
 .movie-details-container {
-    max-width: 900px;
-    margin: 50px auto;
-    padding: 30px;
-    background: linear-gradient(135deg, #2e2e38, #3c3c4e);
-    color: white;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    font-family: 'Roboto', sans-serif;
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 30px;
+  background: linear-gradient(135deg, #2f2f3d, #424257);
+  color: white;
+  border-radius: 15px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Movie Title */
+.movie-details-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 25px;
+  color: #ffd700; /* Gold for title */
+  text-shadow: 0 6px 15px rgba(255, 215, 0, 0.9);
+}
+
+/* Movie Poster */
+.movie-details-poster {
+  display: block;
+  margin: 0 auto 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Movie Details */
+.movie-details-item {
+  font-size: 1rem;
+  margin-bottom: 15px;
+  color: #e0e0e0;
+  line-height: 1.6;
+}
+
+.movie-details-label {
+  color: #ffd700; /* Gold for labels */
+  font-weight: bold;
+}
+
+.movie-details-highlight {
+  color: #ff8c00; /* Bright orange for special details */
+  font-weight: bold;
+  animation: glow 2s infinite;
+}
+
+@keyframes glow {
+  0%, 100% {
+    text-shadow: 0 0 12px rgba(255, 140, 0, 0.8);
   }
-  
-  /* Movie Title */
-  .movie-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #ffd700; /* Gold for title */
-    text-shadow: 0 4px 10px rgba(255, 215, 0, 0.8);
+  50% {
+    text-shadow: 0 0 24px rgba(255, 140, 0, 1);
   }
-  
-  /* Movie Poster */
-  .movie-poster {
-    display: block;
-    margin: 0 auto 20px;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-  }
-  
-  /* Movie Details */
-  .movie-detail {
-    font-size: 1rem;
-    margin-bottom: 15px;
-    color: #e0e0e0;
-    line-height: 1.6;
-  }
-  
-  .detail-label {
-    color: #ffd700; /* Gold for labels */
-    font-weight: bold;
-  }
-  
-  .special-detail {
-    color: #ffa500; /* Orange for special details */
-    font-weight: bold;
-    animation: glow 2s infinite;
-  }
-  
-  @keyframes glow {
-    0%, 100% {
-      text-shadow: 0 0 10px rgba(255, 165, 0, 0.8);
-    }
-    50% {
-      text-shadow: 0 0 20px rgba(255, 165, 0, 1);
-    }
-  }
-  
-  /* Rating Image */
-  .rating-image {
-    margin-left: 10px;
-    vertical-align: middle;
-    height: 20px;
-  }
-  
-  /* Content Descriptors */
-  .content-descriptors {
-    margin-top: 20px;
-  }
-  
-  .content-descriptor-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .content-descriptor-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    color: #d4d4d4;
-  }
-  
-  .descriptor-icon {
-    width: 20px;
-    margin-right: 10px;
-  }
-  
-  /* Review Section */
-  .review-section {
-    margin-top: 40px;
+}
+
+/* Rating Image */
+.movie-details-rating-icon {
+  margin-left: 12px;
+  vertical-align: middle;
+  height: 24px;
+}
+
+/* Content Descriptors */
+.movie-details-descriptors {
+  margin-top: 25px;
+}
+
+.movie-details-descriptor-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.movie-details-descriptor-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  color: #d4d4d4;
+}
+
+.movie-details-descriptor-icon {
+  width: 22px;
+  margin-right: 10px;
+}
+
+/* Review Section */
+.movie-details-review-section {
+  margin-top: 40px;
+  padding: 25px;
+  background: linear-gradient(135deg, #424257, #575770);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.movie-details-review-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #ffd700; /* Gold for title */
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 0 4px 10px rgba(255, 215, 0, 0.8);
+}
+
+/* Star Rating */
+.movie-details-rating-stars {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.movie-details-rating-star {
+  font-size: 2rem;
+  color: gray;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.movie-details-rating-star.selected {
+  color: #ffd700; /* Gold for selected stars */
+}
+
+.movie-details-rating-star:hover {
+  transform: scale(1.2);
+  color: #ffa500; /* Bright orange on hover */
+}
+
+/* Review Comment */
+.movie-details-review-comment {
+  width: 100%;
+  padding: 15px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  background: #2b2d42;
+  color: white;
+  resize: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-details-review-comment:focus {
+  outline: none;
+  border: 1px solid #ffd700;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+}
+
+/* Submit Review Button */
+.movie-details-submit-review-btn {
+  display: block;
+  margin: 20px auto 0;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, #ffa500, #e68a00);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.movie-details-submit-review-btn:hover {
+  background: linear-gradient(135deg, #e68a00, #cc7a00);
+  box-shadow: 0 6px 20px rgba(255, 165, 0, 0.5);
+  transform: scale(1.05);
+}
+
+.movie-details-submit-review-btn:active {
+  transform: scale(1);
+}
+
+/* Feedback Message */
+.movie-details-review-feedback {
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 20px;
+  color: #ffa500; /* Bright orange for feedback */
+  text-shadow: 0 2px 8px rgba(255, 165, 0, 0.8);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .movie-details-container {
     padding: 20px;
-    background: linear-gradient(135deg, #3c3c4e, #4b4b63);
-    border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   }
-  
-  .review-title {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #ffd700; /* Gold for title */
-    text-align: center;
-    margin-bottom: 20px;
-    text-shadow: 0 3px 8px rgba(255, 215, 0, 0.7);
-  }
-  
-  /* Star Rating */
-  .rating-stars {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-  }
-  
-  .rating-star {
+
+  .movie-details-title {
     font-size: 2rem;
-    color: gray;
-    background: none;
-    border: none;
-    cursor: pointer;
-    transition: transform 0.2s ease, color 0.3s ease;
   }
-  
-  .rating-star.selected {
-    color: #ffd700; /* Gold for selected stars */
+
+  .movie-details-review-comment {
+    font-size: 0.9rem;
+    padding: 12px;
   }
-  
-  .rating-star:hover {
-    transform: scale(1.2);
-  }
-  
-  /* Review Comment */
-  .review-comment {
-    width: 100%;
-    padding: 15px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 8px;
-    background: #2b2d42;
-    color: white;
-    resize: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .review-comment:focus {
-    outline: none;
-    border: 1px solid #ffd700;
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
-  }
-  
-  /* Submit Review Button */
-  .submit-review-btn {
-    display: block;
-    margin: 20px auto 0;
+
+  .movie-details-submit-review-btn {
+    font-size: 0.9rem;
     padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    background: linear-gradient(135deg, #ffa500, #e68a00);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
   }
-  
-  .submit-review-btn:hover {
-    background: linear-gradient(135deg, #e68a00, #cc7a00);
-    box-shadow: 0 5px 15px rgba(255, 165, 0, 0.5);
-    transform: scale(1.05);
+
+  .movie-details-rating-star {
+    font-size: 1.8rem;
   }
-  
-  .submit-review-btn:active {
-    transform: scale(1);
-  }
-  
-  /* Feedback Message */
-  .review-feedback {
-    text-align: center;
-    font-size: 1rem;
-    margin-top: 15px;
-    color: #ffa500; /* Orange for feedback */
-    text-shadow: 0 2px 5px rgba(255, 165, 0, 0.7);
-  }
-  
-  /* Responsive Design */
-  @media screen and (max-width: 768px) {
-    .movie-details-container {
-      padding: 20px;
-    }
-  
-    .movie-title {
-      font-size: 2rem;
-    }
-  
-    .review-comment {
-      font-size: 0.9rem;
-      padding: 12px;
-    }
-  
-    .submit-review-btn {
-      font-size: 0.9rem;
-      padding: 8px 15px;
-    }
-  
-    .rating-star {
-      font-size: 1.8rem;
-    }
-  }
-  
+}
