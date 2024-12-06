@@ -1,8 +1,24 @@
 import React, { useState } from "react";
-import './EditProfile.css'
+import './EditProfile.css';
 
 const EditProfile = ({ userDetails, setIsEditing, onProfileUpdate }) => {
   const [formDetails, setFormDetails] = useState(userDetails);
+
+  // List of cities
+  const cities = [
+    'Espoo',
+    'Helsinki',
+    'Vantaa',
+    'Jyväskylä',
+    'Kuopio',
+    'Lahti',
+    'Lappeenranta',
+    'Oulu',
+    'Pori',
+    'Tampere',
+    'Turku',
+    'Raisio',
+  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -84,12 +100,20 @@ const EditProfile = ({ userDetails, setIsEditing, onProfileUpdate }) => {
         </div>
         <div>
           <label>City:</label>
-          <input
-            type="text"
+          <select
             name="city"
             value={formDetails.city}
             onChange={handleChange}
-          />
+          >
+            <option value="" disabled>
+              Select a city
+            </option>
+            {cities.map((city) => (
+              <option key={city} value={city}>
+                {city}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="edit-profile-buttons">
           <button type="button" onClick={handleSave}>
