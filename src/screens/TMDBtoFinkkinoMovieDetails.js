@@ -1,69 +1,95 @@
-import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import AddToFavorites from '../components/TMDBMovieDetails_Components/AddToFavorites';
-import './screensStyles/TMDBtoFinkkinoMovieDetails.css'
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import AddToFavorites from "../components/TMDBMovieDetails_Components/AddToFavorites";
+import "./screensStyles/TMDBtoFinkkinoMovieDetails.css";
 
 function TMDBtoFinkkinoMovieDetails() {
   const location = useLocation();
   const movie = location.state?.finnkinoMovie;
 
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState('');
-  const [feedback, setFeedback] = useState('');
+  const [comment, setComment] = useState("");
+  const [feedback, setFeedback] = useState("");
+  const [videoId, setVideoId] = useState(""); // Hold YouTube video ID
 
-  if (!movie) {
-    return <div>Movie details not found in Finnkino.</div>;
-  }
+  useEffect(() => {
+    const fetchYouTubeVideo = async () => {
+      try {
+        const query = `${movie.title} trailer`;
+        const response = await fetch(
+          `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(
+            query
+          )}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}&type=video&maxResults=1`
+        );
+        const data = await response.json();
+        if (data.items && data.items.length > 0) {
+          setVideoId(data.items[0].id.videoId);
+        }
+      } catch (error) {
+        console.error("Error fetching YouTube video:", error);
+      }
+    };
+
+    if (movie) {
+      fetchYouTubeVideo();
+    }
+  }, [movie]);
 
   const handleRatingClick = (value) => {
     setRating(value);
   };
 
   const handleSubmitReview = async () => {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem("user"));
 
     if (!user) {
-      setFeedback('Please log in to submit a review.');
+      setFeedback("Please log in to submit a review.");
       return;
     }
 
     if (!rating || !comment.trim()) {
-      setFeedback('Please provide both a rating and a comment.');
+      setFeedback("Please provide both a rating and a comment.");
       return;
     }
 
     try {
-      const response = await fetch('http://localhost:5000/reviews', {
-        method: 'POST',
+      const response = await fetch("http://localhost:5000/reviews", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           userID: user.userid,
           movieTitle: movie.title,
-          releaseDate: movie.productionYear ? `${movie.productionYear}-01-01` : null,
+          releaseDate: movie.productionYear
+            ? `${movie.productionYear}-01-01`
+            : null,
           description: comment,
           rating,
         }),
       });
 
       if (response.ok) {
-        setFeedback('Thank you for your review!');
+        setFeedback("Thank you for your review!");
         setRating(0);
-        setComment('');
+        setComment("");
       } else {
         const errorData = await response.json();
-        if (errorData.message.includes('already reviewed')) {
+        if (errorData.message.includes("already reviewed")) {
           alert(`You have already reviewed the movie "${movie.title}".`);
         } else {
-          setFeedback('Failed to submit review. Please try again.');
+          setFeedback("Failed to submit review. Please try again.");
         }
       }
     } catch (error) {
-      console.error('Error submitting review:', error);
-      setFeedback('An error occurred. Please try again.');
+      console.error("Error submitting review:", error);
+      setFeedback("An error occurred. Please try again.");
     }
   };
+
+  if (!movie) {
+    return <div>Movie details not found in Finnkino.</div>;
+  }
 
   return (
     <div className="finnkino-movie-details-container">
@@ -73,7 +99,7 @@ function TMDBtoFinkkinoMovieDetails() {
         alt={movie.title}
         className="finnkino-movie-poster"
       />
-  
+
       <p className="finnkino-movie-detail">
         <strong>Original Title:</strong> {movie.originalTitle}
       </p>
@@ -114,7 +140,7 @@ function TMDBtoFinkkinoMovieDetails() {
         <strong>Subtitles:</strong> {movie.subtitleLanguage1},{" "}
         {movie.subtitleLanguage2}
       </p>
-  
+
       {movie.contentDescriptors?.length > 0 && (
         <div className="finnkino-content-descriptors">
           <strong>Content Descriptors:</strong>
@@ -132,7 +158,23 @@ function TMDBtoFinkkinoMovieDetails() {
           </ul>
         </div>
       )}
-  
+
+      {/* Embed YouTube Video */}
+      {videoId && (
+        <div className="youtube-video mt-4">
+          <h3>Watch Trailer</h3>
+          <iframe
+            width="560"
+            height="315"
+            src={`https://www.youtube.com/embed/${videoId}`}
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
+      )}
+
       {/* Add Review Section */}
       <div className="review-section mt-5">
         <h3 className="review-title">Rate this Movie</h3>
@@ -147,7 +189,7 @@ function TMDBtoFinkkinoMovieDetails() {
             </button>
           ))}
         </div>
-  
+
         <textarea
           className="review-comment"
           rows="4"
@@ -155,24 +197,20 @@ function TMDBtoFinkkinoMovieDetails() {
           value={comment}
           onChange={(e) => setComment(e.target.value)}
         />
-  
+
         <button className="submit-review-btn" onClick={handleSubmitReview}>
           Submit Review
         </button>
-  
-        {feedback && (
-          <p className="review-feedback">
-            {feedback}
-          </p>
-        )}
+
+        {feedback && <p className="review-feedback">{feedback}</p>}
       </div>
-  
+
       {/* Add to Favorites Section */}
       {movie.title && movie.productionYear ? (
         <AddToFavorites
           movie={{
-            original_title: movie.title, // Match the field used in AddToFavorites
-            release_date: `${movie.productionYear}-01-01`, // Construct a full release date
+            original_title: movie.title,
+            release_date: `${movie.productionYear}-01-01`,
           }}
         />
       ) : (
@@ -182,7 +220,6 @@ function TMDBtoFinkkinoMovieDetails() {
       )}
     </div>
   );
-  
 }
 
 export default TMDBtoFinkkinoMovieDetails;
