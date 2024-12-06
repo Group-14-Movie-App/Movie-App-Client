@@ -1,0 +1,193 @@
+/* General Container Styling */
+.tmdb-movie-details-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 30px;
+    background: linear-gradient(135deg, #1e1e2f, #2b2d42);
+    color: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  /* Movie Title */
+  .movie-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #00d4ff;
+    text-shadow: 0 4px 10px rgba(0, 212, 255, 0.6);
+  }
+  
+  /* Movie Poster */
+  .movie-poster {
+    display: block;
+    margin: 0 auto 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Movie Details */
+  .movie-detail {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: #d4d4d4;
+    line-height: 1.6;
+  }
+  
+  .movie-detail strong {
+    color: #00d4ff; /* Highlighted color for labels */
+  }
+  
+  /* Finnkino Details Button */
+  .finnkino-details-btn {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .finnkino-details-btn:hover {
+    background: linear-gradient(135deg, #0056b3, #003f7f);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.5);
+    transform: scale(1.05);
+  }
+  
+  .finnkino-details-btn:active {
+    transform: scale(1);
+  }
+  
+  /* Review Section */
+  .review-section {
+    margin-top: 40px;
+    padding: 20px;
+    background: linear-gradient(135deg, #2b2d42, #3c4045);
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .review-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #00d4ff;
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 0 3px 8px rgba(0, 212, 255, 0.5);
+  }
+  
+  /* Star Rating */
+  .rating-stars {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .rating-star {
+    font-size: 2rem;
+    color: gray;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.3s ease;
+  }
+  
+  .rating-star.selected {
+    color: gold;
+  }
+  
+  .rating-star:hover {
+    transform: scale(1.2);
+  }
+  
+  /* Review Comment */
+  .review-comment {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    background: #2b2d42;
+    color: white;
+    resize: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .review-comment:focus {
+    outline: none;
+    border: 1px solid #00d4ff;
+    background: #1e1e2f; /* Slightly darker background when focused */
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.6);
+  }
+  
+  /* Submit Review Button */
+  .submit-review-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, #28a745, #218838);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .submit-review-btn:hover {
+    background: linear-gradient(135deg, #218838, #19672b);
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.5);
+    transform: scale(1.05);
+  }
+  
+  .submit-review-btn:active {
+    transform: scale(1);
+  }
+  
+  /* Feedback Message */
+  .review-feedback {
+    text-align: center;
+    font-size: 1rem;
+    margin-top: 15px;
+    color: #28a745;
+    text-shadow: 0 2px 5px rgba(40, 167, 69, 0.5);
+  }
+  
+  /* Add to Favorites Section */
+  .add-to-favorites-container {
+    margin-top: 30px; /* Adds gap between submit review and add to favorites */
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .tmdb-movie-details-container {
+      padding: 20px;
+    }
+  
+    .movie-title {
+      font-size: 2rem;
+    }
+  
+    .review-comment {
+      font-size: 0.9rem;
+      padding: 12px;
+    }
+  
+    .submit-review-btn {
+      font-size: 0.9rem;
+      padding: 8px 15px;
+    }
+  
+    .rating-star {
+      font-size: 1.8rem;
+    }
+  }
+  

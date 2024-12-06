@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './AddToFavorites.css'
 
 function AddToFavorites({ movie }) {
   const [favoriteGroups, setFavoriteGroups] = useState([]);
@@ -60,12 +61,12 @@ function AddToFavorites({ movie }) {
   };
 
   return (
-    <div className="add-to-favorites">
-      <h4>Add to Favorites</h4>
+    <div className="add-to-favorites-container">
+      <h4 className="add-to-favorites-title">Add to Favorites</h4>
       {favoriteGroups.length > 0 ? (
-        <div>
+        <div className="favorites-selection">
           <select
-            className="form-select mb-3"
+            className="favorites-dropdown"
             value={selectedGroup}
             onChange={(e) => setSelectedGroup(e.target.value)}
           >
@@ -76,12 +77,14 @@ function AddToFavorites({ movie }) {
               </option>
             ))}
           </select>
-          <button className="btn btn-primary" onClick={handleAddToFavorites}>
+          <button className="favorites-add-button" onClick={handleAddToFavorites}>
             Add to Favorites
           </button>
         </div>
       ) : (
-        <p>{feedback || 'No favorite groups available.'}</p>
+        <p className="favorites-feedback">
+          {feedback || 'No favorite groups available.'}
+        </p>
       )}
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import AddToFavorites from '../components/TMDBMovieDetails_Components/AddToFavorites';
+import './screensStyles/TMDBtoFinkkinoMovieDetails.css'
 
 function TMDBtoFinkkinoMovieDetails() {
   const location = useLocation();
@@ -65,33 +66,65 @@ function TMDBtoFinkkinoMovieDetails() {
   };
 
   return (
-    <div className="container mt-4">
-      <h1>{movie.title}</h1>
-      <img src={movie.image} alt={movie.title} className="img-fluid mb-4" />
-
-      <p><strong>Original Title:</strong> {movie.originalTitle}</p>
-      <p><strong>Production Year:</strong> {movie.productionYear}</p>
-      <p><strong>Event Type:</strong> {movie.eventType}</p>
-      <p><strong>Start Time:</strong> {movie.startTime}</p>
-      <p><strong>End Time:</strong> {movie.endTime}</p>
-      <p><strong>Genres:</strong> {movie.genres}</p>
-      <p><strong>Rating:</strong> <img src={movie.ratingImageUrl} alt="Rating" /></p>
-      <p><strong>Theatre and Auditorium:</strong> {movie.theatreAndAuditorium}</p>
-      <p><strong>Presentation Method and Language:</strong> {movie.presentationMethodAndLanguage}</p>
-      <p><strong>Spoken Language:</strong> {movie.spokenLanguage}</p>
-      <p><strong>Subtitles:</strong> {movie.subtitleLanguage1}, {movie.subtitleLanguage2}</p>
-
+    <div className="finnkino-movie-details-container">
+      <h1 className="finnkino-movie-title">{movie.title}</h1>
+      <img
+        src={movie.image}
+        alt={movie.title}
+        className="finnkino-movie-poster"
+      />
+  
+      <p className="finnkino-movie-detail">
+        <strong>Original Title:</strong> {movie.originalTitle}
+      </p>
+      <p className="finnkino-movie-detail">
+        <strong>Production Year:</strong> {movie.productionYear}
+      </p>
+      <p className="finnkino-movie-detail">
+        <strong>Event Type:</strong> {movie.eventType}
+      </p>
+      <p className="finnkino-movie-detail">
+        <strong>Start Time:</strong> {movie.startTime}
+      </p>
+      <p className="finnkino-movie-detail">
+        <strong>End Time:</strong> {movie.endTime}
+      </p>
+      <p className="finnkino-movie-detail">
+        <strong>Genres:</strong> {movie.genres}
+      </p>
+      <p className="finnkino-movie-detail">
+        <strong>Rating:</strong>{" "}
+        <img
+          src={movie.ratingImageUrl}
+          alt="Rating"
+          className="finnkino-rating-icon"
+        />
+      </p>
+      <p className="finnkino-movie-detail">
+        <strong>Theatre and Auditorium:</strong> {movie.theatreAndAuditorium}
+      </p>
+      <p className="finnkino-movie-detail">
+        <strong>Presentation Method and Language:</strong>{" "}
+        {movie.presentationMethodAndLanguage}
+      </p>
+      <p className="finnkino-movie-detail">
+        <strong>Spoken Language:</strong> {movie.spokenLanguage}
+      </p>
+      <p className="finnkino-movie-detail">
+        <strong>Subtitles:</strong> {movie.subtitleLanguage1},{" "}
+        {movie.subtitleLanguage2}
+      </p>
+  
       {movie.contentDescriptors?.length > 0 && (
-        <div>
+        <div className="finnkino-content-descriptors">
           <strong>Content Descriptors:</strong>
-          <ul>
+          <ul className="finnkino-content-list">
             {movie.contentDescriptors.map((descriptor, index) => (
-              <li key={index}>
+              <li key={index} className="finnkino-content-item">
                 <img
                   src={descriptor.imageURL}
                   alt={descriptor.name}
-                  className="mr-2"
-                  style={{ width: '20px' }}
+                  className="finnkino-content-icon"
                 />
                 {descriptor.name}
               </li>
@@ -99,44 +132,41 @@ function TMDBtoFinkkinoMovieDetails() {
           </ul>
         </div>
       )}
-
+  
       {/* Add Review Section */}
       <div className="review-section mt-5">
-        <h3>Rate this Movie</h3>
-        <div className="rating-stars mb-3">
+        <h3 className="review-title">Rate this Movie</h3>
+        <div className="rating-stars">
           {[1, 2, 3, 4, 5].map((value) => (
             <button
               key={value}
               onClick={() => handleRatingClick(value)}
-              className={`star ${value <= rating ? 'selected' : ''}`}
-              style={{
-                fontSize: '2rem',
-                color: value <= rating ? 'gold' : 'gray',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-              }}
+              className={`rating-star ${value <= rating ? "selected" : ""}`}
             >
               ★
             </button>
           ))}
         </div>
-
+  
         <textarea
-          className="form-control mb-3"
+          className="review-comment"
           rows="4"
           placeholder="Write your review here..."
           value={comment}
           onChange={(e) => setComment(e.target.value)}
         />
-
-        <button className="btn btn-primary" onClick={handleSubmitReview}>
+  
+        <button className="submit-review-btn" onClick={handleSubmitReview}>
           Submit Review
         </button>
-
-        {feedback && <p className="mt-3 text-success">{feedback}</p>}
+  
+        {feedback && (
+          <p className="review-feedback">
+            {feedback}
+          </p>
+        )}
       </div>
-
+  
       {/* Add to Favorites Section */}
       {movie.title && movie.productionYear ? (
         <AddToFavorites
@@ -146,10 +176,13 @@ function TMDBtoFinkkinoMovieDetails() {
           }}
         />
       ) : (
-        <p className="text-danger">Movie details are incomplete for adding to favorites.</p>
+        <p className="add-favorites-warning">
+          Movie details are incomplete for adding to favorites.
+        </p>
       )}
     </div>
   );
+  
 }
 
 export default TMDBtoFinkkinoMovieDetails;

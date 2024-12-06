@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import AddToFavorites from '../components/TMDBMovieDetails_Components/AddToFavorites';
+import './screensStyles/MovieDetailsPage.css'
 
 function MovieDetailsPage() {
   const location = useLocation();
@@ -74,33 +75,55 @@ function MovieDetailsPage() {
   };
 
   return (
-    <div className="container mt-4">
-      <h1>{movie.title}</h1>
-      <img src={movie.image} alt={movie.title} className="img-fluid mb-4" />
-
-      <p><strong>Original Title:</strong> {movie.originalTitle}</p>
-      <p><strong>Production Year:</strong> {movie.productionYear}</p>
-      <p><strong>Event Type:</strong> {movie.eventType}</p>
-      <p><strong>Start Time:</strong> {movie.startTime}</p>
-      <p><strong>End Time:</strong> {movie.endTime}</p>
-      <p><strong>Genres:</strong> {movie.genres}</p>
-      <p><strong>Rating:</strong> <img src={movie.ratingImageUrl} alt="Rating" /></p>
-      <p><strong>Theatre and Auditorium:</strong> {movie.theatreAndAuditorium}</p>
-      <p><strong>Presentation Method and Language:</strong> {movie.presentationMethodAndLanguage}</p>
-      <p><strong>Spoken Language:</strong> {movie.spokenLanguage}</p>
-      <p><strong>Subtitles:</strong> {movie.subtitleLanguage1}, {movie.subtitleLanguage2}</p>
-
+    <div className="movie-details-container mt-4">
+      <h1 className="movie-title">{movie.title}</h1>
+      <img src={movie.image} alt={movie.title} className="movie-poster img-fluid mb-4" />
+  
+      <p className="movie-detail">
+        <strong className="detail-label">Original Title:</strong> {movie.originalTitle}
+      </p>
+      <p className="movie-detail">
+        <strong className="detail-label">Production Year:</strong> {movie.productionYear}
+      </p>
+      <p className="movie-detail">
+        <strong className="detail-label">Event Type:</strong> {movie.eventType}
+      </p>
+      <p className="movie-detail">
+        <strong className="detail-label special-detail">Start Time:</strong> {movie.startTime}
+      </p>
+      <p className="movie-detail">
+        <strong className="detail-label special-detail">End Time:</strong> {movie.endTime}
+      </p>
+      <p className="movie-detail">
+        <strong className="detail-label">Genres:</strong> {movie.genres}
+      </p>
+      <p className="movie-detail">
+        <strong className="detail-label">Rating:</strong> 
+        <img src={movie.ratingImageUrl} alt="Rating" className="rating-image" />
+      </p>
+      <p className="movie-detail">
+        <strong className="detail-label">Theatre and Auditorium:</strong> {movie.theatreAndAuditorium}
+      </p>
+      <p className="movie-detail">
+        <strong className="detail-label">Presentation Method and Language:</strong> {movie.presentationMethodAndLanguage}
+      </p>
+      <p className="movie-detail">
+        <strong className="detail-label">Spoken Language:</strong> {movie.spokenLanguage}
+      </p>
+      <p className="movie-detail">
+        <strong className="detail-label">Subtitles:</strong> {movie.subtitleLanguage1}, {movie.subtitleLanguage2}
+      </p>
+  
       {movie.contentDescriptors.length > 0 && (
-        <div>
-          <strong>Content Descriptors:</strong>
-          <ul>
+        <div className="content-descriptors">
+          <strong className="detail-label">Content Descriptors:</strong>
+          <ul className="content-descriptor-list">
             {movie.contentDescriptors.map((descriptor, index) => (
-              <li key={index}>
+              <li key={index} className="content-descriptor-item">
                 <img
                   src={descriptor.imageURL}
                   alt={descriptor.name}
-                  className="mr-2"
-                  style={{ width: '20px' }}
+                  className="descriptor-icon"
                 />
                 {descriptor.name}
               </li>
@@ -108,48 +131,42 @@ function MovieDetailsPage() {
           </ul>
         </div>
       )}
-
+  
       {/* Add Review Section */}
       <div className="review-section mt-5">
-        <h3>Rate this Movie</h3>
+        <h3 className="review-title">Rate this Movie</h3>
         <div className="rating-stars mb-3">
           {[1, 2, 3, 4, 5].map((value) => (
             <button
               key={value}
               onClick={() => handleRatingClick(value)}
-              className={`star ${value <= rating ? 'selected' : ''}`}
-              style={{
-                fontSize: '2rem',
-                color: value <= rating ? 'gold' : 'gray',
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-              }}
+              className={`rating-star ${value <= rating ? "selected" : ""}`}
             >
               ★
             </button>
           ))}
         </div>
-
+  
         <textarea
-          className="form-control mb-3"
+          className="review-comment form-control mb-3"
           rows="4"
           placeholder="Write your review here..."
           value={comment}
           onChange={(e) => setComment(e.target.value)}
         />
-
-        <button className="btn btn-primary" onClick={handleSubmitReview}>
+  
+        <button className="btn btn-primary submit-review-btn" onClick={handleSubmitReview}>
           Submit Review
         </button>
-
-        {feedback && <p className="mt-3 text-success">{feedback}</p>}
+  
+        {feedback && <p className="review-feedback mt-3">{feedback}</p>}
       </div>
-
+  
       {/* Add to Favorites */}
       <AddToFavorites movie={movieDetails} />
     </div>
   );
+  
 }
 
 export default MovieDetailsPage;

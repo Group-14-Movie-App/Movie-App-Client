@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import AddToFavorites from "../components/TMDBMovieDetails_Components/AddToFavorites";
-
+import './screensStyles/TMDBMovieDetails.css'
 function TMDBMovieDetails() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -120,85 +120,80 @@ function TMDBMovieDetails() {
   }
 
   return (
-    <div className="container mt-4">
-      <h1>{movie.title}</h1>
-      <img
-        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-        alt={movie.title}
-        className="img-fluid mb-4"
-      />
-      <p>
-        <strong>Original Title:</strong> {movie.original_title}
-      </p>
-      <p>
-        <strong>Release Date:</strong> {movie.release_date}
-      </p>
-      <p>
-        <strong>Overview:</strong> {movie.overview}
-      </p>
-      <p>
-        <strong>Genres:</strong>{" "}
-        {movie.genre_ids && Array.isArray(movie.genre_ids)
-          ? movie.genre_ids.join(", ")
-          : ""}
-      </p>
-      <p>
-        <strong>Rating:</strong> {movie.vote_average} / 10
-      </p>
-      <p>
-        <strong>Vote Count:</strong> {movie.vote_count}
-      </p>
+  <div className="tmdb-movie-details-container mt-4">
+    <h1 className="movie-title">{movie.title}</h1>
+    <img
+      src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+      alt={movie.title}
+      className="movie-poster img-fluid mb-4"
+    />
+    <p className="movie-detail">
+      <strong>Original Title:</strong> {movie.original_title}
+    </p>
+    <p className="movie-detail">
+      <strong>Release Date:</strong> {movie.release_date}
+    </p>
+    <p className="movie-detail">
+      <strong>Overview:</strong> {movie.overview}
+    </p>
+    <p className="movie-detail">
+      <strong>Genres:</strong>{" "}
+      {movie.genre_ids && Array.isArray(movie.genre_ids)
+        ? movie.genre_ids.join(", ")
+        : ""}
+    </p>
+    <p className="movie-detail">
+      <strong>Rating:</strong> {movie.vote_average} / 10
+    </p>
+    <p className="movie-detail">
+      <strong>Vote Count:</strong> {movie.vote_count}
+    </p>
 
-      {isFinnkinoAvailable && (
-        <button
-          className="btn btn-primary mt-4"
-          onClick={() =>
-            navigate("/tmdb-to-finnkino-details", { state: { finnkinoMovie } })
-          }
-        >
-          View Finnkino Details
-        </button>
-      )}
+    {isFinnkinoAvailable && (
+      <button
+        className="btn btn-primary finnkino-details-btn mt-4"
+        onClick={() =>
+          navigate("/tmdb-to-finnkino-details", { state: { finnkinoMovie } })
+        }
+      >
+        View Finnkino Details
+      </button>
+    )}
 
-      {/* Add Review Section */}
-      <div className="review-section mt-5">
-        <h3>Rate this Movie</h3>
-        <div className="rating-stars mb-3">
-          {[1, 2, 3, 4, 5].map((value) => (
-            <button
-              key={value}
-              onClick={() => handleRatingClick(value)}
-              className={`star ${value <= rating ? "selected" : ""}`}
-              style={{
-                fontSize: "2rem",
-                color: value <= rating ? "gold" : "gray",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
-              ★
-            </button>
-          ))}
-        </div>
-
-        <textarea
-          className="form-control mb-3"
-          rows="4"
-          placeholder="Write your review here..."
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-        />
-
-        <button className="btn btn-primary" onClick={handleSubmitReview}>
-          Submit Review
-        </button>
-
-        {feedback && <p className="mt-3 text-success">{feedback}</p>}
+    {/* Add Review Section */}
+    <div className="review-section mt-5">
+      <h3 className="review-title">Rate this Movie</h3>
+      <div className="rating-stars mb-3">
+        {[1, 2, 3, 4, 5].map((value) => (
+          <button
+            key={value}
+            onClick={() => handleRatingClick(value)}
+            className={`rating-star ${value <= rating ? "selected" : ""}`}
+          >
+            ★
+          </button>
+        ))}
       </div>
-      <AddToFavorites movie={movie} />
+
+      <textarea
+        className="review-comment form-control mb-3"
+        rows="4"
+        placeholder="Write your review here..."
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
+      />
+
+      <button className="btn btn-primary submit-review-btn" onClick={handleSubmitReview}>
+        Submit Review
+      </button>
+
+      {feedback && <p className="review-feedback mt-3 text-success">{feedback}</p>}
     </div>
-  );
+
+    <AddToFavorites movie={movie} />
+  </div>
+);
+
 }
 
 export default TMDBMovieDetails;
