@@ -156,7 +156,7 @@ function TMDBMovieDetails() {
           navigate("/tmdb-to-finnkino-details", { state: { finnkinoMovie } })
         }
       >
-        View Finnkino Details
+        View Theater Details
       </button>
     )}
 
