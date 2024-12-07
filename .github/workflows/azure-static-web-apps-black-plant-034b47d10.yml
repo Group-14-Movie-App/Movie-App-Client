@@ -32,8 +32,8 @@ jobs:
           api_location: "" # Api source code path - optional
           output_location: "build" # Built app content directory
         env:
-          REACT_APP_TMDB_API_KEY: ${{ secrets.REACT_APP_TMDB_API_KEY }}
-          REACT_APP_TMDB_ACCESS_TOKEN: ${{ secrets.REACT_APP_TMDB_ACCESS_TOKEN }}
+          REACT_APP_TMDB_API_KEY: fd1da3e9c33f64d6ef2a086b20a562f8
+          REACT_APP_TMDB_ACCESS_TOKEN: eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZDFkYTNlOWMzM2Y2NGQ2ZWYyYTA4NmIyMGE1NjJmOCIsIm5iZiI6MTczMjM5OTY2NC4zNTg3MDAzLCJzdWIiOiI2NzMxNDAzMDJhNGNiYzJhMTJmNjY2MWUiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.pe2FJsfQTO_9mXRlKvSSMKFhSaZsx0hAuYPqEs29p4w
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
