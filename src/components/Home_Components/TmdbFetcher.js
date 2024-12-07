@@ -9,6 +9,7 @@ export default function TmdbFetcher({ setTmdbMovies }) {
 
     // Debug for deploy issue: Log API key
     console.log("API Key: " + apiKey);
+    console.log("Access Token:", process.env.REACT_APP_TMDB_ACCESS_TOKEN);
 
     if (!apiKey) {
       console.error("TMDB API Key is missing in the .env file!");
