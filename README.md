@@ -79,7 +79,7 @@ The application includes the following sections:
 1. Clone the repositories:  
    - **Frontend**:  
      ```bash
-     git clone https://github.com/Group-14-Movie-App/Movie-App.git
+     git clone https://github.com/Group-14-Movie-App/Movie-App-Client.git
      ```  
    - **Backend**:  
      ```bash
@@ -89,7 +89,7 @@ The application includes the following sections:
 2. Install dependencies:  
    - **Frontend**:  
      ```bash
-     cd Movie-App
+     cd Movie-App-Client
      npm install
      ```  
    - **Backend**:  
