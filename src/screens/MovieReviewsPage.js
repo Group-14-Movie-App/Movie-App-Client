@@ -18,56 +18,58 @@ function MovieReviewsPage() {
     }
   
     const fetchReviews = async () => {
-      const token = localStorage.getItem("token"); // Get JWT token
+      const token = localStorage.getItem("token");
       if (!token) {
         console.error("Unauthorized: Missing token");
         return;
       }
-  
+    
       try {
+        const validReleaseDate = releaseDate && releaseDate !== "Unknown" ? releaseDate : null;
+    
         console.log("Fetching reviews for:", { movieTitle, releaseDate });
-  
+    
         // Fetch reviews for the provided release year
         const response = await fetch(
-          `http://localhost:5000/reviews?title=${encodeURIComponent(movieTitle)}&releaseDate=${encodeURIComponent(releaseDate)}`,
+          `http://localhost:5000/reviews?title=${encodeURIComponent(movieTitle)}&releaseDate=${encodeURIComponent(validReleaseDate || "")}`,
           {
             headers: {
-              Authorization: `Bearer ${token}`, // Include JWT token
+              Authorization: `Bearer ${token}`,
             },
           }
         );
-  
+    
         const data = await response.json();
-  
+    
         if (response.ok && data.length > 0) {
           console.log("Reviews fetched for the given release year:", data);
           setReviews(data);
         } else {
           console.warn("No reviews found for the given release year. Attempting nearest years...");
-  
-          // Fetch reviews for nearest years
+    
+          // Fetch reviews for nearest years or same title
           const nearestResponse = await fetch(
-            `http://localhost:5000/reviews/nearest?title=${encodeURIComponent(movieTitle)}&releaseDate=${encodeURIComponent(releaseDate)}`,
+            `http://localhost:5000/reviews/nearest?title=${encodeURIComponent(movieTitle)}&releaseDate=${encodeURIComponent(validReleaseDate || "")}`,
             {
               headers: {
-                Authorization: `Bearer ${token}`, // Include JWT token
+                Authorization: `Bearer ${token}`,
               },
             }
           );
-  
+    
           if (!nearestResponse.ok) {
-            console.error("Failed to fetch reviews for nearest years:", nearestResponse.statusText);
-            throw new Error("Failed to fetch reviews for nearest years");
+            console.error("Failed to fetch reviews for nearest years or title:", nearestResponse.statusText);
+            throw new Error("Failed to fetch reviews for nearest years or title");
           }
-  
+    
           const nearestData = await nearestResponse.json();
-          console.log("Reviews fetched for nearest years:", nearestData);
+          console.log("Reviews fetched for nearest years or title:", nearestData);
           setReviews(nearestData);
         }
       } catch (error) {
         console.error("Error fetching reviews:", error);
       }
-    };
+    };    
   
     fetchReviews();
   }, [movieTitle, releaseDate]);

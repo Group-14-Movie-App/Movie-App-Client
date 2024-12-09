@@ -27,21 +27,43 @@ function ReviewsPage() {
 }, []);
 
 
-  // Fetch movie details from TMDB API
-  useEffect(() => {
-    async function fetchMovieDetails() {
-      const details = {};
+useEffect(() => {
+  async function fetchMovieDetails() {
+    const details = {};
 
-      // Group reviews by movie title to avoid duplicates
-      const uniqueMovies = Array.from(
-        new Set(reviews.map((review) => review.movietitle))
-      );
+    // Group reviews by movie title to avoid duplicates
+    const uniqueMovies = Array.from(
+      new Set(reviews.map((review) => review.movietitle))
+    );
 
-      for (const movieTitle of uniqueMovies) {
-        try {
-          const response = await fetch(
+    for (const movieTitle of uniqueMovies) {
+      try {
+        let response = await fetch(
+          `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
+            movieTitle
+          )}&language=en-US&page=1&include_adult=false`,
+          {
+            method: 'GET',
+            headers: {
+              accept: 'application/json',
+              Authorization: `Bearer ${process.env.REACT_APP_TMDB_API_KEY}`,
+            },
+          }
+        );
+
+        let data = await response.json();
+
+        // Get the most relevant movie (first result)
+        let matchedMovie = data.results?.[0] || null;
+
+        if (!matchedMovie) {
+          console.warn(`No match found for "${movieTitle}". Attempting broader search.`);
+
+          // Fallback: Broaden the search by dropping subtitles or specific terms
+          const simplifiedTitle = movieTitle.split(":")[0]; // Use only the main title
+          response = await fetch(
             `https://api.themoviedb.org/3/search/movie?query=${encodeURIComponent(
-              movieTitle
+              simplifiedTitle
             )}&language=en-US&page=1&include_adult=false`,
             {
               method: 'GET',
@@ -52,23 +74,23 @@ function ReviewsPage() {
             }
           );
 
-          const data = await response.json();
-
-          // Get the most relevant movie (first result)
-          const matchedMovie = data.results[0] || null;
-
-          details[movieTitle] = matchedMovie;
-        } catch (error) {
-          console.error('Error fetching movie details:', error);
+          data = await response.json();
+          matchedMovie = data.results?.[0] || null;
         }
-      }
-      setMovieDetails(details);
-    }
 
-    if (reviews.length > 0) {
-      fetchMovieDetails();
+        details[movieTitle] = matchedMovie;
+      } catch (error) {
+        console.error(`Error fetching details for "${movieTitle}":`, error);
+      }
     }
-  }, [reviews]);
+    setMovieDetails(details);
+  }
+
+  if (reviews.length > 0) {
+    fetchMovieDetails();
+  }
+}, [reviews]);
+
 
   // Create unique list of movies by title
   const uniqueMovies = Array.from(
@@ -76,53 +98,53 @@ function ReviewsPage() {
   );
 
   return (
-    <div className="reviews-container">
-      <h1 className="reviews-title">Reviews</h1>
-      <div className="reviews-grid">
-        {uniqueMovies.map((movieTitle) => {
-          const movie = movieDetails[movieTitle];
+  <div className="reviews-container">
+    <h1 className="reviews-title">Reviews</h1>
+    <div className="reviews-grid">
+      {uniqueMovies.map((movieTitle) => {
+        const movie = movieDetails[movieTitle];
 
-          // Use release year from TMDB API if available
-          const displayReleaseYear = movie?.release_date
-            ? new Date(movie.release_date).getFullYear()
-            : 'Unknown';
+        // Use dynamically fetched title and year
+        const displayTitle = movie?.title || movieTitle;
+        const displayReleaseYear = movie?.release_date
+          ? new Date(movie.release_date).getFullYear()
+          : "Unknown";
 
-          return (
-            <div key={movieTitle} className="review-card">
-              <div
-                className="review-card-content"
-                onClick={() =>
-                  navigate(
-                    `/movie-reviews/${encodeURIComponent(movieTitle)}/${displayReleaseYear}`
-                  )
-                }
-              >
-                {movie?.poster_path ? (
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-                    className="review-card-img"
-                    alt={movieTitle}
-                  />
-                ) : (
-                  <div className="review-card-placeholder">
-                    <p>No Image Available</p>
-                  </div>
-                )}
-                <div className="review-card-body">
-                  <h5 className="review-card-title">
-                    {movie?.title || movieTitle}
-                  </h5>
-                  <p className="review-card-text">
-                    Release Year: {displayReleaseYear}
-                  </p>
+        return (
+          <div key={movieTitle} className="review-card">
+            <div
+              className="review-card-content"
+              onClick={() =>
+                navigate(
+                  `/movie-reviews/${encodeURIComponent(displayTitle)}/${displayReleaseYear}`
+                )
+              }
+            >
+              {movie?.poster_path ? (
+                <img
+                  src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                  className="review-card-img"
+                  alt={displayTitle}
+                />
+              ) : (
+                <div className="review-card-placeholder">
+                  <p>No Image Available</p>
                 </div>
+              )}
+              <div className="review-card-body">
+                <h5 className="review-card-title">{displayTitle}</h5>
+                <p className="review-card-text">
+                  Release Year: {displayReleaseYear}
+                </p>
               </div>
             </div>
-          );
-        })}
-      </div>
+          </div>
+        );
+      })}
     </div>
-  );
+  </div>
+);
+
 }
 
 export default ReviewsPage;
