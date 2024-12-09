@@ -5,7 +5,6 @@
   gap: 20px;
   justify-content: center;
   padding: 30px;
-  background: linear-gradient(135deg, #1e1e2f, #2b2d42);
   border-radius: 15px;
   color: white;
 }
@@ -32,7 +31,7 @@
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 10px;
-  color: #00d4ff;
+  color: #d0ff00;
   text-shadow: 0 2px 5px rgba(0, 212, 255, 0.5);
 }
 

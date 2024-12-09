@@ -40,7 +40,7 @@ import ChatBot from "./screens/ChatBot.js";
 
 // Import the logo
 import "./App.css";
-import FinnFlixLogo from "./assests/FinnFlix Logo.jpg"; // Adjust the path if necessary
+import FinnFlixLogo from "./assests/FinFlixLogo3.jpg"; // Adjust the path if necessary
 
 function App() {
   const location = useLocation();

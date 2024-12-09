@@ -7,7 +7,7 @@ import './screensStyles/GroupsMainPage.css'
 function GroupsPage() {
   return (
     <div className="groups-page-container">
-      <h1 className="groups-page-title">Groups</h1>
+      <h1 className="groups-page-title">Group Chats</h1>
 
       {/* Create Group Section */}
       <div className="create-group-section">
@@ -21,7 +21,7 @@ function GroupsPage() {
 
       {/* All Groups Section */}
       <div className="all-groups-section">
-        <h2 className="section-title">Explore Groups</h2>
+        <h2 className="section-title-1">Explore Groups</h2>
         <AllGroups />
       </div>
     </div>

@@ -95,7 +95,7 @@ function ShowtimesPage() {
 
   return (
     <div className="showtimes-page showtimes-container">
-      <h1 className="showtimes-title">Showtimes by Region</h1>
+      <h1 className="showtimes-title">Showtimes</h1>
   
       {/* Region Tabs */}
       <div className="mb-4">

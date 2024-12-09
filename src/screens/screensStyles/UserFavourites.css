@@ -3,18 +3,19 @@
     max-width: 1200px;
     margin: 50px auto;
     padding: 20px;
-    background: linear-gradient(135deg, #1e1e2f, #2b2d42);
     color: white;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     text-align: center;
   }
   
   .user-favourites h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    color: #00d4ff;
-    text-shadow: 0 4px 10px rgba(0, 212, 255, 0.6);
+    font-size: 2.8em;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #66fcf1;
+    text-shadow: 0 4px 10px rgba(102, 252, 241, 0.7);
+    animation: fadeIn 1.2s ease-in-out;
+    font-weight: bold;
   }
   
   /* Favorites Grid */

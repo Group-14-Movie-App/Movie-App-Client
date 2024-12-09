@@ -20,17 +20,18 @@ body {
   text-transform: uppercase;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 0, 0, 0.4);
   transition: color 0.3s ease, text-shadow 0.3s ease;
+  animation: fadeIn 1.2s ease-in-out;
 }
 
 /* Highlight the active section title */
 .active-title {
-  color: #12bac0; /* Active color */
+  color: #66fcf1; /* Active color */
   text-shadow: 0 0 25px rgba(0, 247, 255, 0.6), 0 0 50px rgba(255, 0, 122, 0.5); /* Glow */
 }
 
 /* Section Styling for proper spacing */
 .section {
-  padding: 100px 0; /* Ensure enough spacing between sections */
+  padding: 10px 0; /* Ensure enough spacing between sections */
 }
 
 
