@@ -11,42 +11,56 @@ function Favorites({ userID }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!userID) return;
-
+    const token = localStorage.getItem("token"); // Fetch the token
+    if (!userID || !token) return;
+  
     // Fetch favorite groups from the backend
-    fetch(`http://localhost:5000/favorites?userID=${userID}`)
+    fetch(`http://localhost:5000/favorites?userID=${userID}`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+      },
+    })
       .then((response) => response.json())
       .then((data) => setFavoriteGroups(data))
       .catch((error) => console.error("Error fetching favorite groups:", error));
   }, [userID]);
-
-  const handleAddGroup = () => {
+  
+  const handleAddGroup = async () => {
+    const token = localStorage.getItem("token"); // Fetch the token
     if (!newGroupName.trim()) {
       setFeedback("Group name cannot be empty.");
       return;
     }
-
-    fetch("http://localhost:5000/favorites", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userID,
-        name: newGroupName,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
+  
+    try {
+      const response = await fetch("http://localhost:5000/favorites", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+        },
+        body: JSON.stringify({
+          userID,
+          name: newGroupName,
+        }),
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
         setFavoriteGroups([...favoriteGroups, data]);
         setNewGroupName("");
         setFeedback("Group added successfully!");
-      })
-      .catch((error) => {
-        console.error("Error adding group:", error);
-        setFeedback("Failed to add group. Try again.");
-      });
+      } else {
+        const errorData = await response.json();
+        setFeedback(errorData.message || "Failed to add group.");
+      }
+    } catch (error) {
+      console.error("Error adding group:", error);
+      setFeedback("An error occurred while adding the group.");
+    }
   };
+  
+  
 
   const handleGroupClick = (favoriteID, groupName) => {
     navigate(`/favorites/${favoriteID}`, { state: { groupName } });
@@ -57,16 +71,20 @@ function Favorites({ userID }) {
     setEditGroupName(group.name);
   };
 
-  const handleSaveEditGroup = () => {
-    fetch(`http://localhost:5000/favorites/${editingGroup}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name: editGroupName }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
+  const handleSaveEditGroup = async () => {
+    const token = localStorage.getItem("token"); // Fetch the token
+  
+    try {
+      const response = await fetch(`http://localhost:5000/favorites/${editingGroup}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Include the token
+        },
+        body: JSON.stringify({ name: editGroupName }),
+      });
+  
+      if (response.ok) {
         setFavoriteGroups(
           favoriteGroups.map((group) =>
             group.favoriteid === editingGroup ? { ...group, name: editGroupName } : group
@@ -75,32 +93,43 @@ function Favorites({ userID }) {
         setEditingGroup(null);
         setEditGroupName("");
         setFeedback("Group updated successfully!");
-      })
-      .catch((error) => {
-        console.error("Error editing group:", error);
-        setFeedback("Failed to update group. Try again.");
-      });
+      } else {
+        const errorData = await response.json();
+        setFeedback(errorData.message || "Failed to update group.");
+      }
+    } catch (error) {
+      console.error("Error editing group:", error);
+      setFeedback("An error occurred while editing the group.");
+    }
   };
+  
 
-  const handleDeleteGroup = (favoriteID) => {
+  const handleDeleteGroup = async (favoriteID) => {
     if (!window.confirm("Are you sure you want to delete this group?")) return;
-
-    fetch(`http://localhost:5000/favorites/${favoriteID}`, {
-      method: "DELETE",
-    })
-      .then((response) => {
-        if (response.ok) {
-          setFavoriteGroups(favoriteGroups.filter((group) => group.favoriteid !== favoriteID));
-          setFeedback("Group deleted successfully!");
-        } else {
-          setFeedback("Failed to delete group. Try again.");
-        }
-      })
-      .catch((error) => {
-        console.error("Error deleting group:", error);
-        setFeedback("Failed to delete group. Try again.");
+  
+    const token = localStorage.getItem("token"); // Fetch the token
+  
+    try {
+      const response = await fetch(`http://localhost:5000/favorites/${favoriteID}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`, // Include the token
+        },
       });
+  
+      if (response.ok) {
+        setFavoriteGroups(favoriteGroups.filter((group) => group.favoriteid !== favoriteID));
+        setFeedback("Group deleted successfully!");
+      } else {
+        const errorData = await response.json();
+        setFeedback(errorData.message || "Failed to delete group.");
+      }
+    } catch (error) {
+      console.error("Error deleting group:", error);
+      setFeedback("An error occurred while deleting the group.");
+    }
   };
+  
 
   return (
     <div className="favorites-container">

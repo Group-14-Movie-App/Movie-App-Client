@@ -9,10 +9,24 @@ function MyGroups() {
   useEffect(() => {
     const fetchGroups = async () => {
       const user = JSON.parse(localStorage.getItem("user"));
-      if (!user) return;
+      const token = localStorage.getItem("token"); // Retrieve JWT token
+      if (!user || !token) {
+        alert("Please log in to view your groups.");
+        return;
+      }
 
       try {
-        const response = await fetch(`http://localhost:5000/my-groups?userID=${user.userid}`);
+        const response = await fetch(
+          `http://localhost:5000/my-groups?userID=${user.userid}`,
+          {
+            headers: { Authorization: `Bearer ${token}` }, // Add Authorization header
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch groups.");
+        }
+
         const data = await response.json();
         setGroups(data);
       } catch (error) {
@@ -26,9 +40,12 @@ function MyGroups() {
   const handleDeleteGroup = async (groupID) => {
     if (!window.confirm("Are you sure you want to delete this group?")) return;
 
+    const token = localStorage.getItem("token"); // Retrieve JWT token
+
     try {
       const response = await fetch(`http://localhost:5000/my-groups/${groupID}`, {
         method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` }, // Add Authorization header
       });
 
       if (response.ok) {
@@ -78,7 +95,6 @@ function MyGroups() {
       </div>
     </div>
   );
-  
 }
 
 export default MyGroups;

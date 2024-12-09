@@ -21,24 +21,26 @@ function SignInPage() {
         },
         body: JSON.stringify({ email, password }),
       });
-
+  
       if (response.ok) {
         const data = await response.json();
-
-        // Store user data in localStorage or sessionStorage
-        localStorage.setItem('user', JSON.stringify(data.user));
-
+  
+        // Store token and user data in localStorage
+        localStorage.setItem('token', data.token); // Store the JWT token
+        localStorage.setItem('user', JSON.stringify(data.user)); // Store user details
+  
         // Redirect to Home Page
         navigate('/home-page');
       } else {
         const errorData = await response.json();
-        setErrorMessage(errorData.message);
+        setErrorMessage(errorData.message); // Display error message
       }
     } catch (error) {
       console.error('Error during sign-in:', error);
       setErrorMessage('An error occurred. Please try again.');
     }
   };
+  
 
   return (
     <div className="signin-container">

@@ -9,11 +9,23 @@ function ReviewsPage() {
 
   // Fetch reviews from the backend
   useEffect(() => {
-    fetch('http://localhost:5000/reviews')
-      .then((response) => response.json())
-      .then((data) => setReviews(data))
-      .catch((error) => console.error('Error fetching reviews:', error));
-  }, []);
+  const token = localStorage.getItem("token"); // Retrieve JWT token
+
+  fetch("http://localhost:5000/reviews", {
+    headers: {
+      Authorization: `Bearer ${token}`, // Include JWT token
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to fetch reviews");
+      }
+      return response.json();
+    })
+    .then((data) => setReviews(data))
+    .catch((error) => console.error("Error fetching reviews:", error));
+}, []);
+
 
   // Fetch movie details from TMDB API
   useEffect(() => {

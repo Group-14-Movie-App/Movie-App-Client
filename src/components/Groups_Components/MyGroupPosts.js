@@ -24,24 +24,32 @@ function MyGroupPosts() {
     const fetchPosts = async () => {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
-        if (!user) return;
-
+        const token = localStorage.getItem("token"); // Retrieve JWT token
+  
+        if (!user || !token) {
+          alert("Please log in to view posts.");
+          return;
+        }
+  
         const response = await fetch(
-          `http://localhost:5000/my-group-posts/${groupID}`
+          `http://localhost:5000/my-group-posts/${groupID}`,
+          {
+            headers: { Authorization: `Bearer ${token}` }, // Add Authorization header
+          }
         );
         if (!response.ok) throw new Error("Failed to fetch posts.");
         const data = await response.json();
-
+  
         setPosts(data.posts);
         setOwnerID(data.ownerID);
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
     };
-
+  
     fetchPosts();
   }, [groupID]);
-
+  
   const handleAddPost = async (content) => {
     if (!content.trim()) {
       alert("Post content cannot be empty.");
@@ -50,8 +58,10 @@ function MyGroupPosts() {
   
     try {
       const user = JSON.parse(localStorage.getItem("user"));
-      if (!user) {
-        alert("You need to be logged in to add a post.");
+      const token = localStorage.getItem("token"); // Retrieve JWT token
+  
+      if (!user || !token) {
+        alert("Please log in to add a post.");
         return;
       }
   
@@ -59,7 +69,10 @@ function MyGroupPosts() {
         `http://localhost:5000/my-group-posts/${groupID}/add-post`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Add Authorization header
+          },
           body: JSON.stringify({
             userID: user.userid,
             content,
@@ -87,26 +100,30 @@ function MyGroupPosts() {
     }
   };
   
-
   const handleEditPost = async () => {
     if (!editPostContent.trim()) {
       alert("Edited content cannot be empty.");
       return;
     }
-
+  
     try {
+      const token = localStorage.getItem("token"); // Retrieve JWT token
+  
       const response = await fetch(
         `http://localhost:5000/my-group-posts/${groupID}/edit-post`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Add Authorization header
+          },
           body: JSON.stringify({
             postID: editPostID,
             content: editPostContent,
           }),
         }
       );
-
+  
       if (response.ok) {
         setPosts(
           posts.map((post) =>
@@ -125,20 +142,25 @@ function MyGroupPosts() {
       console.error("Error editing post:", error);
     }
   };
-
+  
   const handleDeletePost = async (postID) => {
     if (!window.confirm("Are you sure you want to delete this post?")) return;
-
+  
     try {
+      const token = localStorage.getItem("token"); // Retrieve JWT token
+  
       const response = await fetch(
         `http://localhost:5000/my-group-posts/${groupID}/delete-post`,
         {
           method: "DELETE",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Add Authorization header
+          },
           body: JSON.stringify({ postID }),
         }
       );
-
+  
       if (response.ok) {
         setPosts(posts.filter((post) => post.postid !== postID));
         alert("Post deleted successfully.");
@@ -149,6 +171,7 @@ function MyGroupPosts() {
       console.error("Error deleting post:", error);
     }
   };
+  
 
   const handleMovieCardClick = (movie) => {
     const message = `

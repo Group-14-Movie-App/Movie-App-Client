@@ -41,46 +41,51 @@ function MovieDetailsPage() {
 
   const handleSubmitReview = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
-
-    if (!user) {
+    const token = localStorage.getItem("token"); // Get JWT token
+  
+    if (!user || !token) {
       setFeedback("Please log in to submit a review.");
       return;
     }
-
+  
     if (!rating || !comment.trim()) {
       setFeedback("Please provide both a rating and a comment.");
       return;
     }
-
+  
     const releaseDate = movie.productionYear
       ? `${movie.productionYear}-01-01`
-      : movie.startTime.split("T")[0];
-
+      : movie.startTime?.split("T")[0] || "0000-01-01"; // Fallback to avoid undefined
+  
+    const requestBody = {
+      userID: user.userid,
+      movieTitle: movie.originalTitle || movie.title || "Unknown Title", // Fallback title
+      releaseDate,
+      description: comment,
+      rating,
+    };
+  
+    console.log("Submitting review with body:", requestBody); // Debugging log
+  
     try {
       const response = await fetch("http://localhost:5000/reviews", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Include JWT token
         },
-        body: JSON.stringify({
-          userID: user.userid,
-          movieTitle: movie.originalTitle || movie.title,
-          releaseDate,
-          description: comment,
-          rating,
-        }),
+        body: JSON.stringify(requestBody),
       });
-
+  
       if (response.ok) {
         setFeedback("Thank you for your review!");
         setRating(0);
         setComment("");
       } else {
         const errorData = await response.json();
+        console.error("Error response from server:", errorData); // Debugging log
         if (errorData.message.includes("already reviewed")) {
-          alert(
-            `You have already reviewed the movie "${movie.originalTitle}".`
-          );
+          alert(`You have already reviewed the movie "${movie.originalTitle}".`);
         } else {
           setFeedback("Failed to submit review. Please try again.");
         }
@@ -90,6 +95,8 @@ function MovieDetailsPage() {
       setFeedback("An error occurred. Please try again.");
     }
   };
+  
+  
 
   if (!movie) {
     return <div>Movie details not found.</div>;

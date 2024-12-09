@@ -15,43 +15,52 @@ function MyGroupDetails() {
       console.error("Group ID is undefined.");
       return;
     }
-
+  
     const fetchGroupData = async () => {
+      const token = localStorage.getItem("token"); // Retrieve JWT token
+  
       try {
         const [requestsResponse, membersResponse] = await Promise.all([
-          fetch(`http://localhost:5000/groups/${groupID}/join-requests`),
-          fetch(`http://localhost:5000/groups/${groupID}/members`),
+          fetch(`http://localhost:5000/groups/${groupID}/join-requests`, {
+            headers: { Authorization: `Bearer ${token}` }, // Add Authorization header
+          }),
+          fetch(`http://localhost:5000/groups/${groupID}/members`, {
+            headers: { Authorization: `Bearer ${token}` }, // Add Authorization header
+          }),
         ]);
-    
-        console.log("Join Requests Response:", await requestsResponse.clone().json());
-        console.log("Members Response:", await membersResponse.clone().json());
-    
+  
         if (!requestsResponse.ok || !membersResponse.ok) {
           throw new Error("Failed to fetch group data.");
         }
-    
+  
         const requestsData = await requestsResponse.json();
         const membersData = await membersResponse.json();
-    
+  
         setJoinRequests(requestsData);
         setMembers(membersData);
       } catch (error) {
         console.error("Error fetching group data:", error);
       }
     };
-    
-    
-
+  
     fetchGroupData();
   }, [groupID]);
-
+  
   const handleAcceptRequest = async (userID) => {
+    const token = localStorage.getItem("token"); // Retrieve JWT token
+  
     try {
-      const response = await fetch(`http://localhost:5000/groups/${groupID}/accept-request`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userID }),
-      });
+      const response = await fetch(
+        `http://localhost:5000/groups/${groupID}/accept-request`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Add Authorization header
+          },
+          body: JSON.stringify({ userID }),
+        }
+      );
   
       if (response.ok) {
         const acceptedUser = joinRequests.find((req) => req.userid === userID);
@@ -66,16 +75,22 @@ function MyGroupDetails() {
     }
   };
   
-  
-
   const handleDeclineRequest = async (userID) => {
+    const token = localStorage.getItem("token"); // Retrieve JWT token
+  
     try {
-      const response = await fetch(`http://localhost:5000/groups/${groupID}/decline-request`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userID }),
-      });
-
+      const response = await fetch(
+        `http://localhost:5000/groups/${groupID}/decline-request`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Add Authorization header
+          },
+          body: JSON.stringify({ userID }),
+        }
+      );
+  
       if (response.ok) {
         setJoinRequests(joinRequests.filter((req) => req.userid !== userID));
         alert("Request declined.");
@@ -86,16 +101,24 @@ function MyGroupDetails() {
       console.error("Error declining request:", error);
     }
   };
-
+  
   const handleRemoveMember = async (userID) => {
+    const token = localStorage.getItem("token"); // Retrieve JWT token
+  
     if (!window.confirm("Are you sure you want to remove this member?")) return;
   
     try {
-      const response = await fetch(`http://localhost:5000/groups/${groupID}/remove-member`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userID }),
-      });
+      const response = await fetch(
+        `http://localhost:5000/groups/${groupID}/remove-member`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Add Authorization header
+          },
+          body: JSON.stringify({ userID }),
+        }
+      );
   
       if (response.ok) {
         setMembers(members.filter((member) => member.userid !== userID));
@@ -107,6 +130,7 @@ function MyGroupDetails() {
       console.error("Error removing member:", error);
     }
   };
+  
   
 
   return (

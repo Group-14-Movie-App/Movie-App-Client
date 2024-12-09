@@ -19,18 +19,31 @@ function ProfilePage() {
   };
 
   const handleDeleteProfile = async () => {
-    if (!window.confirm("Are you sure you want to delete your profile? This action cannot be undone.")) {
+    if (
+      !window.confirm(
+        "Are you sure you want to delete your profile? This action cannot be undone."
+      )
+    ) {
       return;
     }
-
+  
+    const token = localStorage.getItem("token");
+  
     try {
-      const response = await fetch(`http://localhost:5000/profile/${userDetails.userid}`, {
-        method: "DELETE",
-      });
-
+      const response = await fetch(
+        `http://localhost:5000/profile/${userDetails.userid}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`, // Add token in Authorization header
+          },
+        }
+      );
+  
       if (response.ok) {
         alert("Profile deleted successfully.");
-        localStorage.removeItem("user"); // Remove user from localStorage
+        localStorage.removeItem("user"); // Remove user data
+        localStorage.removeItem("token"); // Remove token
         window.location.href = "/"; // Redirect to home or login page
       } else {
         const errorMessage = await response.json();
@@ -41,6 +54,7 @@ function ProfilePage() {
       alert("An error occurred while deleting the profile.");
     }
   };
+  
 
   if (!userDetails) {
     return <p>Loading...</p>;

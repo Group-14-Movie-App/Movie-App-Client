@@ -7,15 +7,21 @@ function UserFavourites() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (!user) return;
-  
-    // Fetch favorite groups with movie counts from the backend
-    fetch(`http://localhost:5000/favorites/with-movie-count/${user.userid}`)
-      .then((response) => response.json())
-      .then((data) => setFavoriteGroups(data))
-      .catch((error) => console.error("Error fetching favorite groups:", error));
-  }, []);
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token"); // Fetch the token from localStorage
+  if (!user || !token) return;
+
+  // Fetch favorite groups with movie counts from the backend
+  fetch(`http://localhost:5000/favorites/with-movie-count/${user.userid}`, {
+    headers: {
+      Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => setFavoriteGroups(data))
+    .catch((error) => console.error("Error fetching favorite groups:", error));
+}, []);
+
   
 
   const handleGroupClick = (favoriteID, groupName) => {

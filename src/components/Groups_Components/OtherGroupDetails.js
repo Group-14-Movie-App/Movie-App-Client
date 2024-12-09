@@ -11,42 +11,51 @@ function OtherGroupDetails() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    if (user) {
+    const token = localStorage.getItem("token"); // Retrieve JWT token
+  
+    if (user && token) {
       setUserID(user.userid);
+  
+      const fetchGroupDetails = async () => {
+        try {
+          const groupResponse = await fetch(
+            `http://localhost:5000/other-groups/${groupID}`,
+            { headers: { Authorization: `Bearer ${token}` } } // Add Authorization header
+          );
+          if (!groupResponse.ok) throw new Error("Failed to fetch group details.");
+          const groupData = await groupResponse.json();
+          setGroupDetails(groupData);
+  
+          const statusResponse = await fetch(
+            `http://localhost:5000/other-groups/${groupID}/status?userID=${user.userid}`,
+            { headers: { Authorization: `Bearer ${token}` } } // Add Authorization header
+          );
+          if (!statusResponse.ok) throw new Error("Failed to fetch relationship status.");
+          const statusData = await statusResponse.json();
+          setRelationshipStatus(statusData.status);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+  
+      fetchGroupDetails();
+    } else {
+      alert("Please log in to view group details.");
     }
-
-    const fetchGroupDetails = async () => {
-      try {
-        const groupResponse = await fetch(`http://localhost:5000/other-groups/${groupID}`);
-        if (!groupResponse.ok) throw new Error("Failed to fetch group details.");
-        const groupData = await groupResponse.json();
-        setGroupDetails(groupData);
-
-        // Fetch user's relationship with the group
-        const statusResponse = await fetch(
-          `http://localhost:5000/other-groups/${groupID}/status?userID=${user.userid}`
-        );
-        if (!statusResponse.ok) throw new Error("Failed to fetch relationship status.");
-        const statusData = await statusResponse.json();
-        setRelationshipStatus(statusData.status); // "member", "pending", or null
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    if (user) fetchGroupDetails();
   }, [groupID]);
-
+  
   const handleSendRequest = async () => {
+    const token = localStorage.getItem("token"); // Retrieve JWT token
     try {
       const response = await fetch("http://localhost:5000/group-join-requests", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Add Authorization header
         },
         body: JSON.stringify({ userID, groupID }),
       });
-
+  
       if (response.ok) {
         alert("Join request sent successfully.");
         setRelationshipStatus("pending");
@@ -58,15 +67,22 @@ function OtherGroupDetails() {
       console.error("Error sending join request:", error);
     }
   };
-
+  
   const handleRemoveMembership = async () => {
+    const token = localStorage.getItem("token"); // Retrieve JWT token
     try {
-      const response = await fetch(`http://localhost:5000/groups/${groupID}/remove-member`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userID }),
-      });
-
+      const response = await fetch(
+        `http://localhost:5000/groups/${groupID}/remove-member`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Add Authorization header
+          },
+          body: JSON.stringify({ userID }),
+        }
+      );
+  
       if (response.ok) {
         alert("You have been removed from the group.");
         setRelationshipStatus(null);
@@ -77,15 +93,22 @@ function OtherGroupDetails() {
       console.error("Error removing membership:", error);
     }
   };
-
+  
   const handleCancelRequest = async () => {
+    const token = localStorage.getItem("token"); // Retrieve JWT token
     try {
-      const response = await fetch(`http://localhost:5000/other-groups/${groupID}/cancel-request`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userID }),
-      });
-
+      const response = await fetch(
+        `http://localhost:5000/other-groups/${groupID}/cancel-request`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Add Authorization header
+          },
+          body: JSON.stringify({ userID }),
+        }
+      );
+  
       if (response.ok) {
         alert("Join request canceled.");
         setRelationshipStatus(null);
@@ -97,6 +120,7 @@ function OtherGroupDetails() {
       console.error("Error canceling request:", error);
     }
   };
+  
 
   const handleGoToGroupPosts = () => {
     if (relationshipStatus === "member") {

@@ -91,22 +91,24 @@ function TMDBMovieDetails() {
 
   const handleSubmitReview = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
-
+    const token = localStorage.getItem("token"); // Get the JWT token
+  
     if (!user) {
       setFeedback("Please log in to submit a review.");
       return;
     }
-
+  
     if (!rating || !comment.trim()) {
       setFeedback("Please provide both a rating and a comment.");
       return;
     }
-
+  
     try {
       const response = await fetch("http://localhost:5000/reviews", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Include the JWT token
         },
         body: JSON.stringify({
           userID: user.userid,
@@ -116,7 +118,7 @@ function TMDBMovieDetails() {
           rating,
         }),
       });
-
+  
       if (response.ok) {
         setFeedback("Thank you for your review!");
         setRating(0);
@@ -136,6 +138,7 @@ function TMDBMovieDetails() {
       setFeedback("An error occurred. Please try again.");
     }
   };
+  
 
   if (!movie) {
     return <div>Movie details not found.</div>;

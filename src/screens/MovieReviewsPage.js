@@ -12,86 +12,146 @@ function MovieReviewsPage() {
 
   // Fetch reviews for the specific movie
   useEffect(() => {
-    if (!movieTitle || !releaseDate) return;
-
-    fetch(
-      `http://localhost:5000/reviews?title=${encodeURIComponent(
-        movieTitle
-      )}&releaseDate=${encodeURIComponent(releaseDate)}`,
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch reviews');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setReviews(data);
-      })
-      .catch((error) => console.error('Error fetching reviews:', error));
-  }, [movieTitle, releaseDate]);
-
-  const handleEditSubmit = async (reviewID) => {
-    if (!editedDescription.trim() || editedRating < 1 || editedRating > 5) {
-      alert('Please provide a valid description and rating between 1 and 5.');
+    if (!movieTitle || !releaseDate) {
+      console.error("Missing movieTitle or releaseDate");
       return;
     }
-
-    try {
-      const response = await fetch(`http://localhost:5000/reviews/${reviewID}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userID: loggedUser.userid,
-          description: editedDescription,
-          rating: editedRating,
-        }),
-      });
-
-      if (response.ok) {
-        const updatedReview = await response.json();
-        setReviews((prev) =>
-          prev.map((review) =>
-            review.reviewid === reviewID ? updatedReview.review : review,
-          ),
-        );
-        setEditingReviewID(null);
-      } else {
-        console.error('Failed to update review');
+  
+    const fetchReviews = async () => {
+      const token = localStorage.getItem("token"); // Get JWT token
+      if (!token) {
+        console.error("Unauthorized: Missing token");
+        return;
       }
-    } catch (error) {
-      console.error('Error updating review:', error);
+  
+      try {
+        console.log("Fetching reviews for:", { movieTitle, releaseDate });
+  
+        // Fetch reviews for the provided release year
+        const response = await fetch(
+          `http://localhost:5000/reviews?title=${encodeURIComponent(movieTitle)}&releaseDate=${encodeURIComponent(releaseDate)}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Include JWT token
+            },
+          }
+        );
+  
+        const data = await response.json();
+  
+        if (response.ok && data.length > 0) {
+          console.log("Reviews fetched for the given release year:", data);
+          setReviews(data);
+        } else {
+          console.warn("No reviews found for the given release year. Attempting nearest years...");
+  
+          // Fetch reviews for nearest years
+          const nearestResponse = await fetch(
+            `http://localhost:5000/reviews/nearest?title=${encodeURIComponent(movieTitle)}&releaseDate=${encodeURIComponent(releaseDate)}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`, // Include JWT token
+              },
+            }
+          );
+  
+          if (!nearestResponse.ok) {
+            console.error("Failed to fetch reviews for nearest years:", nearestResponse.statusText);
+            throw new Error("Failed to fetch reviews for nearest years");
+          }
+  
+          const nearestData = await nearestResponse.json();
+          console.log("Reviews fetched for nearest years:", nearestData);
+          setReviews(nearestData);
+        }
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+      }
+    };
+  
+    fetchReviews();
+  }, [movieTitle, releaseDate]);
+  
+  
+
+
+const handleEditSubmit = async (reviewID) => {
+  const token = localStorage.getItem("token"); // Get JWT token
+
+  if (!editedDescription.trim() || editedRating < 1 || editedRating > 5) {
+    alert("Please provide a valid description and rating between 1 and 5.");
+    return;
+  }
+
+  try {
+    const response = await fetch(`http://localhost:5000/reviews/${reviewID}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`, // Include JWT token
+      },
+      body: JSON.stringify({
+        userID: loggedUser.userid,
+        description: editedDescription,
+        rating: editedRating,
+      }),
+    });
+
+    if (response.ok) {
+      const updatedReview = await response.json();
+      
+      // Update the specific review in the state
+      setReviews((prev) =>
+        prev.map((review) =>
+          review.reviewid === reviewID ? { ...review, ...updatedReview.review } : review
+        )
+      );
+
+      setEditingReviewID(null);
+      alert("Review updated successfully!");
+    } else {
+      alert("Failed to update review. Please try again.");
     }
-  };
+  } catch (error) {
+    console.error("Error updating review:", error);
+    alert("An error occurred. Please try again.");
+  }
+};
+
+  
 
   const handleDeleteReview = async (reviewID) => {
     const confirmDelete = window.confirm(
-      'Are you sure you want to delete this review?',
+      "Are you sure you want to delete this review?"
     );
     if (!confirmDelete) return;
-
+  
+    const token = localStorage.getItem("token"); // Get JWT token
+  
     try {
       const response = await fetch(`http://localhost:5000/reviews/${reviewID}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Include JWT token
         },
         body: JSON.stringify({
           userID: loggedUser.userid, // Pass logged-in user's ID
         }),
       });
-
+  
       if (response.ok) {
-        setReviews((prev) => prev.filter((review) => review.reviewid !== reviewID));
+        setReviews((prev) =>
+          prev.filter((review) => review.reviewid !== reviewID)
+        );
       } else {
-        console.error('Failed to delete review');
+        console.error("Failed to delete review");
       }
     } catch (error) {
-      console.error('Error deleting review:', error);
+      console.error("Error deleting review:", error);
     }
   };
+  
 
   return (
     <div className="movie-reviews-container mt-4">

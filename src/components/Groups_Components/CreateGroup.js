@@ -11,18 +11,21 @@ function CreateGroup() {
       setFeedback("Group name is required.");
       return;
     }
-
+  
     const user = JSON.parse(localStorage.getItem("user"));
+    const token = localStorage.getItem("token"); // Retrieve the JWT token
+  
     if (!user) {
       setFeedback("Please log in to create a group.");
       return;
     }
-
+  
     try {
       const response = await fetch("http://localhost:5000/groups", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Include the JWT token
         },
         body: JSON.stringify({
           groupName,
@@ -30,7 +33,7 @@ function CreateGroup() {
           ownerID: user.userid,
         }),
       });
-
+  
       if (response.ok) {
         setFeedback("Group created successfully!");
         setGroupName("");
@@ -44,6 +47,7 @@ function CreateGroup() {
       setFeedback("An error occurred. Please try again.");
     }
   };
+  
 
   return (
     <div className="create-group">

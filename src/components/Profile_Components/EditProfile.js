@@ -26,42 +26,51 @@ const EditProfile = ({ userDetails, setIsEditing, onProfileUpdate }) => {
   };
 
   const handleSave = async () => {
+    const token = localStorage.getItem("token");
+  
     try {
       if (!formDetails.userid) {
         alert("User ID is missing. Please try again.");
         return;
       }
-
-      const response = await fetch(`http://localhost:5000/profile/${formDetails.userid}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: formDetails.email,
-          firstName: formDetails.firstname,
-          lastName: formDetails.lastname,
-          city: formDetails.city,
-        }),
-      });
-
+  
+      const response = await fetch(
+        `http://localhost:5000/profile/${formDetails.userid}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Add token in Authorization header
+          },
+          body: JSON.stringify({
+            email: formDetails.email,
+            firstName: formDetails.firstname,
+            lastName: formDetails.lastname,
+            city: formDetails.city,
+          }),
+        }
+      );
+  
       if (response.ok) {
         const updatedUser = await response.json();
-
+  
         // Update localStorage with the new user details
         localStorage.setItem("user", JSON.stringify(updatedUser));
-
+  
         // Call the parent callback to update the userDetails state
         onProfileUpdate(updatedUser);
       } else {
         const errorMessage = await response.json();
-        alert(errorMessage.message || "Failed to update profile. Please try again.");
+        alert(
+          errorMessage.message || "Failed to update profile. Please try again."
+        );
       }
     } catch (error) {
       console.error("Error updating profile:", error);
       alert("An error occurred while updating the profile.");
     }
   };
+  
 
   const handleCancel = () => {
     setIsEditing(false);
