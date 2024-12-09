@@ -1,10 +1,22 @@
-import React, { useState } from "react";
-import './CreateGroup.css'
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "./CreateGroup.css";
 
 function CreateGroup() {
   const [groupName, setGroupName] = useState("");
   const [description, setDescription] = useState("");
   const [feedback, setFeedback] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Tracks if the user is logged in
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = localStorage.getItem("token");
+
+    if (!user || !token) {
+      setIsLoggedIn(false); // Mark user as not logged in
+    }
+  }, []);
 
   const handleCreateGroup = async () => {
     if (!groupName.trim()) {
@@ -15,7 +27,7 @@ function CreateGroup() {
     const user = JSON.parse(localStorage.getItem("user"));
     const token = localStorage.getItem("token"); // Retrieve the JWT token
   
-    if (!user) {
+    if (!user || !token) {
       setFeedback("Please log in to create a group.");
       return;
     }
@@ -38,6 +50,9 @@ function CreateGroup() {
         setFeedback("Group created successfully!");
         setGroupName("");
         setDescription("");
+        setTimeout(() => {
+          window.location.reload(); // Reload the page after successful creation
+        }, 500);
       } else {
         const errorData = await response.json();
         setFeedback(errorData.message || "Failed to create group.");
@@ -51,24 +66,41 @@ function CreateGroup() {
 
   return (
     <div className="create-group">
-        <h2>Create Group</h2>
-        <input
+      {!isLoggedIn ? (
+        <div className="login-prompt">
+          <p>
+            Please{" "}
+            <button
+              className="login-link"
+              onClick={() => navigate("/sign-in-page")}
+            >
+              log in
+            </button>{" "}
+            to create a group.
+          </p>
+        </div>
+      ) : (
+        <>
+          <h2>Create Group</h2>
+          <input
             type="text"
             placeholder="Group Name"
             value={groupName}
             onChange={(e) => setGroupName(e.target.value)}
             className="form-control mb-2"
-        />
-        <textarea
+          />
+          <textarea
             placeholder="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             className="form-control mb-2"
-        />
-        <button onClick={handleCreateGroup} className="btn btn-primary">
+          />
+          <button onClick={handleCreateGroup} className="btn btn-primary">
             Create Group
-        </button>
-        {feedback && <p className="feedback-message">{feedback}</p>}
+          </button>
+          {feedback && <p className="feedback-message">{feedback}</p>}
+        </>
+      )}
     </div>
   );
 }

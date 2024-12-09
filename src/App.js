@@ -45,6 +45,14 @@ import FinnFlixLogo from "./assests/FinnFlix Logo.jpg"; // Adjust the path if ne
 function App() {
   const location = useLocation();
 
+  // Function to handle logout
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.href = "/home-page"; // Redirect to home page
+  };
+
+
   // Function to check if a route is active
   const isActive = (path) => location.pathname === path;
 
@@ -106,10 +114,17 @@ function App() {
 
         {/* Logout Button */}
         <div className="logout">
-          <Link to="/sign-in-page">
-            <FontAwesomeIcon icon={faSignOutAlt} />
-            <small>Logout</small>
-          </Link>
+          {localStorage.getItem("token") ? (
+            <button onClick={handleLogout} className="logout-btn">
+              <FontAwesomeIcon icon={faSignOutAlt} />
+              <small>Logout</small>
+            </button>
+          ) : (
+            <Link to="/sign-in-page">
+              <FontAwesomeIcon icon={faUser} />
+              <small>Log In</small>
+            </Link>
+          )}
         </div>
       </nav>
 

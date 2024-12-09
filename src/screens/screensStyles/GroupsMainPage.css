@@ -1,10 +1,8 @@
 /* Main container for the groups page */
 .groups-page-container {
     padding: 40px;
-    background: linear-gradient(135deg, #1e1e2f, #2b2d42);
     border-radius: 15px;
     color: white;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     margin: 20px auto;
     max-width: 1200px;
   }

@@ -2,15 +2,21 @@ import React, { useEffect, useState } from "react";
 import Favorites from "../components/Profile_Components/Favorites";
 import "./screensStyles/ProfilePage.css";
 import EditProfile from "../components/Profile_Components/EditProfile";
+import ErrorMessage from "../screens/error_file/ErrorMessage";
 
 function ProfilePage() {
   const [userDetails, setUserDetails] = useState(null);
   const [isEditing, setIsEditing] = useState(false); // Added state to toggle the Edit mode
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // State to track if user is logged in
 
   useEffect(() => {
-    // Fetch user details from localStorage or an API
+    // Fetch user details from localStorage
     const user = JSON.parse(localStorage.getItem("user"));
-    setUserDetails(user);
+    if (user) {
+      setUserDetails(user);
+    } else {
+      setIsLoggedIn(false); // Mark user as not logged in
+    }
   }, []);
 
   const handleProfileUpdate = (updatedDetails) => {
@@ -26,9 +32,9 @@ function ProfilePage() {
     ) {
       return;
     }
-  
+
     const token = localStorage.getItem("token");
-  
+
     try {
       const response = await fetch(
         `http://localhost:5000/profile/${userDetails.userid}`,
@@ -39,7 +45,7 @@ function ProfilePage() {
           },
         }
       );
-  
+
       if (response.ok) {
         alert("Profile deleted successfully.");
         localStorage.removeItem("user"); // Remove user data
@@ -54,8 +60,13 @@ function ProfilePage() {
       alert("An error occurred while deleting the profile.");
     }
   };
-  
 
+  // If user is not logged in, show error message
+  if (!isLoggedIn) {
+    return <ErrorMessage message="You need to log in to access the profile page." />;
+  }
+
+  // If userDetails are still being fetched, show loading
   if (!userDetails) {
     return <p>Loading...</p>;
   }

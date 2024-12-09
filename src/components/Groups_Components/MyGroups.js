@@ -4,14 +4,16 @@ import "./MyGroups.css";
 
 function MyGroups() {
   const [groups, setGroups] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Tracks if the user is logged in
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchGroups = async () => {
       const user = JSON.parse(localStorage.getItem("user"));
       const token = localStorage.getItem("token"); // Retrieve JWT token
+
       if (!user || !token) {
-        alert("Please log in to view your groups.");
+        setIsLoggedIn(false); // Mark user as not logged in
         return;
       }
 
@@ -68,7 +70,18 @@ function MyGroups() {
     <div className="my-groups">
       <h2>My Groups</h2>
       <div className="group-cards">
-        {groups.length > 0 ? (
+        {!isLoggedIn ? (
+          <p>
+            Please{" "}
+            <button
+              className="login-link"
+              onClick={() => navigate("/sign-in-page")}
+            >
+              log in
+            </button>{" "}
+            to create and view your groups.
+          </p>
+        ) : groups.length > 0 ? (
           groups.map((group) => (
             <div key={group.groupid} className="group-card">
               <h3>{group.groupname}</h3>

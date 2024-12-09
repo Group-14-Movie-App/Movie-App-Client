@@ -111,6 +111,45 @@
   color: #e74c3c; /* Match logout text color on hover */
 }
 
+
+/* Logout button UPDATED */
+/* Logout button styles */
+.logout-btn {
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+  color: #ecf0f1;
+  background: none;
+  border: none;
+  font-size: 1.1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  color: #e74c3c; /* Highlight logout in red */
+  background-color: #34495e; /* Add hover background effect */
+}
+
+.logout-btn svg {
+  font-size: 1.5em;
+  margin-bottom: 5px;
+}
+
+.logout-btn small {
+  font-size: 0.75em;
+  color: #bdc3c7; /* Subtle gray text */
+  transition: color 0.3s ease;
+}
+
+.logout-btn:hover small {
+  color: #e74c3c; /* Match logout text color on hover */
+}
+
+
 /* Main Content Styling */
 .content {
   margin-left: 80px;

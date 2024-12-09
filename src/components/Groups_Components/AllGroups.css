@@ -120,3 +120,23 @@
     gap: 10px;
   }
 }
+
+
+
+/* Login Link Button */
+.login-link {
+  color: #00d4ff;
+  font-weight: bold;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  font-size: 1rem;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.login-link:hover {
+  color: #ffd700; /* Gold on hover */
+  text-shadow: 0 3px 8px rgba(255, 215, 0, 0.7);
+}
