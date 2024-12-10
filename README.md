@@ -291,5 +291,8 @@ The application has the following key sections:
 - **Port**: `5000`
 - **Base URL**: `http://localhost:5000`
 
+## Conclusion
+
+This project focused on teamwork, integration of modern technologies, and full-stack development practices. Through this process, we gained practical experience in API integration, database design, and deploying scalable applications.
 
 
