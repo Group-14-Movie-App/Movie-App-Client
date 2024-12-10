@@ -176,6 +176,12 @@ The Movie App backend provides APIs to manage users, groups, reviews, favorites,
 - **Relationships**: 
   - Belongs to: Group, User.
 
+  ## Class Diagram
+The class diagram describes the database structure, entities, and relationships used in the Movie App.
+
+- [View the Class Diagram on Lucidchart](https://lucid.app/lucidchart/7efead80-93dc-429b-aba3-3c036ca35720/edit?viewport_loc=-331%2C-8205%2C7151%2C2715%2C0_0&invitationId=inv_47ca03f0-9df1-4515-9efa-7102eef575ef)
+
+
 ---
 
 ## UI Design
@@ -285,9 +291,5 @@ The application has the following key sections:
 - **Port**: `5000`
 - **Base URL**: `http://localhost:5000`
 
----
 
-## How to Use
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
+
