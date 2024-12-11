@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import './EditProfile.css';
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 const EditProfile = ({ userDetails, setIsEditing, onProfileUpdate }) => {
   const [formDetails, setFormDetails] = useState(userDetails);
 
@@ -35,7 +38,7 @@ const EditProfile = ({ userDetails, setIsEditing, onProfileUpdate }) => {
       }
   
       const response = await fetch(
-        `https://movieapp-backend1.onrender.com/profile/${formDetails.userid}`,
+        `${BASE_URL}/profile/${formDetails.userid}`,
         {
           method: "PUT",
           headers: {

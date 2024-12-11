@@ -4,6 +4,9 @@ import './screensStyles/RegisterPage.css';
 import RegisterForm from '../components/Register_Components/RegisterForm';
 import SignInRedirect from '../components/Register_Components/SignInRedirect';
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 function RegisterPage() {
   const [formData, setFormData] = useState({
     email: '',
@@ -30,7 +33,7 @@ function RegisterPage() {
     }
 
     try {
-      const response = await fetch('https://movieapp-backend1.onrender.com/register', {
+      const response = await fetch(`${BASE_URL}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

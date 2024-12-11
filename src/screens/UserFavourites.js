@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import ErrorMessage from "./error_file/ErrorMessage";
 import "./screensStyles/UserFavourites.css";
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 function UserFavourites() {
   const [favoriteGroups, setFavoriteGroups] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -20,7 +23,7 @@ function UserFavourites() {
     setIsLoggedIn(true);
 
     // Fetch favorite groups with movie counts from the backend
-    fetch(`https://movieapp-backend1.onrender.com/favorites/with-movie-count/${user.userid}`, {
+    fetch(`${BASE_URL}/favorites/with-movie-count/${user.userid}`, {
       headers: {
         Authorization: `Bearer ${token}`, // Include the token in the Authorization header
       },

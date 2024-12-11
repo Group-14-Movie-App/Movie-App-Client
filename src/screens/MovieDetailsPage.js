@@ -3,6 +3,9 @@ import { useLocation } from "react-router-dom";
 import AddToFavorites from "../components/TMDBMovieDetails_Components/AddToFavorites";
 import "./screensStyles/MovieDetailsPage.css";
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 function MovieDetailsPage() {
   const location = useLocation();
   const movie = location.state?.movie;
@@ -68,7 +71,7 @@ function MovieDetailsPage() {
     console.log("Submitting review with body:", requestBody); // Debugging log
   
     try {
-      const response = await fetch("https://movieapp-backend1.onrender.com/reviews", {
+      const response = await fetch(`${BASE_URL}/reviews`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

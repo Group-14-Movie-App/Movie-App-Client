@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Favorites.css"; // Optional CSS for styling
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 function Favorites({ userID }) {
   const [favoriteGroups, setFavoriteGroups] = useState([]);
   const [newGroupName, setNewGroupName] = useState("");
@@ -15,7 +18,7 @@ function Favorites({ userID }) {
     if (!userID || !token) return;
   
     // Fetch favorite groups from the backend
-    fetch(`https://movieapp-backend1.onrender.com/favorites?userID=${userID}`, {
+    fetch(`${BASE_URL}/favorites?userID=${userID}`, {
       headers: {
         Authorization: `Bearer ${token}`, // Include the token in the Authorization header
       },
@@ -33,7 +36,7 @@ function Favorites({ userID }) {
     }
   
     try {
-      const response = await fetch("https://movieapp-backend1.onrender.com/favorites", {
+      const response = await fetch(`${BASE_URL}/favorites`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +78,7 @@ function Favorites({ userID }) {
     const token = localStorage.getItem("token"); // Fetch the token
   
     try {
-      const response = await fetch(`https://movieapp-backend1.onrender.com/favorites/${editingGroup}`, {
+      const response = await fetch(`${BASE_URL}/favorites/${editingGroup}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -110,7 +113,7 @@ function Favorites({ userID }) {
     const token = localStorage.getItem("token"); // Fetch the token
   
     try {
-      const response = await fetch(`https://movieapp-backend1.onrender.com/favorites/${favoriteID}`, {
+      const response = await fetch(`${BASE_URL}/favorites/${favoriteID}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`, // Include the token

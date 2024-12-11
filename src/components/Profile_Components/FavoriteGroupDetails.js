@@ -3,6 +3,9 @@ import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { FaWhatsapp, FaFacebook, FaCopy, FaTwitter, FaTelegram } from "react-icons/fa";
 import "./FavoriteGroupDetails.css";
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 function FavoriteGroupDetails() {
   const { favoriteID } = useParams();
   const location = useLocation();
@@ -16,7 +19,7 @@ function FavoriteGroupDetails() {
   const fetchMovies = async () => {
     const token = localStorage.getItem("token"); // Fetch the token
     try {
-      const response = await fetch(`https://movieapp-backend1.onrender.com/favorites/movies/${favoriteID}`, {
+      const response = await fetch(`${BASE_URL}/favorites/movies/${favoriteID}`, {
         headers: {
           Authorization: `Bearer ${token}`, // Include the token in the Authorization header
         },
@@ -84,7 +87,7 @@ function FavoriteGroupDetails() {
   
     try {
       const response = await fetch(
-        `https://movieapp-backend1.onrender.com/favorite-movies/${favoriteID}?movieTitle=${encodeURIComponent(
+        `${BASE_URL}/favorite-movies/${favoriteID}?movieTitle=${encodeURIComponent(
           movieTitle
         )}&releaseYear=${releaseYear}`,
         {

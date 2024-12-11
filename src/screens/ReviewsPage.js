@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './screensStyles/ReviewsPage.css'; // Styling
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 function ReviewsPage() {
   const [reviews, setReviews] = useState([]);
   const [movieDetails, setMovieDetails] = useState({});
@@ -19,7 +22,7 @@ function ReviewsPage() {
 
     if (token) {
       console.log("Fetching reviews for logged-in user");
-      fetch("https://movieapp-backend1.onrender.com/reviews", {
+      fetch(`${BASE_URL}/reviews`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -43,7 +46,7 @@ function ReviewsPage() {
 
     if (!token) {
       console.log("Fetching public reviews for non-logged user");
-      fetch("https://movieapp-backend1.onrender.com/reviews/public", {
+      fetch(`${BASE_URL}/reviews/public`, {
         headers: {
           "Content-Type": "application/json",
         },

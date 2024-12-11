@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import "./screensStyles/ChatBot.css";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 
 function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +24,7 @@ function ChatBot() {
     setUserInput(""); // Clear input immediately after sending
 
     try {
-      const response = await fetch("https://movieapp-backend1.onrender.com/chatbot", {
+      const response = await fetch(`${BASE_URL}/chatbot`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

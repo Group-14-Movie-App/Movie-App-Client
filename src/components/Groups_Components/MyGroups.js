@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./MyGroups.css";
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 function MyGroups() {
   const [groups, setGroups] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(true); // Tracks if the user is logged in
@@ -19,7 +22,7 @@ function MyGroups() {
 
       try {
         const response = await fetch(
-          `https://movieapp-backend1.onrender.com/my-groups?userID=${user.userid}`,
+          `${BASE_URL}/my-groups?userID=${user.userid}`,
           {
             headers: { Authorization: `Bearer ${token}` }, // Add Authorization header
           }
@@ -45,7 +48,7 @@ function MyGroups() {
     const token = localStorage.getItem("token"); // Retrieve JWT token
 
     try {
-      const response = await fetch(`https://movieapp-backend1.onrender.com/my-groups/${groupID}`, {
+      const response = await fetch(`${BASE_URL}/my-groups/${groupID}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }, // Add Authorization header
       });

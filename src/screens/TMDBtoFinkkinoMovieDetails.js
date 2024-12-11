@@ -3,6 +3,9 @@ import { useLocation } from "react-router-dom";
 import AddToFavorites from "../components/TMDBMovieDetails_Components/AddToFavorites";
 import "./screensStyles/TMDBtoFinkkinoMovieDetails.css";
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 function TMDBtoFinkkinoMovieDetails() {
   const location = useLocation();
   const movie = location.state?.finnkinoMovie;
@@ -54,7 +57,7 @@ function TMDBtoFinkkinoMovieDetails() {
     }
   
     try {
-      const response = await fetch("https://movieapp-backend1.onrender.com/reviews", {
+      const response = await fetch(`${BASE_URL}/reviews`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
