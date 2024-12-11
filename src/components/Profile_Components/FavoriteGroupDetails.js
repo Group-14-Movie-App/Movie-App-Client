@@ -3,6 +3,9 @@ import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { FaWhatsapp, FaFacebook, FaCopy, FaTwitter, FaTelegram } from "react-icons/fa";
 import "./FavoriteGroupDetails.css";
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 function FavoriteGroupDetails() {
   const { favoriteID } = useParams();
   const location = useLocation();
