@@ -19,7 +19,7 @@ function OtherGroupDetails() {
       const fetchGroupDetails = async () => {
         try {
           const groupResponse = await fetch(
-            `http://localhost:5000/other-groups/${groupID}`,
+            `https://movieapp-backend1.onrender.com/other-groups/${groupID}`,
             { headers: { Authorization: `Bearer ${token}` } } // Add Authorization header
           );
           if (!groupResponse.ok) throw new Error("Failed to fetch group details.");
@@ -27,7 +27,7 @@ function OtherGroupDetails() {
           setGroupDetails(groupData);
   
           const statusResponse = await fetch(
-            `http://localhost:5000/other-groups/${groupID}/status?userID=${user.userid}`,
+            `https://movieapp-backend1.onrender.com/other-groups/${groupID}/status?userID=${user.userid}`,
             { headers: { Authorization: `Bearer ${token}` } } // Add Authorization header
           );
           if (!statusResponse.ok) throw new Error("Failed to fetch relationship status.");
@@ -47,7 +47,7 @@ function OtherGroupDetails() {
   const handleSendRequest = async () => {
     const token = localStorage.getItem("token"); // Retrieve JWT token
     try {
-      const response = await fetch("http://localhost:5000/group-join-requests", {
+      const response = await fetch("https://movieapp-backend1.onrender.com/group-join-requests", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +72,7 @@ function OtherGroupDetails() {
     const token = localStorage.getItem("token"); // Retrieve JWT token
     try {
       const response = await fetch(
-        `http://localhost:5000/groups/${groupID}/remove-member`,
+        `https://movieapp-backend1.onrender.com/groups/${groupID}/remove-member`,
         {
           method: "DELETE",
           headers: {
@@ -98,7 +98,7 @@ function OtherGroupDetails() {
     const token = localStorage.getItem("token"); // Retrieve JWT token
     try {
       const response = await fetch(
-        `http://localhost:5000/other-groups/${groupID}/cancel-request`,
+        `https://movieapp-backend1.onrender.com/other-groups/${groupID}/cancel-request`,
         {
           method: "DELETE",
           headers: {

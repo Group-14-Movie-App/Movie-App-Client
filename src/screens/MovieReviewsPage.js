@@ -31,7 +31,7 @@ function MovieReviewsPage() {
     
         // Fetch reviews for the provided release year
         const response = await fetch(
-          `http://localhost:5000/reviews?title=${encodeURIComponent(movieTitle)}&releaseDate=${encodeURIComponent(validReleaseDate || "")}`,
+          `https://movieapp-backend1.onrender.com/reviews?title=${encodeURIComponent(movieTitle)}&releaseDate=${encodeURIComponent(validReleaseDate || "")}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -49,7 +49,7 @@ function MovieReviewsPage() {
     
           // Fetch reviews for nearest years or same title
           const nearestResponse = await fetch(
-            `http://localhost:5000/reviews/nearest?title=${encodeURIComponent(movieTitle)}&releaseDate=${encodeURIComponent(validReleaseDate || "")}`,
+            `https://movieapp-backend1.onrender.com/reviews/nearest?title=${encodeURIComponent(movieTitle)}&releaseDate=${encodeURIComponent(validReleaseDate || "")}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -86,7 +86,7 @@ const handleEditSubmit = async (reviewID) => {
   }
 
   try {
-    const response = await fetch(`http://localhost:5000/reviews/${reviewID}`, {
+    const response = await fetch(`https://movieapp-backend1.onrender.com/reviews/${reviewID}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -131,7 +131,7 @@ const handleEditSubmit = async (reviewID) => {
     const token = localStorage.getItem("token"); // Get JWT token
   
     try {
-      const response = await fetch(`http://localhost:5000/reviews/${reviewID}`, {
+      const response = await fetch(`https://movieapp-backend1.onrender.com/reviews/${reviewID}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

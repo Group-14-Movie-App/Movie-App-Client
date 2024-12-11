@@ -19,7 +19,7 @@ function MyGroups() {
 
       try {
         const response = await fetch(
-          `http://localhost:5000/my-groups?userID=${user.userid}`,
+          `https://movieapp-backend1.onrender.com/my-groups?userID=${user.userid}`,
           {
             headers: { Authorization: `Bearer ${token}` }, // Add Authorization header
           }
@@ -45,7 +45,7 @@ function MyGroups() {
     const token = localStorage.getItem("token"); // Retrieve JWT token
 
     try {
-      const response = await fetch(`http://localhost:5000/my-groups/${groupID}`, {
+      const response = await fetch(`https://movieapp-backend1.onrender.com/my-groups/${groupID}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }, // Add Authorization header
       });

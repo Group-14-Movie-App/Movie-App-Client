@@ -22,7 +22,7 @@ function AllGroups() {
 
     const fetchGroups = async () => {
       try {
-        const groupsResponse = await fetch("http://localhost:5000/all-groups", {
+        const groupsResponse = await fetch("https://movieapp-backend1.onrender.com/all-groups", {
           headers: {
             Authorization: `Bearer ${token}`, // Include the JWT token
           },
@@ -36,7 +36,7 @@ function AllGroups() {
         setGroups(groupsData);
 
         const statusesResponse = await fetch(
-          `http://localhost:5000/all-groups/user-status?userID=${user.userid}`,
+          `https://movieapp-backend1.onrender.com/all-groups/user-status?userID=${user.userid}`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // Include the JWT token
@@ -69,7 +69,7 @@ function AllGroups() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/all-groups/${groupID}/cancel-request`,
+        `https://movieapp-backend1.onrender.com/all-groups/${groupID}/cancel-request`,
         {
           method: "DELETE",
           headers: {
@@ -96,7 +96,7 @@ function AllGroups() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/groups/${groupID}/remove-member`,
+        `https://movieapp-backend1.onrender.com/groups/${groupID}/remove-member`,
         {
           method: "DELETE",
           headers: {
@@ -122,7 +122,7 @@ function AllGroups() {
     const token = localStorage.getItem("token"); // Retrieve the JWT token
 
     try {
-      const response = await fetch("http://localhost:5000/group-join-requests", {
+      const response = await fetch("https://movieapp-backend1.onrender.com/group-join-requests", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

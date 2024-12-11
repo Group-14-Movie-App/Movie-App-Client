@@ -37,7 +37,7 @@ function ProfilePage() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/profile/${userDetails.userid}`,
+        `https://movieapp-backend1.onrender.com/profile/${userDetails.userid}`,
         {
           method: "DELETE",
           headers: {

@@ -33,7 +33,7 @@ function CreateGroup() {
     }
   
     try {
-      const response = await fetch("http://localhost:5000/groups", {
+      const response = await fetch("https://movieapp-backend1.onrender.com/groups", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

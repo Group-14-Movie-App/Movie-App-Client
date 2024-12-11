@@ -19,7 +19,7 @@ function ReviewsPage() {
 
     if (token) {
       console.log("Fetching reviews for logged-in user");
-      fetch("http://localhost:5000/reviews", {
+      fetch("https://movieapp-backend1.onrender.com/reviews", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -43,7 +43,7 @@ function ReviewsPage() {
 
     if (!token) {
       console.log("Fetching public reviews for non-logged user");
-      fetch("http://localhost:5000/reviews/public", {
+      fetch("https://movieapp-backend1.onrender.com/reviews/public", {
         headers: {
           "Content-Type": "application/json",
         },

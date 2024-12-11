@@ -21,10 +21,10 @@ function MyGroupDetails() {
   
       try {
         const [requestsResponse, membersResponse] = await Promise.all([
-          fetch(`http://localhost:5000/groups/${groupID}/join-requests`, {
+          fetch(`https://movieapp-backend1.onrender.com/groups/${groupID}/join-requests`, {
             headers: { Authorization: `Bearer ${token}` }, // Add Authorization header
           }),
-          fetch(`http://localhost:5000/groups/${groupID}/members`, {
+          fetch(`https://movieapp-backend1.onrender.com/groups/${groupID}/members`, {
             headers: { Authorization: `Bearer ${token}` }, // Add Authorization header
           }),
         ]);
@@ -51,7 +51,7 @@ function MyGroupDetails() {
   
     try {
       const response = await fetch(
-        `http://localhost:5000/groups/${groupID}/accept-request`,
+        `https://movieapp-backend1.onrender.com/groups/${groupID}/accept-request`,
         {
           method: "POST",
           headers: {
@@ -80,7 +80,7 @@ function MyGroupDetails() {
   
     try {
       const response = await fetch(
-        `http://localhost:5000/groups/${groupID}/decline-request`,
+        `https://movieapp-backend1.onrender.com/groups/${groupID}/decline-request`,
         {
           method: "POST",
           headers: {
@@ -109,7 +109,7 @@ function MyGroupDetails() {
   
     try {
       const response = await fetch(
-        `http://localhost:5000/groups/${groupID}/remove-member`,
+        `https://movieapp-backend1.onrender.com/groups/${groupID}/remove-member`,
         {
           method: "DELETE",
           headers: {

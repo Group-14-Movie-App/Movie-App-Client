@@ -32,7 +32,7 @@ function MyGroupPosts() {
         }
   
         const response = await fetch(
-          `http://localhost:5000/my-group-posts/${groupID}`,
+          `https://movieapp-backend1.onrender.com/my-group-posts/${groupID}`,
           {
             headers: { Authorization: `Bearer ${token}` }, // Add Authorization header
           }
@@ -66,7 +66,7 @@ function MyGroupPosts() {
       }
   
       const response = await fetch(
-        `http://localhost:5000/my-group-posts/${groupID}/add-post`,
+        `https://movieapp-backend1.onrender.com/my-group-posts/${groupID}/add-post`,
         {
           method: "POST",
           headers: {
@@ -110,7 +110,7 @@ function MyGroupPosts() {
       const token = localStorage.getItem("token"); // Retrieve JWT token
   
       const response = await fetch(
-        `http://localhost:5000/my-group-posts/${groupID}/edit-post`,
+        `https://movieapp-backend1.onrender.com/my-group-posts/${groupID}/edit-post`,
         {
           method: "PUT",
           headers: {
@@ -150,7 +150,7 @@ function MyGroupPosts() {
       const token = localStorage.getItem("token"); // Retrieve JWT token
   
       const response = await fetch(
-        `http://localhost:5000/my-group-posts/${groupID}/delete-post`,
+        `https://movieapp-backend1.onrender.com/my-group-posts/${groupID}/delete-post`,
         {
           method: "DELETE",
           headers: {

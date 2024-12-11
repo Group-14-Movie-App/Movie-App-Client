@@ -54,7 +54,7 @@ function TMDBtoFinkkinoMovieDetails() {
     }
   
     try {
-      const response = await fetch("http://localhost:5000/reviews", {
+      const response = await fetch("https://movieapp-backend1.onrender.com/reviews", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

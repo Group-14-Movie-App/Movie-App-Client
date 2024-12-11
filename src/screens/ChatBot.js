@@ -21,7 +21,7 @@ function ChatBot() {
     setUserInput(""); // Clear input immediately after sending
 
     try {
-      const response = await fetch("http://localhost:5000/chatbot", {
+      const response = await fetch("https://movieapp-backend1.onrender.com/chatbot", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

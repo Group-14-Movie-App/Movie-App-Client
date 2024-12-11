@@ -20,7 +20,7 @@ function UserFavourites() {
     setIsLoggedIn(true);
 
     // Fetch favorite groups with movie counts from the backend
-    fetch(`http://localhost:5000/favorites/with-movie-count/${user.userid}`, {
+    fetch(`https://movieapp-backend1.onrender.com/favorites/with-movie-count/${user.userid}`, {
       headers: {
         Authorization: `Bearer ${token}`, // Include the token in the Authorization header
       },

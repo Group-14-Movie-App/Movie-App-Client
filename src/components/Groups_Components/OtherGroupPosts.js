@@ -27,7 +27,7 @@ function OtherGroupPosts() {
   
       const fetchPosts = async () => {
         try {
-          const response = await fetch(`http://localhost:5000/group-posts/${groupID}`, {
+          const response = await fetch(`https://movieapp-backend1.onrender.com/group-posts/${groupID}`, {
             headers: { Authorization: `Bearer ${token}` }, // Add Authorization header
           });
           if (!response.ok) throw new Error("Failed to fetch posts.");
@@ -60,7 +60,7 @@ function OtherGroupPosts() {
         return;
       }
   
-      const response = await fetch(`http://localhost:5000/group-posts/${groupID}/add-post`, {
+      const response = await fetch(`https://movieapp-backend1.onrender.com/group-posts/${groupID}/add-post`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -101,7 +101,7 @@ function OtherGroupPosts() {
     const token = localStorage.getItem("token"); // Retrieve JWT token
   
     try {
-      const response = await fetch(`http://localhost:5000/group-posts/${groupID}/edit-post`, {
+      const response = await fetch(`https://movieapp-backend1.onrender.com/group-posts/${groupID}/edit-post`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -137,7 +137,7 @@ function OtherGroupPosts() {
     const token = localStorage.getItem("token"); // Retrieve JWT token
   
     try {
-      const response = await fetch(`http://localhost:5000/group-posts/${groupID}/${postID}`, {
+      const response = await fetch(`https://movieapp-backend1.onrender.com/group-posts/${groupID}/${postID}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
