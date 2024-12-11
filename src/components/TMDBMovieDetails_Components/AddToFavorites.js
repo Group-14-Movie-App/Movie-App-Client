@@ -18,7 +18,7 @@ function AddToFavorites({ movie }) {
       }
     
       try {
-        const response = await fetch(`http://localhost:5000/favorites?userID=${user.userid}`, {
+        const response = await fetch(`https://movieapp-backend1.onrender.com/favorites?userID=${user.userid}`, {
           headers: {
             Authorization: `Bearer ${token}`, // Include Authorization header
           },
@@ -60,7 +60,7 @@ function AddToFavorites({ movie }) {
     console.log("Payload to be sent:", payload); // Debugging log
   
     try {
-      const response = await fetch("http://localhost:5000/favorite-movies", {
+      const response = await fetch("https://movieapp-backend1.onrender.com/favorite-movies", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
