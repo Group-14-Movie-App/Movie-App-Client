@@ -15,7 +15,7 @@ function Favorites({ userID }) {
     if (!userID || !token) return;
   
     // Fetch favorite groups from the backend
-    fetch(`http://localhost:5000/favorites?userID=${userID}`, {
+    fetch(`https://movieapp-backend1.onrender.com/favorites?userID=${userID}`, {
       headers: {
         Authorization: `Bearer ${token}`, // Include the token in the Authorization header
       },
@@ -33,7 +33,7 @@ function Favorites({ userID }) {
     }
   
     try {
-      const response = await fetch("http://localhost:5000/favorites", {
+      const response = await fetch("https://movieapp-backend1.onrender.com/favorites", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +75,7 @@ function Favorites({ userID }) {
     const token = localStorage.getItem("token"); // Fetch the token
   
     try {
-      const response = await fetch(`http://localhost:5000/favorites/${editingGroup}`, {
+      const response = await fetch(`https://movieapp-backend1.onrender.com/favorites/${editingGroup}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -110,7 +110,7 @@ function Favorites({ userID }) {
     const token = localStorage.getItem("token"); // Fetch the token
   
     try {
-      const response = await fetch(`http://localhost:5000/favorites/${favoriteID}`, {
+      const response = await fetch(`https://movieapp-backend1.onrender.com/favorites/${favoriteID}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`, // Include the token

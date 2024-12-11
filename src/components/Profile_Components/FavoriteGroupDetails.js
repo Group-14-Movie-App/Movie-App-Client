@@ -16,7 +16,7 @@ function FavoriteGroupDetails() {
   const fetchMovies = async () => {
     const token = localStorage.getItem("token"); // Fetch the token
     try {
-      const response = await fetch(`http://localhost:5000/favorites/movies/${favoriteID}`, {
+      const response = await fetch(`https://movieapp-backend1.onrender.com/favorites/movies/${favoriteID}`, {
         headers: {
           Authorization: `Bearer ${token}`, // Include the token in the Authorization header
         },
@@ -84,7 +84,7 @@ function FavoriteGroupDetails() {
   
     try {
       const response = await fetch(
-        `http://localhost:5000/favorite-movies/${favoriteID}?movieTitle=${encodeURIComponent(
+        `https://movieapp-backend1.onrender.com/favorite-movies/${favoriteID}?movieTitle=${encodeURIComponent(
           movieTitle
         )}&releaseYear=${releaseYear}`,
         {
