@@ -53,6 +53,7 @@ function Favorites({ userID }) {
         setFavoriteGroups([...favoriteGroups, data]);
         setNewGroupName("");
         setFeedback("Group added successfully!");
+        window.location.reload();
       } else {
         const errorData = await response.json();
         setFeedback(errorData.message || "Failed to add group.");
