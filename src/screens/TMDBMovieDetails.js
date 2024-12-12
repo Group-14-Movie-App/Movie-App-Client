@@ -193,14 +193,16 @@ function TMDBMovieDetails() {
       )}
 
       {isFinnkinoAvailable && (
-        <button
-          className="btn btn-primary finnkino-details-btn mt-4"
-          onClick={() =>
-            navigate("/tmdb-to-finnkino-details", { state: { finnkinoMovie } })
-          }
-        >
-          View Theater Details
-        </button>
+        <div className="finnkino-details-btn-container">
+          <button
+            className="btn btn-primary finnkino-details-btn mt-4"
+            onClick={() =>
+              navigate("/tmdb-to-finnkino-details", { state: { finnkinoMovie } })
+            }
+          >
+            Now Showing
+          </button>
+        </div>
       )}
 
       <div className="review-section mt-5">

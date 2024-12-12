@@ -115,8 +115,7 @@ function ProfilePage() {
           </div>
         </div>
       )}
-      <div className="favorites-container">
-        <h3>Your Favorite Groups</h3>
+      <div className="">
         <Favorites
           userID={userDetails.userid}
           showEditAndDeleteButtons={true} // Allow editing and deleting for favorite groups
