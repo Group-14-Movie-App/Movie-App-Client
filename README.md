@@ -119,7 +119,7 @@ The application includes the following sections:
 ---
 
 ## Live Application  
-The live application is yet to be deployed.  
+https://finnflix-movie-app-client.onrender.com  
                                                                                         ---
 # Movie App Backend
 
