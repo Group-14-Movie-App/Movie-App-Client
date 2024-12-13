@@ -92,6 +92,12 @@ function App() {
               <small>Profile</small>
             </Link>
           </li>
+          <li className={isActive("/user-favourites") ? "active" : ""}>
+            <Link to="/user-favourites">
+              <FontAwesomeIcon icon={faHeart} />
+              <small>Favorites</small>
+            </Link>
+          </li>
           <li className={isActive("/groups-page") ? "active" : ""}>
             <Link to="/groups-page">
               <FontAwesomeIcon icon={faUsers} />
@@ -102,12 +108,6 @@ function App() {
             <Link to="/reviews-page">
               <FontAwesomeIcon icon={faStar} />
               <small>Reviews</small>
-            </Link>
-          </li>
-          <li className={isActive("/user-favourites") ? "active" : ""}>
-            <Link to="/user-favourites">
-              <FontAwesomeIcon icon={faHeart} />
-              <small>Favorites</small>
             </Link>
           </li>
         </ul>

@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import "./MyGroupDetails.css";
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 function MyGroupDetails() {
   const { groupID } = useParams();
   const location = useLocation();
@@ -21,10 +24,10 @@ function MyGroupDetails() {
   
       try {
         const [requestsResponse, membersResponse] = await Promise.all([
-          fetch(`http://localhost:5000/groups/${groupID}/join-requests`, {
+          fetch(`${BASE_URL}/groups/${groupID}/join-requests`, {
             headers: { Authorization: `Bearer ${token}` }, // Add Authorization header
           }),
-          fetch(`http://localhost:5000/groups/${groupID}/members`, {
+          fetch(`${BASE_URL}/groups/${groupID}/members`, {
             headers: { Authorization: `Bearer ${token}` }, // Add Authorization header
           }),
         ]);
@@ -51,7 +54,7 @@ function MyGroupDetails() {
   
     try {
       const response = await fetch(
-        `http://localhost:5000/groups/${groupID}/accept-request`,
+        `${BASE_URL}/groups/${groupID}/accept-request`,
         {
           method: "POST",
           headers: {
@@ -80,7 +83,7 @@ function MyGroupDetails() {
   
     try {
       const response = await fetch(
-        `http://localhost:5000/groups/${groupID}/decline-request`,
+        `${BASE_URL}/groups/${groupID}/decline-request`,
         {
           method: "POST",
           headers: {
@@ -109,7 +112,7 @@ function MyGroupDetails() {
   
     try {
       const response = await fetch(
-        `http://localhost:5000/groups/${groupID}/remove-member`,
+        `${BASE_URL}/groups/${groupID}/remove-member`,
         {
           method: "DELETE",
           headers: {

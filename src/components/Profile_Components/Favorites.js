@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Favorites.css"; // Optional CSS for styling
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 function Favorites({ userID }) {
   const [favoriteGroups, setFavoriteGroups] = useState([]);
   const [newGroupName, setNewGroupName] = useState("");
@@ -15,7 +18,7 @@ function Favorites({ userID }) {
     if (!userID || !token) return;
   
     // Fetch favorite groups from the backend
-    fetch(`http://localhost:5000/favorites?userID=${userID}`, {
+    fetch(`${BASE_URL}/favorites?userID=${userID}`, {
       headers: {
         Authorization: `Bearer ${token}`, // Include the token in the Authorization header
       },
@@ -33,7 +36,7 @@ function Favorites({ userID }) {
     }
   
     try {
-      const response = await fetch("http://localhost:5000/favorites", {
+      const response = await fetch(`${BASE_URL}/favorites`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,6 +53,7 @@ function Favorites({ userID }) {
         setFavoriteGroups([...favoriteGroups, data]);
         setNewGroupName("");
         setFeedback("Group added successfully!");
+        window.location.reload();
       } else {
         const errorData = await response.json();
         setFeedback(errorData.message || "Failed to add group.");
@@ -75,7 +79,7 @@ function Favorites({ userID }) {
     const token = localStorage.getItem("token"); // Fetch the token
   
     try {
-      const response = await fetch(`http://localhost:5000/favorites/${editingGroup}`, {
+      const response = await fetch(`${BASE_URL}/favorites/${editingGroup}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -110,7 +114,7 @@ function Favorites({ userID }) {
     const token = localStorage.getItem("token"); // Fetch the token
   
     try {
-      const response = await fetch(`http://localhost:5000/favorites/${favoriteID}`, {
+      const response = await fetch(`${BASE_URL}/favorites/${favoriteID}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`, // Include the token

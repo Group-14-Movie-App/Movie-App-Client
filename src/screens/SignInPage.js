@@ -2,6 +2,9 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import './screensStyles/SignInPage.css';
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 function SignInPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -14,7 +17,7 @@ function SignInPage() {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://localhost:5000/signin', {
+      const response = await fetch(`${BASE_URL}/signin`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

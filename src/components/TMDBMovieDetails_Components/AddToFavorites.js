@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './AddToFavorites.css'
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 function AddToFavorites({ movie }) {
   const [favoriteGroups, setFavoriteGroups] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState('');
@@ -18,7 +21,7 @@ function AddToFavorites({ movie }) {
       }
     
       try {
-        const response = await fetch(`http://localhost:5000/favorites?userID=${user.userid}`, {
+        const response = await fetch(`${BASE_URL}/favorites?userID=${user.userid}`, {
           headers: {
             Authorization: `Bearer ${token}`, // Include Authorization header
           },
@@ -60,7 +63,7 @@ function AddToFavorites({ movie }) {
     console.log("Payload to be sent:", payload); // Debugging log
   
     try {
-      const response = await fetch("http://localhost:5000/favorite-movies", {
+      const response = await fetch(`${BASE_URL}/favorite-movies`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

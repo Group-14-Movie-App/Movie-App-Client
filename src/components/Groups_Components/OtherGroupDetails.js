@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./OtherGroupDetails.css";
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 function OtherGroupDetails() {
   const { groupID } = useParams();
   const navigate = useNavigate();
@@ -19,7 +22,7 @@ function OtherGroupDetails() {
       const fetchGroupDetails = async () => {
         try {
           const groupResponse = await fetch(
-            `http://localhost:5000/other-groups/${groupID}`,
+            `${BASE_URL}/other-groups/${groupID}`,
             { headers: { Authorization: `Bearer ${token}` } } // Add Authorization header
           );
           if (!groupResponse.ok) throw new Error("Failed to fetch group details.");
@@ -27,7 +30,7 @@ function OtherGroupDetails() {
           setGroupDetails(groupData);
   
           const statusResponse = await fetch(
-            `http://localhost:5000/other-groups/${groupID}/status?userID=${user.userid}`,
+            `${BASE_URL}/other-groups/${groupID}/status?userID=${user.userid}`,
             { headers: { Authorization: `Bearer ${token}` } } // Add Authorization header
           );
           if (!statusResponse.ok) throw new Error("Failed to fetch relationship status.");
@@ -47,7 +50,7 @@ function OtherGroupDetails() {
   const handleSendRequest = async () => {
     const token = localStorage.getItem("token"); // Retrieve JWT token
     try {
-      const response = await fetch("http://localhost:5000/group-join-requests", {
+      const response = await fetch(`${BASE_URL}/group-join-requests`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +75,7 @@ function OtherGroupDetails() {
     const token = localStorage.getItem("token"); // Retrieve JWT token
     try {
       const response = await fetch(
-        `http://localhost:5000/groups/${groupID}/remove-member`,
+        `${BASE_URL}/groups/${groupID}/remove-member`,
         {
           method: "DELETE",
           headers: {
@@ -98,7 +101,7 @@ function OtherGroupDetails() {
     const token = localStorage.getItem("token"); // Retrieve JWT token
     try {
       const response = await fetch(
-        `http://localhost:5000/other-groups/${groupID}/cancel-request`,
+        `${BASE_URL}/other-groups/${groupID}/cancel-request`,
         {
           method: "DELETE",
           headers: {

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './screensStyles/MovieReviewsPage.css';
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 function MovieReviewsPage() {
   const { movieTitle, releaseDate } = useParams();
   const [reviews, setReviews] = useState([]);
@@ -31,7 +34,7 @@ function MovieReviewsPage() {
     
         // Fetch reviews for the provided release year
         const response = await fetch(
-          `http://localhost:5000/reviews?title=${encodeURIComponent(movieTitle)}&releaseDate=${encodeURIComponent(validReleaseDate || "")}`,
+          `${BASE_URL}/reviews?title=${encodeURIComponent(movieTitle)}&releaseDate=${encodeURIComponent(validReleaseDate || "")}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -49,7 +52,7 @@ function MovieReviewsPage() {
     
           // Fetch reviews for nearest years or same title
           const nearestResponse = await fetch(
-            `http://localhost:5000/reviews/nearest?title=${encodeURIComponent(movieTitle)}&releaseDate=${encodeURIComponent(validReleaseDate || "")}`,
+            `${BASE_URL}/reviews/nearest?title=${encodeURIComponent(movieTitle)}&releaseDate=${encodeURIComponent(validReleaseDate || "")}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -86,7 +89,7 @@ const handleEditSubmit = async (reviewID) => {
   }
 
   try {
-    const response = await fetch(`http://localhost:5000/reviews/${reviewID}`, {
+    const response = await fetch(`${BASE_URL}/reviews/${reviewID}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -131,7 +134,7 @@ const handleEditSubmit = async (reviewID) => {
     const token = localStorage.getItem("token"); // Get JWT token
   
     try {
-      const response = await fetch(`http://localhost:5000/reviews/${reviewID}`, {
+      const response = await fetch(`${BASE_URL}/reviews/${reviewID}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

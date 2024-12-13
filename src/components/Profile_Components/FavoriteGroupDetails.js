@@ -3,6 +3,9 @@ import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { FaWhatsapp, FaFacebook, FaCopy, FaTwitter, FaTelegram } from "react-icons/fa";
 import "./FavoriteGroupDetails.css";
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 function FavoriteGroupDetails() {
   const { favoriteID } = useParams();
   const location = useLocation();
@@ -14,20 +17,41 @@ function FavoriteGroupDetails() {
   const pageURL = `${window.location.origin}${location.pathname}`; // Current page URL
 
   const fetchMovies = async () => {
-    const token = localStorage.getItem("token"); // Fetch the token
+    const token = localStorage.getItem("token"); // Retrieve token
+    const endpoint = token
+      ? `${BASE_URL}/favorites/movies/${favoriteID}`
+      : `${BASE_URL}/favorites/public/${favoriteID}`;
+  
     try {
-      const response = await fetch(`http://localhost:5000/favorites/movies/${favoriteID}`, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Include the token in the Authorization header
-        },
+      const response = await fetch(endpoint, {
+        headers: token
+          ? { Authorization: `Bearer ${token}` }
+          : { "Content-Type": "application/json" },
       });
-      if (!response.ok) throw new Error("Failed to fetch movies");
+  
+      // Log response for debugging
+      console.log("Raw Response:", response);
+  
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Response Error:", errorText);
+        throw new Error(`Failed to fetch movies: ${response.statusText}`);
+      }
+  
+      // Check Content-Type to ensure it's JSON
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        console.error("Unexpected response format:", contentType);
+        throw new Error("Invalid response format. Expected JSON.");
+      }
+  
       const data = await response.json();
       setMovies(data);
     } catch (error) {
-      console.error("Error fetching movies in favorite group:", error);
+      console.error("Error fetching movies in favorite group:", error.message);
     }
   };
+  
 
   useEffect(() => {
     fetchMovies();
@@ -84,7 +108,7 @@ function FavoriteGroupDetails() {
   
     try {
       const response = await fetch(
-        `http://localhost:5000/favorite-movies/${favoriteID}?movieTitle=${encodeURIComponent(
+        `${BASE_URL}/favorite-movies/${favoriteID}?movieTitle=${encodeURIComponent(
           movieTitle
         )}&releaseYear=${releaseYear}`,
         {

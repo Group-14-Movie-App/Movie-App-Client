@@ -4,6 +4,9 @@ import ReactMarkdown from "react-markdown"; // For rendering markdown content
 import "./OtherGroupPosts.css";
 import MyGroupPostsModal from "./MyGroupPostsModal/GroupPostsModal.js"; // Reuse the existing modal component
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 function OtherGroupPosts() {
   const { groupID } = useParams();
   const [posts, setPosts] = useState([]);
@@ -27,7 +30,7 @@ function OtherGroupPosts() {
   
       const fetchPosts = async () => {
         try {
-          const response = await fetch(`http://localhost:5000/group-posts/${groupID}`, {
+          const response = await fetch(`${BASE_URL}/group-posts/${groupID}`, {
             headers: { Authorization: `Bearer ${token}` }, // Add Authorization header
           });
           if (!response.ok) throw new Error("Failed to fetch posts.");
@@ -60,7 +63,7 @@ function OtherGroupPosts() {
         return;
       }
   
-      const response = await fetch(`http://localhost:5000/group-posts/${groupID}/add-post`, {
+      const response = await fetch(`${BASE_URL}/group-posts/${groupID}/add-post`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -101,7 +104,7 @@ function OtherGroupPosts() {
     const token = localStorage.getItem("token"); // Retrieve JWT token
   
     try {
-      const response = await fetch(`http://localhost:5000/group-posts/${groupID}/edit-post`, {
+      const response = await fetch(`${BASE_URL}/group-posts/${groupID}/edit-post`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -137,7 +140,7 @@ function OtherGroupPosts() {
     const token = localStorage.getItem("token"); // Retrieve JWT token
   
     try {
-      const response = await fetch(`http://localhost:5000/group-posts/${groupID}/${postID}`, {
+      const response = await fetch(`${BASE_URL}/group-posts/${groupID}/${postID}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

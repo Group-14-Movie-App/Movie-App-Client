@@ -4,6 +4,9 @@ import ReactMarkdown from "react-markdown"; // For rendering markdown content
 import "./MyGroupPosts.css";
 import MyGroupPostsModal from "./MyGroupPostsModal/GroupPostsModal.js";
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 
 function MyGroupPosts() {
   const { groupID } = useParams();
@@ -32,7 +35,7 @@ function MyGroupPosts() {
         }
   
         const response = await fetch(
-          `http://localhost:5000/my-group-posts/${groupID}`,
+          `${BASE_URL}/my-group-posts/${groupID}`,
           {
             headers: { Authorization: `Bearer ${token}` }, // Add Authorization header
           }
@@ -66,7 +69,7 @@ function MyGroupPosts() {
       }
   
       const response = await fetch(
-        `http://localhost:5000/my-group-posts/${groupID}/add-post`,
+        `${BASE_URL}/my-group-posts/${groupID}/add-post`,
         {
           method: "POST",
           headers: {
@@ -110,7 +113,7 @@ function MyGroupPosts() {
       const token = localStorage.getItem("token"); // Retrieve JWT token
   
       const response = await fetch(
-        `http://localhost:5000/my-group-posts/${groupID}/edit-post`,
+        `${BASE_URL}/my-group-posts/${groupID}/edit-post`,
         {
           method: "PUT",
           headers: {
@@ -150,7 +153,7 @@ function MyGroupPosts() {
       const token = localStorage.getItem("token"); // Retrieve JWT token
   
       const response = await fetch(
-        `http://localhost:5000/my-group-posts/${groupID}/delete-post`,
+        `${BASE_URL}/my-group-posts/${groupID}/delete-post`,
         {
           method: "DELETE",
           headers: {

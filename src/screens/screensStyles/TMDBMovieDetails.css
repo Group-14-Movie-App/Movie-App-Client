@@ -241,3 +241,91 @@
     height: 240px; /* Adjust height for smaller screens */
   }
 }
+
+
+
+/* Finnkino Details Button Container */
+.finnkino-details-btn-container {
+  display: flex;
+  justify-content: center; /* Center align the button horizontally */
+  align-items: center; /* Center align the button vertically */
+  margin-top: 20px;
+}
+
+/* Finnkino Details Button */
+.finnkino-details-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Add spacing between text and icons */
+  padding: 15px 30px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(135deg, #ff4d4d, #cc0000);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  animation: glow 1.5s infinite ease-in-out;
+  box-shadow: 0 10px 30px rgba(255, 0, 0, 0.5);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+/* Button Icon Before the Text */
+.finnkino-details-btn::before {
+  content: '🍿';
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 1.8rem;
+  animation: float 1.2s infinite ease-in-out;
+}
+
+/* Button Icons After the Text */
+.finnkino-details-btn::after {
+  content: ' 🎬';
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 1.8rem;
+  animation: float 1.5s infinite ease-in-out;
+}
+
+/* Glow Animation */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(255, 69, 0, 0.5), 0 0 20px rgba(255, 69, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 69, 0, 0.6), 0 0 30px rgba(255, 69, 0, 0.5);
+  }
+}
+
+/* Float Animation for Icons */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Hover Effect */
+.finnkino-details-btn:hover {
+  background: linear-gradient(135deg, #ff6666, #e60000);
+  box-shadow: 0 15px 40px rgba(255, 50, 50, 0.8), 0 0 20px rgba(255, 100, 100, 0.9);
+  transform: scale(1.1);
+}
+
+/* Active Effect */
+.finnkino-details-btn:active {
+  transform: scale(1);
+}
+
+/* Subtle Gradient Animation */
+.finnkino-details-btn::after,
+.finnkino-details-btn::before {
+  animation-timing-function: ease-in-out;
+}

@@ -3,6 +3,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import AddToFavorites from "../components/TMDBMovieDetails_Components/AddToFavorites";
 import "./screensStyles/TMDBMovieDetails.css";
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 function TMDBMovieDetails() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -104,7 +107,7 @@ function TMDBMovieDetails() {
     }
   
     try {
-      const response = await fetch("http://localhost:5000/reviews", {
+      const response = await fetch(`${BASE_URL}/reviews`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -190,14 +193,16 @@ function TMDBMovieDetails() {
       )}
 
       {isFinnkinoAvailable && (
-        <button
-          className="btn btn-primary finnkino-details-btn mt-4"
-          onClick={() =>
-            navigate("/tmdb-to-finnkino-details", { state: { finnkinoMovie } })
-          }
-        >
-          View Theater Details
-        </button>
+        <div className="finnkino-details-btn-container">
+          <button
+            className="btn btn-primary finnkino-details-btn mt-4"
+            onClick={() =>
+              navigate("/tmdb-to-finnkino-details", { state: { finnkinoMovie } })
+            }
+          >
+            Now Showing
+          </button>
+        </div>
       )}
 
       <div className="review-section mt-5">

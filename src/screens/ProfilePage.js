@@ -4,6 +4,9 @@ import "./screensStyles/ProfilePage.css";
 import EditProfile from "../components/Profile_Components/EditProfile";
 import ErrorMessage from "../screens/error_file/ErrorMessage";
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 function ProfilePage() {
   const [userDetails, setUserDetails] = useState(null);
   const [isEditing, setIsEditing] = useState(false); // Added state to toggle the Edit mode
@@ -37,7 +40,7 @@ function ProfilePage() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/profile/${userDetails.userid}`,
+        `${BASE_URL}/profile/${userDetails.userid}`,
         {
           method: "DELETE",
           headers: {
@@ -112,8 +115,7 @@ function ProfilePage() {
           </div>
         </div>
       )}
-      <div className="favorites-container">
-        <h3>Your Favorite Groups</h3>
+      <div className="">
         <Favorites
           userID={userDetails.userid}
           showEditAndDeleteButtons={true} // Allow editing and deleting for favorite groups

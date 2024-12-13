@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CreateGroup.css";
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 function CreateGroup() {
   const [groupName, setGroupName] = useState("");
   const [description, setDescription] = useState("");
@@ -33,7 +36,7 @@ function CreateGroup() {
     }
   
     try {
-      const response = await fetch("http://localhost:5000/groups", {
+      const response = await fetch(`${BASE_URL}/groups`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

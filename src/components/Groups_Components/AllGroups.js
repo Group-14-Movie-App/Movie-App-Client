@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AllGroups.css";
 
+// Define the base URL for the backend
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 function AllGroups() {
   const [groups, setGroups] = useState([]);
   const [statuses, setStatuses] = useState({});
@@ -22,7 +25,7 @@ function AllGroups() {
 
     const fetchGroups = async () => {
       try {
-        const groupsResponse = await fetch("http://localhost:5000/all-groups", {
+        const groupsResponse = await fetch(`${BASE_URL}/all-groups`, {
           headers: {
             Authorization: `Bearer ${token}`, // Include the JWT token
           },
@@ -36,7 +39,7 @@ function AllGroups() {
         setGroups(groupsData);
 
         const statusesResponse = await fetch(
-          `http://localhost:5000/all-groups/user-status?userID=${user.userid}`,
+          `${BASE_URL}/all-groups/user-status?userID=${user.userid}`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // Include the JWT token
@@ -69,7 +72,7 @@ function AllGroups() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/all-groups/${groupID}/cancel-request`,
+        `${BASE_URL}/all-groups/${groupID}/cancel-request`,
         {
           method: "DELETE",
           headers: {
@@ -96,7 +99,7 @@ function AllGroups() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/groups/${groupID}/remove-member`,
+        `${BASE_URL}/groups/${groupID}/remove-member`,
         {
           method: "DELETE",
           headers: {
@@ -122,7 +125,7 @@ function AllGroups() {
     const token = localStorage.getItem("token"); // Retrieve the JWT token
 
     try {
-      const response = await fetch("http://localhost:5000/group-join-requests", {
+      const response = await fetch(`${BASE_URL}/group-join-requests`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
